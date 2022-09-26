@@ -21,6 +21,14 @@ class SubjectReference
         $this->optionalRelation = $optionalRelation;
     }
 
+    /**
+     * Create method will simplify the
+     */
+    public static function create(string $objectType, string $objectId, string $optionalRelation = null): self
+    {
+        return new self(new ObjectReference($objectType, $objectId), $optionalRelation);
+    }
+
     public function getObject(): ObjectReference
     {
         return $this->object;

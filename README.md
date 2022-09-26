@@ -24,25 +24,12 @@ composer require alsbury/chiphpotle-rest
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
 
-$apiClient = Client::create(
-    new \GuzzleHttp\Client(
-        [
-            'base_uri' => 'http://spicedb:8443/',
-            'headers' => [
-                'Authorization' => 'Bearer mysecret'
-            ]
-        ]
-    )
-);
-
-$subject = new SubjectReference(
-    new ObjectReference('user', 'bob')
-);
+$apiClient = Client::create('http://spicedb:8443/', 'mysecret');
 
 $request = new CheckPermissionRequest(
-    $subject,
+    SubjectReference::create('user', 'bob'),
     'view',
-    new ObjectReference('document', 'topsecret1'),
+    ObjectReference::create('document', 'topsecret1'),
 );
 try {
     $response = $apiClient->permissionsServiceCheckPermission($request);

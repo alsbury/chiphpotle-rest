@@ -39,16 +39,40 @@ class Consistency
     public function __construct(
         ?ZedToken $atExactSnapshot = null,
         ?ZedToken $atLeastAsFresh = null,
-        ?bool     $minimizeLatency = null,
-        ?bool     $fullyConsistent = null
-    )
-    {
+        ?bool $minimizeLatency = null,
+        ?bool $fullyConsistent = null
+    ) {
         $this->minimizeLatency = $minimizeLatency;
         $this->atLeastAsFresh = $atLeastAsFresh;
         $this->atExactSnapshot = $atExactSnapshot;
         $this->fullyConsistent = $fullyConsistent;
     }
 
+    public static function minimizeLatency()
+    {
+        return new self(null, null, true);
+    }
+
+    public static function fullConsistent()
+    {
+        return new self(null, null, false, true);
+    }
+
+    public static function atExactSnapshot(ZedToken|string $token): Consistency
+    {
+        if ($token instanceof ZedToken) {
+            return new self($token);
+        }
+        return new self(new ZedToken($token));
+    }
+
+    public static function atLeastAsFresh(ZedToken|string $token): Consistency
+    {
+        if ($token instanceof ZedToken) {
+            return new self(null, $token);
+        }
+        return new self(null, ZedToken::create($token));
+    }
 
     public function getMinimizeLatency(): ?bool
     {

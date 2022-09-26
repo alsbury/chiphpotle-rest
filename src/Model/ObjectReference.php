@@ -13,6 +13,11 @@ class ObjectReference
         $this->objectId = $objectId;
     }
 
+    public static function create(string $objectType, string $objectId): ObjectReference
+    {
+        return new self($objectType, $objectId);
+    }
+
     public function getObjectType(): string
     {
         return $this->objectType;

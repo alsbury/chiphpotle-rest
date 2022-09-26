@@ -7,6 +7,17 @@ class ZedToken
 
     protected string $token;
 
+    /**
+     * @param string $tokenInput
+     * @return ZedToken
+     */
+    public static function create(string $tokenInput): ZedToken
+    {
+        $token = new self();
+        $token->setToken($tokenInput);
+        return $token;
+    }
+
     public function getToken(): string
     {
         return $this->token;

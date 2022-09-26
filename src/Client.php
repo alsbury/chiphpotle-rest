@@ -152,16 +152,14 @@ class Client extends Runtime\Client\Client
         return $this->executeEndpoint(new SchemaServiceWriteSchema($request), $fetch);
     }
 
-    public static function create($httpClient = null, array $additionalPlugins = [], array $additionalNormalizers = []): static
+    public static function create($baseUrl, $apiKey, $additionalNormalizers = [])
     {
-        if (null === $httpClient) {
-            $httpClient = Psr18ClientDiscovery::find();
-            $plugins = [];
-            if (count($additionalPlugins) > 0) {
-                $plugins = array_merge($plugins, $additionalPlugins);
-            }
-            $httpClient = new PluginClient($httpClient, $plugins);
-        }
+        $httpClient = new \GuzzleHttp\Client([
+            'base_uri' => $baseUrl,
+            'headers' => [
+                'Authorization' => 'Bearer ' . $apiKey
+            ]
+        ]);
         $requestFactory = Psr17FactoryDiscovery::findRequestFactory();
         $streamFactory = Psr17FactoryDiscovery::findStreamFactory();
         $normalizers = [new ArrayDenormalizer(), new JaneObjectNormalizer()];
