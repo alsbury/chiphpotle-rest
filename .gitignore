@@ -19,3 +19,4 @@ composer.phar
 composer.lock
 package-lock.json
 phpunit.xml
+report
