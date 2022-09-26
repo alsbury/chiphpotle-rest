@@ -24,8 +24,7 @@
         "ext-mbstring": "*",
         "guzzlehttp/guzzle": "^7.4",
         "guzzlehttp/psr7": "^1.7 || ^2.0",
-        "jane-php/open-api-runtime": "^7.3",
-        "halaxa/json-machine": "^1.1"
+        "jane-php/open-api-runtime": "^7.3"
     },
     "require-dev": {
         "phpunit/phpunit": "^8.0 || ^9.0",
