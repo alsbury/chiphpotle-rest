@@ -48,3 +48,6 @@ To run the tests, use:
 composer install
 vendor/bin/phpunit
 ```
+
+## Todo
+- Automate tests
