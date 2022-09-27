@@ -2,7 +2,7 @@
 
 namespace Chiphpotle\Rest\Enum;
 
-class V1CheckPermissionResponsePermissionship
+class CheckPermissionResponsePermissionship
 {
     public const UNSPECIFIED = 'PERMISSIONSHIP_UNSPECIFIED';
 

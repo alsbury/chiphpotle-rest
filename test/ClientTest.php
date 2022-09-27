@@ -4,7 +4,7 @@ namespace Chiphpotle\Rest\Test;
 
 use Chiphpotle\Rest\Client;
 use Chiphpotle\Rest\Enum\RelationshipUpdateOperation;
-use Chiphpotle\Rest\Enum\V1CheckPermissionResponsePermissionship;
+use Chiphpotle\Rest\Enum\CheckPermissionResponsePermissionship;
 use Chiphpotle\Rest\Model\CheckPermissionRequest;
 use Chiphpotle\Rest\Model\CheckPermissionResponse;
 use Chiphpotle\Rest\Model\Consistency;
@@ -104,7 +104,7 @@ class ClientTest extends TestCase
             $request
         );
         $this->assertEquals(
-            V1CheckPermissionResponsePermissionship::HAS_PERMISSION,
+            CheckPermissionResponsePermissionship::HAS_PERMISSION,
             $response->getPermissionship()
         );
     }
@@ -138,7 +138,7 @@ class ClientTest extends TestCase
         );
         $this->assertEquals(
             $response->getPermissionship(),
-            V1CheckPermissionResponsePermissionship::HAS_PERMISSION
+            CheckPermissionResponsePermissionship::HAS_PERMISSION
         );
     }
 
