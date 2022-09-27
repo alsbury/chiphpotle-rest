@@ -39,4 +39,11 @@ class ObjectReference
         $this->objectId = $objectId;
         return $this;
     }
+
+    public function __toString(): string
+    {
+        return $this->getObjectType() . ':' . $this->getObjectId();
+    }
+
+
 }

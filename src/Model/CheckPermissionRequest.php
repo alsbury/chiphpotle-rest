@@ -81,4 +81,11 @@ class CheckPermissionRequest
         $this->subject = $subject;
         return $this;
     }
+
+    public function __toString(): string
+    {
+        return $this->getResource() . '#' . $this->getPermission() . '@' . $this->getSubject();
+    }
+
+
 }

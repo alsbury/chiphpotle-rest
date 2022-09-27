@@ -50,4 +50,11 @@ class SubjectReference
         $this->optionalRelation = $optionalRelation;
         return $this;
     }
+
+    public function __toString(): string
+    {
+        return $this->getObject() . ($this->getOptionalRelation() ? '#'. $this->getOptionalRelation() : '');
+    }
+
+
 }
