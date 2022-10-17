@@ -10,11 +10,11 @@ class RelationshipsReadPostResponse200
      * be streamed to the client for each relationship found.
      * @var ReadRelationshipsResponse[]
      */
-    protected array $result;
+    protected ?array $result = null;
 
-    protected RpcStatus $error;
+    protected ?RpcStatus $error = null;
 
-    public function getResult(): array
+    public function getResult(): ?array
     {
         return $this->result;
     }
@@ -25,7 +25,7 @@ class RelationshipsReadPostResponse200
         return $this;
     }
 
-    public function getError(): RpcStatus
+    public function getError(): ?RpcStatus
     {
         return $this->error;
     }
