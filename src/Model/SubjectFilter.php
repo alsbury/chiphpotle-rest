@@ -5,42 +5,43 @@ namespace Chiphpotle\Rest\Model;
 class SubjectFilter
 {
 
-    protected string $subjectType;
+    protected ?string $subjectType = null;
 
-    protected string $optionalSubjectId;
+    protected ?string $optionalSubjectId = null;
 
-    protected SubjectFilterRelationFilter $optionalRelation;
+    protected ?SubjectFilterRelationFilter $optionalRelation = null;
 
-    public function getSubjectType(): string
+    public function getSubjectType(): ?string
     {
         return $this->subjectType;
     }
 
-    public function setSubjectType(string $subjectType): self
+    public function setSubjectType(?string $subjectType): SubjectFilter
     {
         $this->subjectType = $subjectType;
         return $this;
     }
 
-    public function getOptionalSubjectId(): string
+    public function getOptionalSubjectId(): ?string
     {
         return $this->optionalSubjectId;
     }
 
-    public function setOptionalSubjectId(string $optionalSubjectId): self
+    public function setOptionalSubjectId(?string $optionalSubjectId): SubjectFilter
     {
         $this->optionalSubjectId = $optionalSubjectId;
         return $this;
     }
 
-    public function getOptionalRelation(): SubjectFilterRelationFilter
+    public function getOptionalRelation(): ?SubjectFilterRelationFilter
     {
         return $this->optionalRelation;
     }
 
-    public function setOptionalRelation(SubjectFilterRelationFilter $optionalRelation): self
+    public function setOptionalRelation(?SubjectFilterRelationFilter $optionalRelation): SubjectFilter
     {
         $this->optionalRelation = $optionalRelation;
         return $this;
     }
+
 }
