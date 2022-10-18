@@ -60,4 +60,10 @@ class Relationship
         $this->subject = $subject;
         return $this;
     }
+
+    public function __toString(): string
+    {
+        return $this->resource . '@' . $this->subject;
+    }
+
 }

@@ -44,4 +44,19 @@ class SubjectFilter
         return $this;
     }
 
+    public static function fromSubject(\Lifestyle\Integration\SpiceDB\Service\Model\SubjectReference $subjectReference) : SubjectFilter
+    {
+        $filter = new self();
+        $filter->setSubjectType($subjectReference->getObject()->getObjectType());
+        $filter->setOptionalSubjectId($subjectReference->getObject()->getObjectId());
+        $filter->setOptionalRelation($subjectReference->getRelation());
+        return $filter;
+    }
+
+    public function __toString(): string
+    {
+        return self::class;
+    }
+
+
 }

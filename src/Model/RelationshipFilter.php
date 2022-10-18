@@ -75,4 +75,11 @@ class RelationshipFilter
         $this->optionalSubjectFilter = $optionalSubjectFilter;
         return $this;
     }
+
+    public function __toString(): string
+    {
+        return $this->resourceType . ':' . $this->optionalResourceId . '#' . $this->optionalRelation . '@' . $this->optionalSubjectFilter;
+    }
+
+
 }

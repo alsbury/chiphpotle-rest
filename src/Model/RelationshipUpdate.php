@@ -55,4 +55,11 @@ class RelationshipUpdate
         $this->relationship = $relationship;
         return $this;
     }
+
+    public function __toString(): string
+    {
+        return '[' . $this->operation . ']' . ' ' . $this->relationship;
+    }
+
+
 }
