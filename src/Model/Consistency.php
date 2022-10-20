@@ -53,9 +53,9 @@ class Consistency
         return new self(null, null, true);
     }
 
-    public static function fullConsistent()
+    public static function fullyConsistent()
     {
-        return new self(null, null, false, true);
+        return new self(null, null, null, true);
     }
 
     public static function atExactSnapshot(ZedToken|string $token): Consistency
