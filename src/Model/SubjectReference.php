@@ -29,6 +29,11 @@ class SubjectReference
         return new self(new ObjectReference($objectType, $objectId), $optionalRelation);
     }
 
+    public static function createFromArray(array $data)
+    {
+        return new self(new ObjectReference($data[0], $data[1]), $data[2] ?? null);
+    }
+
     public function getObject(): ObjectReference
     {
         return $this->object;
@@ -56,5 +61,13 @@ class SubjectReference
         return $this->getObject() . ($this->getOptionalRelation() ? '#'. $this->getOptionalRelation() : '');
     }
 
+    public function toArray()
+    {
+        $arr = [$this->getObject()->getObjectType(), $this->getObject()->getObjectId()];
+        if ($this->getOptionalRelation()) {
+            $arr[2] = $this->getOptionalRelation();
+        }
+        return $arr;
+    }
 
 }

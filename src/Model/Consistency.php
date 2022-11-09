@@ -48,12 +48,12 @@ class Consistency
         $this->fullyConsistent = $fullyConsistent;
     }
 
-    public static function minimizeLatency()
+    public static function minimizeLatency(): Consistency
     {
         return new self(null, null, true);
     }
 
-    public static function fullyConsistent()
+    public static function fullyConsistent(): Consistency
     {
         return new self(null, null, null, true);
     }

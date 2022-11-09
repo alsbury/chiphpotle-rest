@@ -63,7 +63,7 @@ class Relationship
 
     public function __toString(): string
     {
-        return $this->resource . '@' . $this->subject;
+        return $this->resource . '#' . $this->relation . '@' . $this->subject;
     }
 
 }

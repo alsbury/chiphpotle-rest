@@ -35,4 +35,11 @@ class CheckPermissionResponse
         $this->permissionship = $permissionship;
         return $this;
     }
+
+    public function __toString(): string
+    {
+        return $this->getPermissionship();
+    }
+
+
 }

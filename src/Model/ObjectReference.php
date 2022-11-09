@@ -18,6 +18,11 @@ class ObjectReference
         return new self($objectType, $objectId);
     }
 
+    public static function createFromArray(array $data): self
+    {
+        return new self($data[0], $data[1]);
+    }
+
     public function getObjectType(): string
     {
         return $this->objectType;
@@ -45,5 +50,8 @@ class ObjectReference
         return $this->getObjectType() . ':' . $this->getObjectId();
     }
 
-
+    public function toArray()
+    {
+        return [$this->getObjectType(), $this->getObjectId()];
+    }
 }

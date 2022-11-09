@@ -55,7 +55,7 @@ class SubjectFilter
 
     public function __toString(): string
     {
-        return self::class;
+        return SubjectReference::create($this->subjectType, $this->optionalSubjectId, $this->optionalRelation);
     }
 
 
