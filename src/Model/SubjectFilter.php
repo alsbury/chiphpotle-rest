@@ -11,6 +11,15 @@ class SubjectFilter
 
     protected ?SubjectFilterRelationFilter $optionalRelation = null;
 
+    public static function createFromArray(array $subject)
+    {
+        $self = new self();
+        $self->setSubjectType($subject[0])
+            ->setOptionalSubjectId($subject[1] ?? null)
+            ->setOptionalRelation($subject[2] ?? null);
+        return $self;
+    }
+
     public function getSubjectType(): ?string
     {
         return $this->subjectType;
@@ -44,18 +53,18 @@ class SubjectFilter
         return $this;
     }
 
-    public static function fromSubject(\Lifestyle\Integration\SpiceDB\Service\Model\SubjectReference $subjectReference) : SubjectFilter
+    public static function fromSubject(SubjectReference $subjectReference) : SubjectFilter
     {
         $filter = new self();
         $filter->setSubjectType($subjectReference->getObject()->getObjectType());
         $filter->setOptionalSubjectId($subjectReference->getObject()->getObjectId());
-        $filter->setOptionalRelation($subjectReference->getRelation());
+        $filter->setOptionalRelation($subjectReference->getOptionalRelation());
         return $filter;
     }
 
     public function __toString(): string
     {
-        return SubjectReference::create($this->subjectType, $this->optionalSubjectId, $this->optionalRelation);
+        return SubjectReference::create($this->subjectType, $this->optionalSubjectId, $this->optionalRelation?->getRelation());
     }
 
 

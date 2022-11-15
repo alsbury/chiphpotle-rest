@@ -4,16 +4,16 @@ namespace Chiphpotle\Rest\Model;
 
 class RpcStatus
 {
-    protected int $code;
+    protected ?int $code = null;
 
-    protected string $message;
+    protected ?string $message = null;
 
     /**
      * @var ProtobufAny[]
      */
-    protected array $details;
+    protected array $details = [];
 
-    public function getCode(): int
+    public function getCode(): ?int
     {
         return $this->code;
     }
@@ -24,7 +24,7 @@ class RpcStatus
         return $this;
     }
 
-    public function getMessage(): string
+    public function getMessage(): ?string
     {
         return $this->message;
     }

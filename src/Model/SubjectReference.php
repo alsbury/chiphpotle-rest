@@ -29,7 +29,7 @@ class SubjectReference
         return new self(new ObjectReference($objectType, $objectId), $optionalRelation);
     }
 
-    public static function createFromArray(array $data)
+    public static function createFromArray(array $data): self
     {
         return new self(new ObjectReference($data[0], $data[1]), $data[2] ?? null);
     }
