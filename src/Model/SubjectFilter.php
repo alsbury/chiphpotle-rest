@@ -64,7 +64,7 @@ class SubjectFilter
 
     public function __toString(): string
     {
-        return SubjectReference::create($this->subjectType, $this->optionalSubjectId, $this->optionalRelation?->getRelation());
+        return (string)SubjectReference::create($this->subjectType, $this->optionalSubjectId, $this->optionalRelation?->getRelation());
     }
 
 

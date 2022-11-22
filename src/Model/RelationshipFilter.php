@@ -78,7 +78,7 @@ class RelationshipFilter
 
     public function __toString(): string
     {
-        return $this->resourceType . ':' . $this->optionalResourceId . '#' . $this->optionalRelation . '@' . $this->optionalSubjectFilter;
+        return $this->resourceType . ($this->optionalResourceId ? ':' . $this->optionalResourceId : '') . ($this->optionalRelation ? '#' . $this->optionalRelation : '') . '@' . $this->optionalSubjectFilter;
     }
 
 

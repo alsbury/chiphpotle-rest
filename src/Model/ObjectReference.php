@@ -34,7 +34,7 @@ class ObjectReference
         return $this;
     }
 
-    public function getObjectId(): string
+    public function getObjectId(): ?string
     {
         return $this->objectId;
     }
@@ -47,7 +47,7 @@ class ObjectReference
 
     public function __toString(): string
     {
-        return $this->getObjectType() . ':' . $this->getObjectId();
+        return $this->getObjectType() . ($this->getObjectId() ? ':' . $this->getObjectId() : '');
     }
 
     public function toArray()
