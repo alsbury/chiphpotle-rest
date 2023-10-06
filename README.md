@@ -63,3 +63,8 @@ vendor/bin/jane-openapi generate
 ```
 
 This generates the client in a generated directory which then can be cleaned up and moved over to the src directory.
+To get a good start run PHP CS Fixer to format things more consistently.
+
+```bash
+vendor/bin/php-cs-fixer fix
+```
