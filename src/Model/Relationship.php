@@ -4,27 +4,18 @@ namespace Chiphpotle\Rest\Model;
 
 class Relationship
 {
-    /**
-     * ObjectReference is used to refer to a specific object in the system.
-     */
     protected ?ObjectReference $resource;
 
     /**
      * relation is how the resource and subject are related.
+     *
+     * @var ?string
      */
     protected ?string $relation;
 
     protected ?SubjectReference $subject;
 
-    public function __construct(
-        ?ObjectReference    $resource = null,
-        ?string             $relation = null,
-        ?SubjectReference $subject = null
-    ) {
-        $this->resource = $resource;
-        $this->relation = $relation;
-        $this->subject = $subject;
-    }
+    protected ?ContextualizedCaveat $optionalCaveat;
 
     public function getResource(): ?ObjectReference
     {
@@ -37,30 +28,36 @@ class Relationship
         return $this;
     }
 
-    public function getRelation(): ?string
+    public function getRelation(): string
     {
         return $this->relation;
     }
 
-    public function setRelation(?string $relation): self
+    public function setRelation(string $relation): self
     {
         $this->relation = $relation;
         return $this;
     }
 
-    public function getSubject(): ?SubjectReference
+    public function getSubject(): SubjectReference
     {
         return $this->subject;
     }
 
-    public function setSubject(?SubjectReference $subject): self
+    public function setSubject(SubjectReference $subject): self
     {
         $this->subject = $subject;
         return $this;
     }
 
-    public function __toString(): string
+    public function getOptionalCaveat(): ContextualizedCaveat
     {
-        return $this->resource . '#' . $this->relation . '@' . $this->subject;
+        return $this->optionalCaveat;
+    }
+
+    public function setOptionalCaveat(ContextualizedCaveat $optionalCaveat): self
+    {
+        $this->optionalCaveat = $optionalCaveat;
+        return $this;
     }
 }

@@ -14,6 +14,8 @@ class CheckPermissionResponse
 
     protected string $permissionship = 'PERMISSIONSHIP_UNSPECIFIED';
 
+    protected ?PartialCaveatInfo $partialCaveatInfo;
+
     public function getCheckedAt(): ZedToken
     {
         return $this->checkedAt;
@@ -36,8 +38,15 @@ class CheckPermissionResponse
         return $this;
     }
 
-    public function __toString(): string
+    public function getPartialCaveatInfo(): PartialCaveatInfo
     {
-        return $this->getPermissionship();
+        return $this->partialCaveatInfo;
+    }
+
+
+    public function setPartialCaveatInfo(PartialCaveatInfo $partialCaveatInfo): self
+    {
+        $this->partialCaveatInfo = $partialCaveatInfo;
+        return $this;
     }
 }

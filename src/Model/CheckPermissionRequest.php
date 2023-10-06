@@ -24,6 +24,8 @@ class CheckPermissionRequest
 
     protected SubjectReference $subject;
 
+    protected mixed $context;
+
     public function __construct(
         SubjectReference $subject,
         string           $permission,
@@ -77,6 +79,17 @@ class CheckPermissionRequest
     public function setSubject(SubjectReference $subject): self
     {
         $this->subject = $subject;
+        return $this;
+    }
+
+    public function getContext(): mixed
+    {
+        return $this->context;
+    }
+
+    public function setContext(mixed $context): self
+    {
+        $this->context = $context;
         return $this;
     }
 
