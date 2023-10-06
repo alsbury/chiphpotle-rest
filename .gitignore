@@ -16,6 +16,7 @@ composer.phar
 # PHPUnit cache
 .phpunit.result.cache
 /node_modules/
+/generated/
 /.idea/
 .DS_Store
 composer.lock

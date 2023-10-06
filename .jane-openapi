@@ -1,0 +1,9 @@
+<?php
+require 'bootstrap.php';
+
+return [
+    'openapi-file' => $_ENV['BASE_URL'] . '/openapi.json',
+    'namespace' => 'Chiphpotle\Rest',
+    'directory' => __DIR__ . '/generated',
+];
+

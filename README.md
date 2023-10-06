@@ -49,5 +49,14 @@ composer install
 vendor/bin/phpunit
 ```
 
-## Todo
-- Automate tests
+## Code Generation
+
+This client was created by starting with an auto-generated client from the open-api json schema provided by spicedb using [jane-openapi](https://jane.readthedocs.io/en/latest/documentation/OpenAPI.html).
+
+Once Spicedb is running, you can regenerate all the classes and client to pick up any new spicedb apis by running:
+
+```bash
+vendor/bin/jane-openapi generate
+```
+
+This generates the client in a generated directory which then can be cleaned up and moved over to the src directory.
