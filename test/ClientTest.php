@@ -15,15 +15,44 @@ use Chiphpotle\Rest\Model\ObjectReference;
 use Chiphpotle\Rest\Model\ReadRelationshipsRequest;
 use Chiphpotle\Rest\Model\Relationship;
 use Chiphpotle\Rest\Model\RelationshipFilter;
+use Chiphpotle\Rest\Model\RelationshipsReadPostResponse200;
 use Chiphpotle\Rest\Model\RelationshipUpdate;
 use Chiphpotle\Rest\Model\SubjectReference;
 use Chiphpotle\Rest\Model\WriteRelationshipsRequest;
+use Chiphpotle\Rest\Model\WriteRelationshipsResponse;
 use Chiphpotle\Rest\Model\WriteSchemaRequest;
 use Chiphpotle\Rest\Test\Fixtures\SchemaFixtures;
 use PHPUnit\Framework\TestCase;
 
 class ClientTest extends TestCase
 {
+    public static function setUpBeforeClass(): void
+    {
+        parent::setUpBeforeClass();
+        self::getApiClient()->schemaServiceWriteSchema(
+            new WriteSchemaRequest(SchemaFixtures::SAMPLE_SCHEMA)
+        );
+    }
+
+    public function test_schema_read()
+    {
+        $schemaText = $this->getApiClient()
+            ->schemaServiceReadSchema()
+            ->getSchemaText();
+        $this->assertStringContainsString('definition user', $schemaText);
+        $this->assertStringContainsString('definition document', $schemaText);
+        $this->assertStringContainsString('relation viewer', $schemaText);
+        $this->assertStringContainsString('relation writer', $schemaText);
+        $this->assertStringContainsString('permission write', $schemaText);
+        $this->assertStringContainsString('permission view', $schemaText);
+    }
+
+    public function test_relationship_write()
+    {
+        $response = $this->writeRelationship('document', 'topsecret2', 'viewer', 'user', 'jimmy');
+        $this->assertNotEmpty($response->getWrittenAt()->getToken());
+    }
+
     public function test_relationship_read()
     {
         $filter = (new RelationshipFilter())->setResourceType("document");
@@ -33,28 +62,7 @@ class ClientTest extends TestCase
         $response = $this->getApiClient()->permissionsServiceReadRelationships(
             $request
         );
-        $this->assertEquals(
-            "Chiphpotle\Rest\Model\RelationshipsReadPostResponse200",
-            get_class($response)
-        );
-    }
-
-    public function test_relationship_write()
-    {
-        $relationship = new Relationship(
-            ObjectReference::create("document", "topsecret2"),
-            "viewer",
-            SubjectReference::create("user", "jimmy")
-        );
-        $update = new RelationshipUpdate(
-            RelationshipUpdateOperation::TOUCH,
-            $relationship
-        );
-        $request = new WriteRelationshipsRequest([$update]);
-        $response = $this->getApiClient()->permissionsServiceWriteRelationships(
-            $request
-        );
-        $this->assertNotEmpty($response->getWrittenAt()->getToken());
+        $this->assertInstanceOf(RelationshipsReadPostResponse200::class, $response);
     }
 
     public function test_relationship_delete()
@@ -77,6 +85,8 @@ class ClientTest extends TestCase
 
     public function test_lookup_resources()
     {
+        $this->writeRelationship('document', 'topsecret1', 'viewer', 'user', 'alice');
+
         $request = new LookupResourcesRequest();
         $request
             ->setResourceObjectType("document")
@@ -94,6 +104,7 @@ class ClientTest extends TestCase
 
     public function test_permission_check_valid()
     {
+        $this->writeRelationship('document', 'topsecret1', 'viewer', 'user', 'bob');
         $request = new CheckPermissionRequest(
             SubjectReference::create("user", "bob"),
             "view",
@@ -136,33 +147,31 @@ class ClientTest extends TestCase
         $response = $this->getApiClient()->permissionsServiceCheckPermission(
             $request
         );
-        $this->assertEquals(
-            $response->getPermissionship(),
-            CheckPermissionResponsePermissionship::HAS_PERMISSION
+        $this->assertEquals(CheckPermissionResponsePermissionship::NO_PERMISSION,
+            $response->getPermissionship()
         );
     }
 
-    public function test_schema_read()
+    private function writeRelationship(string $objectType, string $objectId, string $relation, string $subjectType, string $subjectId): WriteRelationshipsResponse
     {
-        $schemaText = $this->getApiClient()
-            ->schemaServiceReadSchema()
-            ->getSchemaText();
-        $this->assertEquals(SchemaFixtures::SAMPLE_SCHEMA, $schemaText);
-    }
-
-    public function test_schema_write()
-    {
-        $result = (bool) $this->getApiClient()->schemaServiceWriteSchema(
-            new WriteSchemaRequest(SchemaFixtures::SAMPLE_SCHEMA)
+        $relationship = new Relationship(
+            ObjectReference::create($objectType, $objectId),
+            $relation,
+            SubjectReference::create($subjectType, $subjectId)
         );
-        $this->assertTrue($result, "Schema write successful");
+        $update = new RelationshipUpdate(
+            RelationshipUpdateOperation::TOUCH,
+            $relationship
+        );
+        $request = new WriteRelationshipsRequest([$update]);
+        return $this->getApiClient()->permissionsServiceWriteRelationships(
+            $request
+        );
     }
 
-    /**
-     * @return Client
-     */
-    public function getApiClient(): Client
+
+    public static function getApiClient(): Client
     {
-        return Client::create(getenv("BASE_URL"), getenv("API_KEY"));
+        return Client::create($_ENV['BASE_URL'], $_ENV['API_KEY']);
     }
 }

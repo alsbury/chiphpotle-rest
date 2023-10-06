@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" bootstrap="./vendor/autoload.php" colors="true"
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" bootstrap="./bootstrap.php" colors="true"
          convertErrorsToExceptions="true" convertNoticesToExceptions="true" convertWarningsToExceptions="true"
          stopOnFailure="false" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd">
     <coverage processUncoveredFiles="true">
@@ -13,8 +13,6 @@
         </testsuite>
     </testsuites>
     <php>
-        <env name="BASE_URL" value="http://localhost:8443/" force="true"/>
-        <env name="API_KEY" value="mysecret" force="true"/>
         <ini name="error_reporting" value="E_ALL"/>
     </php>
 </phpunit>

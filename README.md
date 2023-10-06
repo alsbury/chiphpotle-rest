@@ -40,12 +40,15 @@ try {
 
 ## Tests
 
-WIP: Need to add Docker environment for testing.
+copy .env.dist to .env and adjust the BASE_URL and API_KEY. Spicedb must be running on the url specified, 
+we recommend running using the [serve-testing](https://authzed.com/docs/guides/validation-and-testing#testing-code-against-spicedb) mode.
 
-To run the tests, use:
+
+To run the tests, start use:
 
 ```bash
 composer install
+spicedb serve-testing --http-enabled
 vendor/bin/phpunit
 ```
 
