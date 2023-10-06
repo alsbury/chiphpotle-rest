@@ -60,6 +60,4 @@ class RelationshipUpdate
     {
         return '[' . $this->operation . ']' . ' ' . $this->relationship;
     }
-
-
 }

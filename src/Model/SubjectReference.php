@@ -69,5 +69,4 @@ class SubjectReference
         }
         return $arr;
     }
-
 }

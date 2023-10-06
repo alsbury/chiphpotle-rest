@@ -11,11 +11,13 @@ class LookupSubjectsResponse
      * See the authzed.api.v1.Consistency message for more information.
      */
     protected ZedToken $lookedUpAt;
+
     /**
      * subject_object_id is the Object ID of the subject found. May be a `*` if
      * a wildcard was found.
      */
     protected string $subjectObjectId;
+
     /**
      * excluded_subject_ids are the Object IDs of the subjects excluded. This list
      * will only contain object IDs if `subject_object_id` is a wildcard (`*`) and

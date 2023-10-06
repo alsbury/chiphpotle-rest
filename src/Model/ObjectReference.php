@@ -5,6 +5,7 @@ namespace Chiphpotle\Rest\Model;
 class ObjectReference
 {
     protected ?string $objectType;
+
     protected ?string $objectId;
 
     public function __construct(?string $objectType = null, ?string $objectId = null)

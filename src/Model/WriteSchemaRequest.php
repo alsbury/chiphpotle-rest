@@ -4,7 +4,6 @@ namespace Chiphpotle\Rest\Model;
 
 class WriteSchemaRequest
 {
-
     /**
      * The Schema containing one or more Object Definitions that will be written
      * to the Permissions System.

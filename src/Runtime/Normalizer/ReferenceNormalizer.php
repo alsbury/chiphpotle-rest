@@ -16,6 +16,7 @@ class ReferenceNormalizer implements NormalizerInterface
         $ref['$ref'] = (string) $object->getReferenceUri();
         return $ref;
     }
+
     /**
      * {@inheritdoc}
      */

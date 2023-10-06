@@ -51,6 +51,7 @@ class PermissionsServiceLookupResources extends BaseEndpoint implements ClientEn
         }
         return $serializer->deserialize($body, 'Chiphpotle\\Rest\\Model\\RpcStatus', 'json');
     }
+
     public function getAuthenticationScopes(): array
     {
         return [];

@@ -4,7 +4,6 @@ namespace Chiphpotle\Rest\Model;
 
 class ZedToken
 {
-
     protected string $token;
 
     /**

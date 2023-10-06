@@ -55,6 +55,7 @@ class PermissionsServiceReadRelationships extends BaseEndpoint implements Client
         }
         return $serializer->deserialize($body, 'Chiphpotle\\Rest\\Model\\RpcStatus', 'json');
     }
+
     public function getAuthenticationScopes(): array
     {
         return [];

@@ -26,8 +26,7 @@ class ExpandPermissionTreeRequest
         ObjectReference $resource,
         string          $permission,
         ?Consistency    $consistency = null
-    )
-    {
+    ) {
         $this->consistency = $consistency;
         $this->resource = $resource;
         $this->permission = $permission;

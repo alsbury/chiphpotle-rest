@@ -29,14 +29,12 @@ class CheckPermissionRequest
         string           $permission,
         ObjectReference  $resource,
         ?Consistency     $consistency = null,
-    )
-    {
+    ) {
         $this->subject = $subject;
         $this->permission = $permission;
         $this->resource = $resource;
         $this->consistency = $consistency;
     }
-
 
     public function getConsistency(): ?Consistency
     {
@@ -86,6 +84,4 @@ class CheckPermissionRequest
     {
         return $this->getResource() . '#' . $this->getPermission() . '@' . $this->getSubject();
     }
-
-
 }

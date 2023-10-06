@@ -4,7 +4,6 @@ namespace Chiphpotle\Rest\Model;
 
 class DeleteRelationshipsResponse
 {
-
     /**
      * ZedToken is used to provide causality metadata between Write and Check
      * requests.

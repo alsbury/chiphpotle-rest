@@ -23,6 +23,7 @@ class CheckPermissionRequestTest extends \PHPUnit\Framework\TestCase
         );
         $this->assertEquals('document:mydoc#read@user:alice', (string)$request);
     }
+
     public function test_to_string_method_with_optional_relationship()
     {
         $request = new CheckPermissionRequest(

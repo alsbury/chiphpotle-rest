@@ -24,5 +24,4 @@ class RelationshipUpdateOperation
             self::DELETE
         ];
     }
-
 }

@@ -39,15 +39,13 @@ class LookupSubjectsRequest
         string          $subjectObjectType = null,
         string          $optionalSubjectRelation = null,
         ?Consistency    $consistency = null
-    )
-    {
+    ) {
         $this->resource = $resource;
         $this->consistency = $consistency;
         $this->permission = $permission;
         $this->subjectObjectType = $subjectObjectType;
         $this->optionalSubjectRelation = $optionalSubjectRelation;
     }
-
 
     public function getConsistency(): ?Consistency
     {

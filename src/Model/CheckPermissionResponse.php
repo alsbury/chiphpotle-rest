@@ -40,6 +40,4 @@ class CheckPermissionResponse
     {
         return $this->getPermissionship();
     }
-
-
 }

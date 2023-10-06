@@ -20,13 +20,11 @@ class Relationship
         ?ObjectReference    $resource = null,
         ?string             $relation = null,
         ?SubjectReference $subject = null
-    )
-    {
+    ) {
         $this->resource = $resource;
         $this->relation = $relation;
         $this->subject = $subject;
     }
-
 
     public function getResource(): ?ObjectReference
     {
@@ -65,5 +63,4 @@ class Relationship
     {
         return $this->resource . '#' . $this->relation . '@' . $this->subject;
     }
-
 }

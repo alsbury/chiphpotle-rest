@@ -4,7 +4,6 @@ namespace Chiphpotle\Rest\Model;
 
 class SubjectFilter
 {
-
     protected ?string $subjectType = null;
 
     protected ?string $optionalSubjectId = null;
@@ -53,7 +52,7 @@ class SubjectFilter
         return $this;
     }
 
-    public static function fromSubject(SubjectReference $subjectReference) : SubjectFilter
+    public static function fromSubject(SubjectReference $subjectReference): SubjectFilter
     {
         $filter = new self();
         $filter->setSubjectType($subjectReference->getObject()->getObjectType());
@@ -66,6 +65,4 @@ class SubjectFilter
     {
         return (string)SubjectReference::create($this->subjectType, $this->optionalSubjectId, $this->optionalRelation?->getRelation());
     }
-
-
 }

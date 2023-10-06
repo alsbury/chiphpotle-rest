@@ -30,14 +30,12 @@ class LookupResourcesRequest
         ?string           $permission = null,
         ?SubjectReference $subject = null,
         ?Consistency      $consistency = null
-    )
-    {
+    ) {
         $this->consistency = $consistency;
         $this->resourceObjectType = $resourceObjectType;
         $this->permission = $permission;
         $this->subject = $subject;
     }
-
 
     public function getConsistency(): ?Consistency
     {

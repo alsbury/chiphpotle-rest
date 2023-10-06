@@ -4,7 +4,6 @@ namespace Chiphpotle\Rest\Model;
 
 class ReadSchemaResponse
 {
-
     protected string $schemaText;
 
     public function getSchemaText(): string

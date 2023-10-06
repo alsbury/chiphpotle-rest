@@ -4,7 +4,6 @@ namespace Chiphpotle\Rest\Model;
 
 class WriteRelationshipsRequest
 {
-
     /**
      * @var ?RelationshipUpdate[]
      */
@@ -24,7 +23,6 @@ class WriteRelationshipsRequest
         $this->updates = $updates;
         $this->optionalPreconditions = $optionalPreconditions;
     }
-
 
     /**
      * @return ?RelationshipUpdate[]

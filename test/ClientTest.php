@@ -147,7 +147,8 @@ class ClientTest extends TestCase
         $response = $this->getApiClient()->permissionsServiceCheckPermission(
             $request
         );
-        $this->assertEquals(CheckPermissionResponsePermissionship::NO_PERMISSION,
+        $this->assertEquals(
+            CheckPermissionResponsePermissionship::NO_PERMISSION,
             $response->getPermissionship()
         );
     }
@@ -168,7 +169,6 @@ class ClientTest extends TestCase
             $request
         );
     }
-
 
     public static function getApiClient(): Client
     {

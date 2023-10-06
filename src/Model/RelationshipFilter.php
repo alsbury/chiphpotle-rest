@@ -4,7 +4,6 @@ namespace Chiphpotle\Rest\Model;
 
 class RelationshipFilter
 {
-
     protected ?string $resourceType;
 
     protected ?string $optionalResourceId;
@@ -24,8 +23,7 @@ class RelationshipFilter
         ?string $optionalResourceId = null,
         ?string $optionalRelation = null,
         ?SubjectFilter $optionalSubjectFilter = null
-    )
-    {
+    ) {
         $this->resourceType = $resourceType;
         $this->optionalResourceId = $optionalResourceId;
         $this->optionalRelation = $optionalRelation;
@@ -80,6 +78,4 @@ class RelationshipFilter
     {
         return $this->resourceType . ($this->optionalResourceId ? ':' . $this->optionalResourceId : '') . ($this->optionalRelation ? '#' . $this->optionalRelation : '') . '@' . $this->optionalSubjectFilter;
     }
-
-
 }

@@ -11,7 +11,7 @@ $config = new PhpCsFixer\Config();
 return $config->setRules([
         '@PSR12' => true,
         'phpdoc_order' => true,
-        'class_attributes_separation' => ['elements' => ['method' => 'one']],
+        'class_attributes_separation' => ['elements' => ['method' => 'one', 'property' => 'one']],
         'array_syntax' => [ 'syntax' => 'short' ],
         'strict_comparison' => false,
         'strict_param' => false,
