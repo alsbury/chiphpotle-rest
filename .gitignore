@@ -11,6 +11,8 @@ composer.phar
 .php_cs.cache
 .php-cs-fixer.cache
 
+.env
+
 # PHPUnit cache
 .phpunit.result.cache
 /node_modules/
@@ -18,5 +20,4 @@ composer.phar
 .DS_Store
 composer.lock
 package-lock.json
-phpunit.xml
 report
