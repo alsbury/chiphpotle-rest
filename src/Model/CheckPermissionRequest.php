@@ -20,9 +20,9 @@ class CheckPermissionRequest
     protected mixed $context;
 
     public function __construct(
-        SubjectReference $subject,
-        string           $permission,
         ObjectReference  $resource,
+        string           $permission,
+        SubjectReference $subject,
         ?Consistency     $consistency = null,
     ) {
         $this->subject = $subject;

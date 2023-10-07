@@ -106,9 +106,9 @@ class ClientTest extends TestCase
     {
         $this->writeRelationship('document', 'topsecret1', 'viewer', 'user', 'bob');
         $request = new CheckPermissionRequest(
-            SubjectReference::create("user", "bob"),
+            ObjectReference::create("document", "topsecret1"),
             "view",
-            ObjectReference::create("document", "topsecret1")
+            SubjectReference::create("user", "bob")
         );
         /** @var CheckPermissionResponse $response */
         $response = $this->getApiClient()->permissionsServiceCheckPermission(
@@ -139,9 +139,9 @@ class ClientTest extends TestCase
     public function test_permission_check_invalid()
     {
         $request = new CheckPermissionRequest(
-            SubjectReference::create("user", "alice"),
+            ObjectReference::create("document", "topsecret1"),
             "write",
-            ObjectReference::create("document", "topsecret1")
+            SubjectReference::create("user", "alice")
         );
         /** @var CheckPermissionResponse $response */
         $response = $this->getApiClient()->permissionsServiceCheckPermission(
