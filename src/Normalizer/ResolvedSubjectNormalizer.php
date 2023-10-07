@@ -56,19 +56,16 @@ class ResolvedSubjectNormalizer implements DenormalizerInterface, NormalizerInte
         return $object;
     }
 
-    /**
-     * @return array|string|int|float|bool|\ArrayObject|null
-     */
-    public function normalize($object, $format = null, array $context = [])
+    public function normalize($object, $format = null, array $context = []): array
     {
         $data = [];
-        if ($object->isInitialized('subjectObjectId') && null !== $object->getSubjectObjectId()) {
+        if (null !== $object->getSubjectObjectId()) {
             $data['subjectObjectId'] = $object->getSubjectObjectId();
         }
-        if ($object->isInitialized('permissionship') && null !== $object->getPermissionship()) {
+        if (null !== $object->getPermissionship()) {
             $data['permissionship'] = $object->getPermissionship();
         }
-        if ($object->isInitialized('partialCaveatInfo') && null !== $object->getPartialCaveatInfo()) {
+        if (null !== $object->getPartialCaveatInfo()) {
             $data['partialCaveatInfo'] = $this->normalizer->normalize($object->getPartialCaveatInfo(), 'json', $context);
         }
         return $data;

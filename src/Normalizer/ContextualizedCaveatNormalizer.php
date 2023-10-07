@@ -53,16 +53,13 @@ class ContextualizedCaveatNormalizer implements DenormalizerInterface, Normalize
         return $object;
     }
 
-    /**
-     * @return array|string|int|float|bool|\ArrayObject|null
-     */
-    public function normalize($object, $format = null, array $context = [])
+    public function normalize($object, $format = null, array $context = []): array
     {
         $data = [];
-        if ($object->isInitialized('caveatName') && null !== $object->getCaveatName()) {
+        if (null !== $object->getCaveatName()) {
             $data['caveatName'] = $object->getCaveatName();
         }
-        if ($object->isInitialized('context') && null !== $object->getContext()) {
+        if (null !== $object->getContext()) {
             $data['context'] = $object->getContext();
         }
         return $data;

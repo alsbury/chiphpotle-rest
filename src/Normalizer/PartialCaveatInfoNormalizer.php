@@ -55,13 +55,10 @@ class PartialCaveatInfoNormalizer implements DenormalizerInterface, NormalizerIn
         return $object;
     }
 
-    /**
-     * @return array|string|int|float|bool|\ArrayObject|null
-     */
-    public function normalize($object, $format = null, array $context = [])
+    public function normalize($object, $format = null, array $context = []): array
     {
         $data = [];
-        if ($object->isInitialized('missingRequiredContext') && null !== $object->getMissingRequiredContext()) {
+        if (null !== $object->getMissingRequiredContext()) {
             $values = [];
             foreach ($object->getMissingRequiredContext() as $value) {
                 $values[] = $value;

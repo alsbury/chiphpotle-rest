@@ -50,13 +50,10 @@ class CursorNormalizer implements DenormalizerInterface, NormalizerInterface, De
         return $object;
     }
 
-    /**
-     * @return array|string|int|float|bool|\ArrayObject|null
-     */
-    public function normalize($object, $format = null, array $context = [])
+    public function normalize($object, $format = null, array $context = []): array
     {
         $data = [];
-        if ($object->isInitialized('token') && null !== $object->getToken()) {
+        if (null !== $object->getToken()) {
             $data['token'] = $object->getToken();
         }
         return $data;
