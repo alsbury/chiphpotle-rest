@@ -4,13 +4,9 @@ namespace Chiphpotle\Rest\Model;
 
 class PermissionsResourcesPostResponse200
 {
-    /**
-    * LookupResourcesResponse contains a single matching resource object ID for the
-    * requested object type, permission, and subject.
-    */
     protected LookupResourcesResponse $result;
 
-    protected RpcStatus $error;
+    protected ?RpcStatus $error;
 
     public function getResult(): LookupResourcesResponse
     {
@@ -23,7 +19,7 @@ class PermissionsResourcesPostResponse200
         return $this;
     }
 
-    public function getError(): RpcStatus
+    public function getError(): ?RpcStatus
     {
         return $this->error;
     }

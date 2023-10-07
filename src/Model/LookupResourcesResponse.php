@@ -2,28 +2,20 @@
 
 namespace Chiphpotle\Rest\Model;
 
+/**
+ * LookupResourcesResponse contains a single matching resource object ID for the
+ * requested object type, permission, and subject.
+ */
 class LookupResourcesResponse
 {
-    /**
-     * ZedToken is used to provide causality metadata between Write and Check
-     * requests.
-     *
-     * See the authzed.api.v1.Consistency message for more information.
-     */
     protected ZedToken $lookedUpAt;
 
     protected string $resourceObjectId;
 
-    protected $permissionship = 'LOOKUP_PERMISSIONSHIP_UNSPECIFIED';
+    protected string $permissionship = 'LOOKUP_PERMISSIONSHIP_UNSPECIFIED';
 
     protected PartialCaveatInfo $partialCaveatInfo;
 
-    /**
-     * Cursor is used to provide resumption of listing between calls to APIs
-     * such as LookupResources.
-     *
-     * @var Cursor
-     */
     protected Cursor $afterResultCursor;
 
     public function getLookedUpAt(): ZedToken
