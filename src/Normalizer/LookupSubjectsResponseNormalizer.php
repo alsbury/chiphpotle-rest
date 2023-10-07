@@ -2,6 +2,7 @@
 
 namespace Chiphpotle\Rest\Normalizer;
 
+use Chiphpotle\Rest\Model\LookupSubjectsResponse;
 use Chiphpotle\Rest\Runtime\Normalizer\CheckArray;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
@@ -27,7 +28,7 @@ class LookupSubjectsResponseNormalizer implements DenormalizerInterface, Normali
         return is_object($data) && get_class($data) === 'Chiphpotle\\Rest\\Model\\LookupSubjectsResponse';
     }
 
-    public function denormalize($data, $class, $format = null, array $context = []): mixed
+    public function denormalize(mixed $data, string $type, string $format = null, array $context = []): LookupSubjectsResponse|Reference
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -35,7 +36,7 @@ class LookupSubjectsResponseNormalizer implements DenormalizerInterface, Normali
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Chiphpotle\Rest\Model\LookupSubjectsResponse();
+        $object = new LookupSubjectsResponse();
         if (null === $data || false === \is_array($data)) {
             return $object;
         }

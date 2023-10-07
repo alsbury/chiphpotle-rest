@@ -32,7 +32,7 @@ class RelationshipsReadPostResponse200Normalizer implements DenormalizerInterfac
         return is_object($data) && get_class($data) === 'Chiphpotle\\Rest\\Model\\RelationshipsReadPostResponse200';
     }
 
-    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): RelationshipsReadPostResponse200|Reference
+    public function denormalize(mixed $data, string $type, string $format = null, array $context = []): RelationshipsReadPostResponse200|Reference
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);

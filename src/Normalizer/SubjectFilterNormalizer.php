@@ -2,6 +2,7 @@
 
 namespace Chiphpotle\Rest\Normalizer;
 
+use Chiphpotle\Rest\Model\SubjectFilter;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Chiphpotle\Rest\Runtime\Normalizer\CheckArray;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
@@ -27,7 +28,7 @@ class SubjectFilterNormalizer implements DenormalizerInterface, NormalizerInterf
         return is_object($data) && get_class($data) === 'Chiphpotle\\Rest\\Model\\SubjectFilter';
     }
 
-    public function denormalize($data, $class, $format = null, array $context = []): mixed
+    public function denormalize(mixed $data, string $type, string $format = null, array $context = []): SubjectFilter|Reference
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -35,7 +36,7 @@ class SubjectFilterNormalizer implements DenormalizerInterface, NormalizerInterf
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Chiphpotle\Rest\Model\SubjectFilter();
+        $object = new SubjectFilter();
         if (null === $data || false === \is_array($data)) {
             return $object;
         }

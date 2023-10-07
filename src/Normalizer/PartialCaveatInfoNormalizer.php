@@ -2,6 +2,7 @@
 
 namespace Chiphpotle\Rest\Normalizer;
 
+use Chiphpotle\Rest\Model\PartialCaveatInfo;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Chiphpotle\Rest\Runtime\Normalizer\CheckArray;
 use Chiphpotle\Rest\Runtime\Normalizer\ValidatorTrait;
@@ -22,18 +23,15 @@ class PartialCaveatInfoNormalizer implements DenormalizerInterface, NormalizerIn
 
     public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Chiphpotle\\Rest\\Model\\V1PartialCaveatInfo';
+        return $type === 'Chiphpotle\\Rest\\Model\\PartialCaveatInfo';
     }
 
     public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Chiphpotle\\Rest\\Model\\V1PartialCaveatInfo';
+        return is_object($data) && get_class($data) === 'Chiphpotle\\Rest\\Model\\PartialCaveatInfo';
     }
 
-    /**
-     * @return mixed
-     */
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize(mixed $data, string $type, string $format = null, array $context = []): PartialCaveatInfo|Reference
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -41,7 +39,7 @@ class PartialCaveatInfoNormalizer implements DenormalizerInterface, NormalizerIn
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Chiphpotle\Rest\Model\V1PartialCaveatInfo();
+        $object = new PartialCaveatInfo();
         if (null === $data || false === \is_array($data)) {
             return $object;
         }
@@ -70,6 +68,6 @@ class PartialCaveatInfoNormalizer implements DenormalizerInterface, NormalizerIn
 
     public function getSupportedTypes(?string $format = null): array
     {
-        return ['Chiphpotle\\Rest\\Model\\V1PartialCaveatInfo' => false];
+        return ['Chiphpotle\\Rest\\Model\\PartialCaveatInfo' => false];
     }
 }

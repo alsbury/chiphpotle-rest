@@ -32,7 +32,7 @@ class CheckPermissionResponseNormalizer implements DenormalizerInterface, Normal
         return is_object($data) && get_class($data) === 'Chiphpotle\\Rest\\Model\\CheckPermissionResponse';
     }
 
-    public function denormalize($data, $class, $format = null, array $context = []): Reference|CheckPermissionResponse
+    public function denormalize(mixed $data, string $type, string $format = null, array $context = []): CheckPermissionResponse|Reference
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);

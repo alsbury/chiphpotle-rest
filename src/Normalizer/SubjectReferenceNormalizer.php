@@ -29,7 +29,7 @@ class SubjectReferenceNormalizer implements DenormalizerInterface, NormalizerInt
         return is_object($data) && get_class($data) === 'Chiphpotle\\Rest\\Model\\SubjectReference';
     }
 
-    public function denormalize($data, $class, $format = null, array $context = []): Reference|SubjectReference
+    public function denormalize(mixed $data, string $type, string $format = null, array $context = []): SubjectReference|Reference
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);

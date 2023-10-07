@@ -2,6 +2,7 @@
 
 namespace Chiphpotle\Rest\Normalizer;
 
+use Chiphpotle\Rest\Model\BulkCheckPermissionRequest;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Chiphpotle\Rest\Runtime\Normalizer\CheckArray;
 use Chiphpotle\Rest\Runtime\Normalizer\ValidatorTrait;
@@ -30,10 +31,8 @@ class BulkCheckPermissionRequestNormalizer implements DenormalizerInterface, Nor
         return is_object($data) && get_class($data) === 'Chiphpotle\\Rest\\Model\\BulkCheckPermissionRequest';
     }
 
-    /**
-     * @return mixed
-     */
-    public function denormalize($data, $class, $format = null, array $context = [])
+
+    public function denormalize(mixed $data, string $type, string $format = null, array $context = []): BulkCheckPermissionRequest|Reference
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -41,7 +40,7 @@ class BulkCheckPermissionRequestNormalizer implements DenormalizerInterface, Nor
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Chiphpotle\Rest\Model\BulkCheckPermissionRequest();
+        $object = new BulkCheckPermissionRequest();
         if (null === $data || false === \is_array($data)) {
             return $object;
         }

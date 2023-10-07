@@ -12,9 +12,9 @@ class WriteSchemaRequest
      * The Schema containing one or more Object Definitions that will be written
      * to the Permissions System.
      */
-    protected string $schema;
+    protected ?string $schema;
 
-    public function __construct(string $schema)
+    public function __construct(string $schema = null)
     {
         $this->schema = $schema;
     }

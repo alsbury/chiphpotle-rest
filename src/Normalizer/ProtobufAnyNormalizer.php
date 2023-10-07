@@ -32,7 +32,7 @@ class ProtobufAnyNormalizer implements DenormalizerInterface, NormalizerInterfac
         return is_object($data) && get_class($data) === 'Chiphpotle\\Rest\\Model\\ProtobufAny';
     }
 
-    public function denormalize($data, $class, $format = null, array $context = []): mixed
+    public function denormalize(mixed $data, string $type, string $format = null, array $context = []): ProtobufAny|Reference
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
