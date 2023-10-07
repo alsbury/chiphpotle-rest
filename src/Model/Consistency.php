@@ -2,6 +2,11 @@
 
 namespace Chiphpotle\Rest\Model;
 
+/**
+ * Consistency will define how a request is handled by the backend.
+ * By defining a consistency requirement, and a token at which those
+ * requirements should be applied, where applicable.
+ */
 class Consistency
 {
     /**

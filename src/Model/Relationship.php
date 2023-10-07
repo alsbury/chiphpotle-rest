@@ -2,6 +2,11 @@
 
 namespace Chiphpotle\Rest\Model;
 
+/**
+ * Relationship specifies how a resource relates to a subject. Relationships
+ * form the data for the graph over which all permissions questions are
+ * answered.
+ */
 class Relationship
 {
     protected ?ObjectReference $resource;

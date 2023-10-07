@@ -2,9 +2,11 @@
 
 namespace Chiphpotle\Rest\Model;
 
+/**
+ * ResolvedSubject is a single subject resolved within LookupSubjects.
+ */
 class ResolvedSubject
 {
-
     /**
     * subject_object_id is the Object ID of the subject found. May be a `*` if
     * a wildcard was found.
@@ -17,25 +19,11 @@ class ResolvedSubject
 
     protected ?PartialCaveatInfo $partialCaveatInfo;
 
-    /**
-    * subject_object_id is the Object ID of the subject found. May be a `*` if
-    * a wildcard was found.
-    *
-    * @return string
-    */
     public function getSubjectObjectId(): string
     {
         return $this->subjectObjectId;
     }
 
-    /**
-    * subject_object_id is the Object ID of the subject found. May be a `*` if
-    * a wildcard was found.
-    *
-    * @param string $subjectObjectId
-    *
-    * @return self
-    */
     public function setSubjectObjectId(string $subjectObjectId): self
     {
         $this->subjectObjectId = $subjectObjectId;
