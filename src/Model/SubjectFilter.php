@@ -2,6 +2,12 @@
 
 namespace Chiphpotle\Rest\Model;
 
+/**
+ * SubjectFilter specifies a filter on the subject of a relationship.
+ *
+ * subject_type is required and all other fields are optional, and will not
+ * impose any additional requirements if left unspecified.
+ */
 class SubjectFilter
 {
     protected ?string $subjectType = null;

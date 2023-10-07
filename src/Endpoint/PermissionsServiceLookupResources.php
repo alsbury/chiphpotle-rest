@@ -8,6 +8,7 @@ use Chiphpotle\Rest\Model\PermissionsResourcesPostResponse200;
 use Chiphpotle\Rest\Runtime\Client\BaseEndpoint;
 use Chiphpotle\Rest\Runtime\Client\Endpoint as ClientEndpoint;
 use Chiphpotle\Rest\Runtime\Client\EndpointTrait;
+use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 
 class PermissionsServiceLookupResources extends BaseEndpoint implements ClientEndpoint
@@ -44,8 +45,10 @@ class PermissionsServiceLookupResources extends BaseEndpoint implements ClientEn
         return ['Accept' => ['application/json']];
     }
 
-    protected function transformResponseBody(string $body, int $status, SerializerInterface $serializer, ?string $contentType = null): PermissionsResourcesPostResponse200|RpcStatus|null
+    protected function transformResponseBody(ResponseInterface $response, SerializerInterface $serializer, ?string $contentType = null): PermissionsResourcesPostResponse200|RpcStatus|null
     {
+        $status = $response->getStatusCode();
+        $body = (string) $response->getBody();
         if (200 === $status) {
             return $serializer->deserialize($body, 'Chiphpotle\\Rest\\Model\\PermissionsResourcesPostResponse200', 'json');
         }

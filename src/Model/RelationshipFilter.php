@@ -2,6 +2,13 @@
 
 namespace Chiphpotle\Rest\Model;
 
+/**
+ * RelationshipFilter is a collection of filters which when applied to a
+ * relationship will return relationships that have exactly matching fields.
+ *
+ * resource_type is required. All other fields are optional and if left
+ * unspecified will not filter relationships.
+ */
 class RelationshipFilter
 {
     protected ?string $resourceType;
@@ -10,12 +17,6 @@ class RelationshipFilter
 
     protected ?string $optionalRelation;
 
-    /**
-    * SubjectFilter specifies a filter on the subject of a relationship.
-    *
-    * subject_type is required and all other fields are optional, and will not
-    * impose any additional requirements if left unspecified.
-    */
     protected ?SubjectFilter $optionalSubjectFilter;
 
     public function __construct(

@@ -3,6 +3,7 @@
 namespace Chiphpotle\Rest\Runtime\Client;
 
 use Http\Message\MultipartStream\MultipartStreamBuilder;
+use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Serializer\SerializerInterface;
 
@@ -22,7 +23,7 @@ abstract class BaseEndpoint implements Endpoint
 
     abstract public function getAuthenticationScopes(): array;
 
-    abstract protected function transformResponseBody(string $body, int $status, SerializerInterface $serializer, ?string $contentType = null);
+    abstract protected function transformResponseBody(ResponseInterface $response, SerializerInterface $serializer, ?string $contentType = null);
 
     protected function getExtraHeaders(): array
     {

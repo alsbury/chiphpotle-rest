@@ -2,6 +2,11 @@
 
 namespace Chiphpotle\Rest\Model;
 
+/**
+ * Performs a lookup of all resources of a particular
+ * kind on which the subject has the specified permission or the relation in
+ * which the subject exists, streaming back the IDs of those resources.
+ */
 class LookupResourcesRequest
 {
     protected ?Consistency $consistency;

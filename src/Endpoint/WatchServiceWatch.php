@@ -15,11 +15,6 @@ class WatchServiceWatch extends BaseEndpoint implements Endpoint
 {
     use EndpointTrait;
 
-    /**
-    * @param WatchRequest $body WatchRequest specifies the object definitions for which we want to start
-    * watching mutations, and an optional start snapshot for when to start
-    * watching.
-    */
     public function __construct(WatchRequest $body)
     {
         $this->body = $body;
@@ -45,13 +40,7 @@ class WatchServiceWatch extends BaseEndpoint implements Endpoint
         return ['Accept' => ['application/json']];
     }
 
-    /**
-     * {@inheritdoc}
-     *
-     *
-     * @return null|WatchPostResponse200|RpcStatus
-     */
-    protected function transformResponseBody(ResponseInterface $response, SerializerInterface $serializer, ?string $contentType = null)
+    protected function transformResponseBody(ResponseInterface $response, SerializerInterface $serializer, ?string $contentType = null): WatchPostResponse200|RpcStatus|null
     {
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();

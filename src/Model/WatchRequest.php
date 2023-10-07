@@ -2,6 +2,11 @@
 
 namespace Chiphpotle\Rest\Model;
 
+/**
+ * WatchRequest specifies the object definitions for which we want to start
+ * watching mutations, and an optional start snapshot for when to start
+ * watching.
+ */
 class WatchRequest
 {
     /**

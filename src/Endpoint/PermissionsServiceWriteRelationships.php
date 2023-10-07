@@ -8,18 +8,13 @@ use Chiphpotle\Rest\Model\WriteRelationshipsResponse;
 use Chiphpotle\Rest\Runtime\Client\BaseEndpoint;
 use Chiphpotle\Rest\Runtime\Client\Endpoint as ClientEndpoint;
 use Chiphpotle\Rest\Runtime\Client\EndpointTrait;
+use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 
 class PermissionsServiceWriteRelationships extends BaseEndpoint implements ClientEndpoint
 {
     use EndpointTrait;
 
-    /**
-     * @param WriteRelationshipsRequest $body WriteRelationshipsRequest contains a list of Relationship mutations that
-     * should be applied to the service. If the optional_preconditions parameter
-     * is included, all of the specified preconditions must also be satisfied before
-     * the write will be committed.
-     */
     public function __construct(WriteRelationshipsRequest $body)
     {
         $this->body = $body;
@@ -45,8 +40,10 @@ class PermissionsServiceWriteRelationships extends BaseEndpoint implements Clien
         return ['Accept' => ['application/json']];
     }
 
-    protected function transformResponseBody(string $body, int $status, SerializerInterface $serializer, ?string $contentType = null): RpcStatus|WriteRelationshipsResponse|null
+    protected function transformResponseBody(ResponseInterface $response, SerializerInterface $serializer, ?string $contentType = null): RpcStatus|WriteRelationshipsResponse|null
     {
+        $status = $response->getStatusCode();
+        $body = (string) $response->getBody();
         if (200 === $status) {
             return $serializer->deserialize($body, 'Chiphpotle\\Rest\\Model\\WriteRelationshipsResponse', 'json');
         }

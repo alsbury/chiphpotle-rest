@@ -7,6 +7,7 @@ use Chiphpotle\Rest\Model\WriteSchemaRequest;
 use Chiphpotle\Rest\Runtime\Client\BaseEndpoint;
 use Chiphpotle\Rest\Runtime\Client\Endpoint as ClientEndpoint;
 use Chiphpotle\Rest\Runtime\Client\EndpointTrait;
+use Psr\Http\Message\ResponseInterface;
 use stdClass;
 use Symfony\Component\Serializer\SerializerInterface;
 
@@ -14,10 +15,6 @@ class SchemaServiceWriteSchema extends BaseEndpoint implements ClientEndpoint
 {
     use EndpointTrait;
 
-    /**
-     * @param WriteSchemaRequest $body WriteSchemaRequest is the required data used to "upsert" the Schema of a
-     * Permissions System.
-     */
     public function __construct(WriteSchemaRequest $body)
     {
         $this->body = $body;
@@ -43,8 +40,10 @@ class SchemaServiceWriteSchema extends BaseEndpoint implements ClientEndpoint
         return ['Accept' => ['application/json']];
     }
 
-    protected function transformResponseBody(string $body, int $status, SerializerInterface $serializer, ?string $contentType = null): bool|RpcStatus|stdClass
+    protected function transformResponseBody(ResponseInterface $response, SerializerInterface $serializer, ?string $contentType = null): bool|RpcStatus|stdClass
     {
+        $status = $response->getStatusCode();
+        $body = (string) $response->getBody();
         if (200 === $status) {
             return json_decode($body);
         }

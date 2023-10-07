@@ -3,6 +3,8 @@
 namespace Chiphpotle\Rest\Endpoint;
 
 use Chiphpotle\Rest\Model\BulkExportRelationshipsRequest;
+use Chiphpotle\Rest\Model\ExperimentalRelationshipsBulkexportPostResponse200;
+use Chiphpotle\Rest\Model\RpcStatus;
 use Chiphpotle\Rest\Runtime\Client\BaseEndpoint;
 use Chiphpotle\Rest\Runtime\Client\Endpoint;
 use Chiphpotle\Rest\Runtime\Client\EndpointTrait;
@@ -42,18 +44,12 @@ class ExperimentalServiceBulkExportRelationships extends BaseEndpoint implements
         return ['Accept' => ['application/json']];
     }
 
-    /**
-     * {@inheritdoc}
-     *
-     *
-     * @return null|\Chiphpotle\Rest\Model\V1ExperimentalRelationshipsBulkexportPostResponse200|\Chiphpotle\Rest\Model\RpcStatus
-     */
-    protected function transformResponseBody(ResponseInterface $response, SerializerInterface $serializer, ?string $contentType = null)
+    protected function transformResponseBody(ResponseInterface $response, SerializerInterface $serializer, ?string $contentType = null): ExperimentalRelationshipsBulkexportPostResponse200|RpcStatus|null
     {
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
         if (200 === $status) {
-            return $serializer->deserialize($body, 'Chiphpotle\\Rest\\Model\\V1ExperimentalRelationshipsBulkexportPostResponse200', 'json');
+            return $serializer->deserialize($body, 'Chiphpotle\\Rest\\Model\\ExperimentalRelationshipsBulkexportPostResponse200', 'json');
         }
         return $serializer->deserialize($body, 'Chiphpotle\\Rest\\Model\\RpcStatus', 'json');
     }

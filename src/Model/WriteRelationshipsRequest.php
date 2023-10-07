@@ -2,6 +2,12 @@
 
 namespace Chiphpotle\Rest\Model;
 
+/**
+ * WriteRelationshipsRequest contains a list of Relationship mutations that
+ * should be applied to the service. If the optional_preconditions parameter
+ * is included, all of the specified preconditions must also be satisfied before
+ * the write will be committed.
+ */
 class WriteRelationshipsRequest
 {
     /**

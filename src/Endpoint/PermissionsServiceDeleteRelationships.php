@@ -8,6 +8,7 @@ use Chiphpotle\Rest\Model\DeleteRelationshipsResponse;
 use Chiphpotle\Rest\Runtime\Client\BaseEndpoint;
 use Chiphpotle\Rest\Runtime\Client\Endpoint as ClientEndpoint;
 use Chiphpotle\Rest\Runtime\Client\EndpointTrait;
+use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 
 class PermissionsServiceDeleteRelationships extends BaseEndpoint implements ClientEndpoint
@@ -46,8 +47,10 @@ class PermissionsServiceDeleteRelationships extends BaseEndpoint implements Clie
         return ['Accept' => ['application/json']];
     }
 
-    protected function transformResponseBody(string $body, int $status, SerializerInterface $serializer, ?string $contentType = null): RpcStatus|DeleteRelationshipsResponse|null
+    protected function transformResponseBody(ResponseInterface $response, SerializerInterface $serializer, ?string $contentType = null): RpcStatus|DeleteRelationshipsResponse|null
     {
+        $status = $response->getStatusCode();
+        $body = (string) $response->getBody();
         if (200 === $status) {
             return $serializer->deserialize($body, 'Chiphpotle\\Rest\\Model\\DeleteRelationshipsResponse', 'json');
         }
