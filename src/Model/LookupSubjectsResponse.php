@@ -2,14 +2,12 @@
 
 namespace Chiphpotle\Rest\Model;
 
+/**
+ * LookupSubjectsResponse contains a single matching subject object ID for the
+ * requested subject object type on the permission or relation.
+ */
 class LookupSubjectsResponse
 {
-    /**
-     * ZedToken is used to provide causality metadata between Write and Check
-     * requests.
-     *
-     * See the authzed.api.v1.Consistency message for more information.
-     */
     protected ZedToken $lookedUpAt;
 
     /**
@@ -18,24 +16,12 @@ class LookupSubjectsResponse
      */
     protected string $subjectObjectId;
 
-    /**
-     * excluded_subject_ids are the Object IDs of the subjects excluded. This list
-     * will only contain object IDs if `subject_object_id` is a wildcard (`*`) and
-     * will only be populated if exclusions exist from the wildcard.
-     *
-     * @var string[]
-     */
     protected array $excludedSubjectIds;
 
     protected string $permissionship = 'LOOKUP_PERMISSIONSHIP_UNSPECIFIED';
 
     protected ?PartialCaveatInfo $partialCaveatInfo;
 
-    /**
-     * ResolvedSubject is a single subject resolved within LookupSubjects.
-     *
-     * @var ?ResolvedSubject
-     */
     protected ?ResolvedSubject $subject;
 
     /**
@@ -47,12 +33,6 @@ class LookupSubjectsResponse
      */
     protected ?array $excludedSubjects;
 
-    /**
-     * Cursor is used to provide resumption of listing between calls to APIs
-     * such as LookupResources.
-     *
-     * @var ?Cursor
-     */
     protected ?Cursor $afterResultCursor;
 
     public function getLookedUpAt(): ZedToken
@@ -141,15 +121,6 @@ class LookupSubjectsResponse
         return $this->excludedSubjects;
     }
 
-    /**
-    * excluded_subjects are the subjects excluded. This list
-    * will only contain subjects if `subject.subject_object_id` is a wildcard (`*`) and
-    * will only be populated if exclusions exist from the wildcard.
-    *
-    * @param ResolvedSubject[] $excludedSubjects
-    *
-    * @return self
-    */
     public function setExcludedSubjects(array $excludedSubjects): self
     {
         $this->excludedSubjects = $excludedSubjects;

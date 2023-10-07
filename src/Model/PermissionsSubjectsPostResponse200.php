@@ -4,10 +4,6 @@ namespace Chiphpotle\Rest\Model;
 
 class PermissionsSubjectsPostResponse200
 {
-    /**
-     * LookupSubjectsResponse contains a single matching subject object ID for the
-     * requested subject object type on the permission or relation.
-     */
     protected LookupSubjectsResponse $result;
 
     protected RpcStatus $error;
