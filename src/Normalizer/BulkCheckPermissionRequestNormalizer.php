@@ -31,7 +31,6 @@ class BulkCheckPermissionRequestNormalizer implements DenormalizerInterface, Nor
         return is_object($data) && get_class($data) === 'Chiphpotle\\Rest\\Model\\BulkCheckPermissionRequest';
     }
 
-
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): BulkCheckPermissionRequest|Reference
     {
         if (isset($data['$ref'])) {
@@ -40,20 +39,24 @@ class BulkCheckPermissionRequestNormalizer implements DenormalizerInterface, Nor
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new BulkCheckPermissionRequest();
+
+        if (\array_key_exists('items', $data)) {
+            $items = [];
+            foreach ($data['items'] as $value) {
+                $items[] = $this->denormalizer->denormalize($value, 'Chiphpotle\\Rest\\Model\\BulkCheckPermissionRequestItem', 'json', $context);
+            }
+        } else {
+            throw new InvalidArgumentException('Missing items data');
+        }
+
+        $object = new BulkCheckPermissionRequest($items);
         if (null === $data || false === \is_array($data)) {
             return $object;
         }
         if (\array_key_exists('consistency', $data)) {
             $object->setConsistency($this->denormalizer->denormalize($data['consistency'], 'Chiphpotle\\Rest\\Model\\Consistency', 'json', $context));
         }
-        if (\array_key_exists('items', $data)) {
-            $values = [];
-            foreach ($data['items'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'Chiphpotle\\Rest\\Model\\BulkCheckPermissionRequestItem', 'json', $context);
-            }
-            $object->setItems($values);
-        }
+
         return $object;
     }
 

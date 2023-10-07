@@ -12,6 +12,15 @@ class BulkCheckPermissionRequestItem
 
     protected mixed $context;
 
+    public function __construct(ObjectReference $resource, string $permission, SubjectReference $subject, mixed $context = null)
+    {
+        $this->resource = $resource;
+        $this->permission = $permission;
+        $this->subject = $subject;
+        $this->context = $context;
+    }
+
+
     public function getResource(): ObjectReference
     {
         return $this->resource;

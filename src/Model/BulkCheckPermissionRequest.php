@@ -11,6 +11,16 @@ class BulkCheckPermissionRequest
      */
     protected array $items;
 
+    /**
+     * @param BulkCheckPermissionRequestItem[] $items
+     * @param Consistency|null $consistency
+     */
+    public function __construct(array $items, ?Consistency $consistency = null)
+    {
+        $this->items = $items;
+        $this->consistency = $consistency;
+    }
+
     public function getConsistency(): ?Consistency
     {
         return $this->consistency;
