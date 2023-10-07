@@ -95,7 +95,7 @@ class LookupSubjectsResponse
         $this->excludedSubjectIds = $excludedSubjectIds;
         return $this;
     }
-    
+
     public function getPermissionship(): string
     {
         return $this->permissionship;
@@ -112,30 +112,17 @@ class LookupSubjectsResponse
         return $this->partialCaveatInfo;
     }
 
-
     public function setPartialCaveatInfo(PartialCaveatInfo $partialCaveatInfo): self
     {
         $this->partialCaveatInfo = $partialCaveatInfo;
         return $this;
     }
 
-    /**
-     * ResolvedSubject is a single subject resolved within LookupSubjects.
-     *
-     * @return ResolvedSubject
-     */
     public function getSubject(): ResolvedSubject
     {
         return $this->subject;
     }
 
-    /**
-     * ResolvedSubject is a single subject resolved within LookupSubjects.
-     *
-     * @param ResolvedSubject $subject
-     *
-     * @return self
-     */
     public function setSubject(ResolvedSubject $subject): self
     {
         $this->subject = $subject;
@@ -169,25 +156,11 @@ class LookupSubjectsResponse
         return $this;
     }
 
-    /**
-    * Cursor is used to provide resumption of listing between calls to APIs
-    * such as LookupResources.
-    *
-    * @return Cursor
-    */
     public function getAfterResultCursor(): Cursor
     {
         return $this->afterResultCursor;
     }
 
-    /**
-    * Cursor is used to provide resumption of listing between calls to APIs
-    * such as LookupResources.
-    *
-    * @param Cursor $afterResultCursor
-    *
-    * @return self
-    */
     public function setAfterResultCursor(Cursor $afterResultCursor): self
     {
         $this->afterResultCursor = $afterResultCursor;

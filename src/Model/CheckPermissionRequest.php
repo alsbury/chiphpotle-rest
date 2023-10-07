@@ -4,16 +4,9 @@ namespace Chiphpotle\Rest\Model;
 
 class CheckPermissionRequest
 {
-    /**
-     * Consistency will define how a request is handled by the backend.
-     * By defining a consistency requirement, and a token at which those
-     * requirements should be applied, where applicable.
-     */
-    protected ?Consistency $consistency;
 
-    /**
-     * ObjectReference is used to refer to a specific object in the system.
-     */
+    protected ?Consistency $consistency = null;
+
     protected ObjectReference $resource;
 
     /**

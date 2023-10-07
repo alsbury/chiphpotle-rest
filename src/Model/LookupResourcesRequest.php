@@ -4,11 +4,6 @@ namespace Chiphpotle\Rest\Model;
 
 class LookupResourcesRequest
 {
-    /**
-     * Consistency will define how a request is handled by the backend.
-     * By defining a consistency requirement, and a token at which those
-     * requirements should be applied, where applicable.
-     */
     protected ?Consistency $consistency;
 
     /**
