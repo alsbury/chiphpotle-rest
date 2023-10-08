@@ -2,6 +2,9 @@
 
 namespace Chiphpotle\Rest;
 
+use Chiphpotle\Rest\Endpoint\ExperimentalServiceBulkCheckPermission;
+use Chiphpotle\Rest\Endpoint\ExperimentalServiceBulkExportRelationships;
+use Chiphpotle\Rest\Endpoint\ExperimentalServiceBulkImportRelationships;
 use Chiphpotle\Rest\Endpoint\PermissionsServiceCheckPermission;
 use Chiphpotle\Rest\Endpoint\PermissionsServiceDeleteRelationships;
 use Chiphpotle\Rest\Endpoint\PermissionsServiceExpandPermissionTree;
@@ -11,12 +14,18 @@ use Chiphpotle\Rest\Endpoint\PermissionsServiceReadRelationships;
 use Chiphpotle\Rest\Endpoint\PermissionsServiceWriteRelationships;
 use Chiphpotle\Rest\Endpoint\SchemaServiceReadSchema;
 use Chiphpotle\Rest\Endpoint\SchemaServiceWriteSchema;
+use Chiphpotle\Rest\Model\BulkCheckPermissionRequest;
+use Chiphpotle\Rest\Model\BulkCheckPermissionResponse;
+use Chiphpotle\Rest\Model\BulkExportRelationshipsRequest;
+use Chiphpotle\Rest\Model\BulkImportRelationshipsRequest;
+use Chiphpotle\Rest\Model\BulkImportRelationshipsResponse;
 use Chiphpotle\Rest\Model\CheckPermissionRequest;
 use Chiphpotle\Rest\Model\CheckPermissionResponse;
 use Chiphpotle\Rest\Model\DeleteRelationshipsRequest;
 use Chiphpotle\Rest\Model\DeleteRelationshipsResponse;
 use Chiphpotle\Rest\Model\ExpandPermissionTreeRequest;
 use Chiphpotle\Rest\Model\ExpandPermissionTreeResponse;
+use Chiphpotle\Rest\Model\ExperimentalRelationshipsBulkexportPostResponse200;
 use Chiphpotle\Rest\Model\LookupResourcesRequest;
 use Chiphpotle\Rest\Model\LookupSubjectsRequest;
 use Chiphpotle\Rest\Model\PermissionsResourcesPostResponse200;
@@ -29,9 +38,7 @@ use Chiphpotle\Rest\Model\WriteRelationshipsRequest;
 use Chiphpotle\Rest\Model\WriteRelationshipsResponse;
 use Chiphpotle\Rest\Model\WriteSchemaRequest;
 use Chiphpotle\Rest\Normalizer\JaneObjectNormalizer;
-use Http\Client\Common\PluginClient;
 use Http\Discovery\Psr17FactoryDiscovery;
-use Http\Discovery\Psr18ClientDiscovery;
 use Psr\Http\Message\ResponseInterface;
 use stdClass;
 use Symfony\Component\Serializer\Encoder\JsonDecode;
@@ -43,11 +50,48 @@ use Symfony\Component\Serializer\Serializer;
 class Client extends Runtime\Client\Client
 {
     /**
+     * @param BulkCheckPermissionRequest $body
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return BulkCheckPermissionResponse|RpcStatus
+     */
+    public function experimentalServiceBulkCheckPermission(BulkCheckPermissionRequest $body, string $fetch = self::FETCH_OBJECT): BulkCheckPermissionResponse|RpcStatus
+    {
+        return $this->executeEndpoint(new ExperimentalServiceBulkCheckPermission($body), $fetch);
+    }
+
+    /**
+     * @param BulkExportRelationshipsRequest $body BulkExportRelationshipsRequest represents a resumable request for
+     * all relationships from the server.
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return ExperimentalRelationshipsBulkexportPostResponse200|RpcStatus
+     */
+    public function experimentalServiceBulkExportRelationships(BulkExportRelationshipsRequest $body, string $fetch = self::FETCH_OBJECT): ExperimentalRelationshipsBulkexportPostResponse200|RpcStatus
+    {
+        return $this->executeEndpoint(new ExperimentalServiceBulkExportRelationships($body), $fetch);
+    }
+
+    /**
+     * EXPERIMENTAL
+     * https://github.com/authzed/spicedb/issues/1303
+     *
+     * @param BulkImportRelationshipsRequest $body
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return BulkImportRelationshipsResponse|RpcStatus
+     */
+    public function experimentalServiceBulkImportRelationships(BulkImportRelationshipsRequest $body, string $fetch = self::FETCH_OBJECT): BulkImportRelationshipsResponse|RpcStatus
+    {
+        return $this->executeEndpoint(new ExperimentalServiceBulkImportRelationships($body), $fetch);
+    }
+
+    /**
      * @param CheckPermissionRequest $request CheckPermissionRequest issues a check on whether a subject has a permission
      * or is a member of a relation, on a specific resource.
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      */
-    public function permissionsServiceCheckPermission(CheckPermissionRequest $request, string $fetch = self::FETCH_OBJECT): RpcStatus|CheckPermissionResponse|ResponseInterface|null
+    public function permissionsServiceCheckPermission(CheckPermissionRequest $request, string $fetch = self::FETCH_OBJECT): CheckPermissionResponse|RpcStatus
     {
         return $this->executeEndpoint(new PermissionsServiceCheckPermission($request), $fetch);
     }
@@ -62,7 +106,7 @@ class Client extends Runtime\Client\Client
      * access.
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      */
-    public function permissionsServiceExpandPermissionTree(ExpandPermissionTreeRequest $request, string $fetch = self::FETCH_OBJECT): RpcStatus|ExpandPermissionTreeResponse|ResponseInterface|null
+    public function permissionsServiceExpandPermissionTree(ExpandPermissionTreeRequest $request, string $fetch = self::FETCH_OBJECT): RpcStatus|ExpandPermissionTreeResponse
     {
         return $this->executeEndpoint(new PermissionsServiceExpandPermissionTree($request), $fetch);
     }
@@ -73,7 +117,7 @@ class Client extends Runtime\Client\Client
      * which the subject exists, streaming back the IDs of those resources.
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      */
-    public function permissionsServiceLookupResources(LookupResourcesRequest $request, string $fetch = self::FETCH_OBJECT): PermissionsResourcesPostResponse200|RpcStatus|ResponseInterface|null
+    public function permissionsServiceLookupResources(LookupResourcesRequest $request, string $fetch = self::FETCH_OBJECT): PermissionsResourcesPostResponse200|RpcStatus
     {
         return $this->executeEndpoint(new PermissionsServiceLookupResources($request), $fetch);
     }
@@ -97,7 +141,7 @@ class Client extends Runtime\Client\Client
      * executed.
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      */
-    public function permissionsServiceDeleteRelationships(DeleteRelationshipsRequest $request, string $fetch = self::FETCH_OBJECT): RpcStatus|DeleteRelationshipsResponse|ResponseInterface|null
+    public function permissionsServiceDeleteRelationships(DeleteRelationshipsRequest $request, string $fetch = self::FETCH_OBJECT): RpcStatus|DeleteRelationshipsResponse
     {
         return $this->executeEndpoint(new PermissionsServiceDeleteRelationships($request), $fetch);
     }
@@ -135,7 +179,7 @@ class Client extends Runtime\Client\Client
      *
      * @return null|ReadSchemaResponse|RpcStatus|ResponseInterface
      */
-    public function schemaServiceReadSchema(string $fetch = self::FETCH_OBJECT): ReadSchemaResponse|RpcStatus|ResponseInterface|null
+    public function schemaServiceReadSchema(string $fetch = self::FETCH_OBJECT): ReadSchemaResponse|RpcStatus
     {
         return $this->executeEndpoint(new SchemaServiceReadSchema(), $fetch);
     }

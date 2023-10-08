@@ -5,11 +5,19 @@ namespace Chiphpotle\Rest\Test;
 use Chiphpotle\Rest\Client;
 use Chiphpotle\Rest\Enum\RelationshipUpdateOperation;
 use Chiphpotle\Rest\Enum\CheckPermissionResponsePermissionship;
+use Chiphpotle\Rest\Model\BulkCheckPermissionRequest;
+use Chiphpotle\Rest\Model\BulkCheckPermissionRequestItem;
+use Chiphpotle\Rest\Model\BulkCheckPermissionResponse;
+use Chiphpotle\Rest\Model\BulkExportRelationshipsRequest;
+use Chiphpotle\Rest\Model\BulkExportRelationshipsResponse;
+use Chiphpotle\Rest\Model\BulkImportRelationshipsRequest;
+use Chiphpotle\Rest\Model\BulkImportRelationshipsResponse;
 use Chiphpotle\Rest\Model\CheckPermissionRequest;
 use Chiphpotle\Rest\Model\CheckPermissionResponse;
 use Chiphpotle\Rest\Model\Consistency;
 use Chiphpotle\Rest\Model\ExpandPermissionTreeRequest;
 use Chiphpotle\Rest\Model\ExpandPermissionTreeResponse;
+use Chiphpotle\Rest\Model\ExperimentalRelationshipsBulkexportPostResponse200;
 use Chiphpotle\Rest\Model\LookupResourcesRequest;
 use Chiphpotle\Rest\Model\ObjectReference;
 use Chiphpotle\Rest\Model\ReadRelationshipsRequest;
@@ -17,6 +25,7 @@ use Chiphpotle\Rest\Model\Relationship;
 use Chiphpotle\Rest\Model\RelationshipFilter;
 use Chiphpotle\Rest\Model\RelationshipsReadPostResponse200;
 use Chiphpotle\Rest\Model\RelationshipUpdate;
+use Chiphpotle\Rest\Model\RpcStatus;
 use Chiphpotle\Rest\Model\SubjectReference;
 use Chiphpotle\Rest\Model\WriteRelationshipsRequest;
 use Chiphpotle\Rest\Model\WriteRelationshipsResponse;
@@ -118,6 +127,66 @@ class ClientTest extends TestCase
             CheckPermissionResponsePermissionship::HAS_PERMISSION,
             $response->getPermissionship()
         );
+    }
+    public function testBulkPermissionCheck()
+    {
+        $this->writeRelationship('document', 'topsecret1', 'viewer', 'user', 'larry');
+        $this->writeRelationship('document', 'topsecret3', 'viewer', 'user', 'larry');
+        $request = new BulkCheckPermissionRequest(
+            [
+                new BulkCheckPermissionRequestItem(ObjectReference::create('document', 'topsecret1'), 'view', SubjectReference::create('user', 'larry')),
+                new BulkCheckPermissionRequestItem(ObjectReference::create('document', 'topsecret2'), 'view', SubjectReference::create('user', 'larry')),
+                new BulkCheckPermissionRequestItem(ObjectReference::create('document', 'topsecret3'), 'view', SubjectReference::create('user', 'larry')),
+            ]
+        );
+
+        $response = $this->getApiClient()->experimentalServiceBulkCheckPermission(
+            $request
+        );
+
+        if ($response instanceof RpcStatus) {
+            $this->markTestSkipped('Currently running version of spicedb does not support the experimental bulk permission check api');
+        }
+
+        $this->assertInstanceOf(BulkCheckPermissionResponse::class, $response);
+        $pairs = $response->getPairs();
+        $this->assertCount(3, $pairs);
+
+        foreach ($pairs as $pair) {
+            $expected = $pair->getRequest()->getResource()->getObjectId() == 'topsecret2' ? CheckPermissionResponsePermissionship::NO_PERMISSION : CheckPermissionResponsePermissionship::HAS_PERMISSION;
+            $this->assertEquals($expected, $pair->getItem()->getPermissionship());
+        }
+    }
+
+    public function testBulkRelationshipImport()
+    {
+        $request = new BulkImportRelationshipsRequest([
+            new Relationship(ObjectReference::create('document', 'blogpost1'), 'writer', SubjectReference::create('user', 'mary')),
+            new Relationship(ObjectReference::create('document', 'blogpost2'), 'writer', SubjectReference::create('user', 'mary'))
+        ]);
+        $response = $this->getApiClient()->experimentalServiceBulkImportRelationships($request);
+
+        if ($response instanceof RpcStatus) {
+            $this->markTestSkipped('Currently running version of spicedb does not support the experimental bulk relationship import api');
+        }
+
+        $this->assertInstanceOf(BulkImportRelationshipsResponse::class, $response);
+        $this->assertNotEmpty($response->getNumLoaded());
+    }
+
+    public function testBulkRelationshipExport()
+    {
+        $this->writeRelationship('document', 'topsecret1', 'writer', 'user', 'joe');
+
+        $request = new BulkExportRelationshipsRequest();
+        $response = $this->getApiClient()->experimentalServiceBulkExportRelationships($request);
+
+        if ($response instanceof RpcStatus) {
+            $this->markTestSkipped('Currently running version of spicedb does not support the experimental bulk relationship export api');
+        }
+
+        $this->assertInstanceOf(ExperimentalRelationshipsBulkexportPostResponse200::class, $response);
+        $this->assertNotEmpty($response->getResult()->getRelationships());
     }
 
     public function test_permission_check_expand()
