@@ -30,7 +30,7 @@ abstract class Client
         $this->streamFactory = $streamFactory;
     }
 
-    public function executeEndpoint(Endpoint $endpoint, string $fetch = self::FETCH_OBJECT)
+    public function executeEndpoint(Endpoint $endpoint, string $fetch = self::FETCH_OBJECT): mixed
     {
         return $endpoint->parseResponse($this->processEndpoint($endpoint), $this->serializer, $fetch);
     }
