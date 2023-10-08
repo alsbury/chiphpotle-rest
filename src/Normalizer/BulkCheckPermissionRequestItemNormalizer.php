@@ -39,18 +39,36 @@ class BulkCheckPermissionRequestItemNormalizer implements DenormalizerInterface,
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new BulkCheckPermissionRequestItem();
+
+        $missing = [];
+        $resource = null;
+        $permission = null;
+        $subject = null;
+        if (\array_key_exists('resource', $data)) {
+            $resource = $this->denormalizer->denormalize($data['resource'], 'Chiphpotle\\Rest\\Model\\ObjectReference', 'json', $context);
+        } else {
+            $missing[] = 'resource';
+        }
+
+        if (\array_key_exists('permission', $data)) {
+            $permission = $data['permission'];
+        } else {
+            $missing[] = 'permission';
+        }
+
+        if (\array_key_exists('subject', $data)) {
+            $subject = $this->denormalizer->denormalize($data['subject'], 'Chiphpotle\\Rest\\Model\\SubjectReference', 'json', $context);
+        } else {
+            $missing[] = 'subject';
+        }
+
+        if (!empty($missing)) {
+            throw new InvalidArgumentException('Missing ' . implode(', ', $missing));
+        }
+
+        $object = new BulkCheckPermissionRequestItem($resource, $permission, $subject);
         if (null === $data || false === \is_array($data)) {
             return $object;
-        }
-        if (\array_key_exists('resource', $data)) {
-            $object->setResource($this->denormalizer->denormalize($data['resource'], 'Chiphpotle\\Rest\\Model\\V1ObjectReference', 'json', $context));
-        }
-        if (\array_key_exists('permission', $data)) {
-            $object->setPermission($data['permission']);
-        }
-        if (\array_key_exists('subject', $data)) {
-            $object->setSubject($this->denormalizer->denormalize($data['subject'], 'Chiphpotle\\Rest\\Model\\V1SubjectReference', 'json', $context));
         }
         if (\array_key_exists('context', $data)) {
             $object->setContext($data['context']);
