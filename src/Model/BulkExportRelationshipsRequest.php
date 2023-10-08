@@ -10,6 +10,14 @@ class BulkExportRelationshipsRequest
 
     protected ?Cursor $optionalCursor;
 
+    public function __construct(?Consistency $consistency = null, int $optionalLimit = 0, ?Cursor $optionalCursor = null)
+    {
+        $this->consistency = $consistency;
+        $this->optionalLimit = $optionalLimit;
+        $this->optionalCursor = $optionalCursor;
+    }
+
+
     public function getConsistency(): ?Consistency
     {
         return $this->consistency;
