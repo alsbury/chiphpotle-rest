@@ -10,6 +10,15 @@ class BulkImportRelationshipsRequest
     protected array $relationships;
 
     /**
+     * @param Relationship[] $relationships
+     */
+    public function __construct(array $relationships)
+    {
+        $this->relationships = $relationships;
+    }
+
+
+    /**
      * @return Relationship[]
      */
     public function getRelationships(): array
