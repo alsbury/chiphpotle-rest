@@ -43,7 +43,7 @@ class ClientTest extends TestCase
         );
     }
 
-    public function test_schema_read()
+    public function testSchemaRead()
     {
         $schemaText = $this->getApiClient()
             ->schemaServiceReadSchema()
@@ -56,13 +56,13 @@ class ClientTest extends TestCase
         $this->assertStringContainsString('permission view', $schemaText);
     }
 
-    public function test_relationship_write()
+    public function testRelationshipWrite()
     {
         $response = $this->writeRelationship('document', 'topsecret2', 'viewer', 'user', 'jimmy');
         $this->assertNotEmpty($response->getWrittenAt()->getToken());
     }
 
-    public function test_relationship_read()
+    public function testRelationshipRead()
     {
         $filter = (new RelationshipFilter())->setResourceType("document");
         $request = (new ReadRelationshipsRequest())
@@ -74,7 +74,7 @@ class ClientTest extends TestCase
         $this->assertInstanceOf(RelationshipsReadPostResponse200::class, $response);
     }
 
-    public function test_relationship_delete()
+    public function testRelationshipDelete()
     {
         $relationship = new Relationship(
             ObjectReference::create("document", "topsecret2"),
@@ -92,7 +92,7 @@ class ClientTest extends TestCase
         $this->assertNotEmpty($response->getWrittenAt()->getToken());
     }
 
-    public function test_lookup_resources()
+    public function testLookupResources()
     {
         $this->writeRelationship('document', 'topsecret1', 'viewer', 'user', 'alice');
 
@@ -111,7 +111,7 @@ class ClientTest extends TestCase
         );
     }
 
-    public function test_permission_check_valid()
+    public function testPermissionCheckValid()
     {
         $this->writeRelationship('document', 'topsecret1', 'viewer', 'user', 'bob');
         $request = new CheckPermissionRequest(
@@ -128,6 +128,7 @@ class ClientTest extends TestCase
             $response->getPermissionship()
         );
     }
+
     public function testBulkPermissionCheck()
     {
         $this->writeRelationship('document', 'topsecret1', 'viewer', 'user', 'larry');
@@ -152,9 +153,9 @@ class ClientTest extends TestCase
         $pairs = $response->getPairs();
         $this->assertCount(3, $pairs);
 
-        foreach ($pairs as $pair) {
+        foreach ($pairs as $i => $pair) {
             $expected = $pair->getRequest()->getResource()->getObjectId() == 'topsecret2' ? CheckPermissionResponsePermissionship::NO_PERMISSION : CheckPermissionResponsePermissionship::HAS_PERMISSION;
-            $this->assertEquals($expected, $pair->getItem()->getPermissionship());
+            $this->assertEquals($expected, $pair->getItem()->getPermissionship(), 'Incorrect permission for pair #'.$i);
         }
     }
 
@@ -189,7 +190,7 @@ class ClientTest extends TestCase
         $this->assertNotEmpty($response->getResult()->getRelationships());
     }
 
-    public function test_permission_check_expand()
+    public function testPermissionCheckExpand()
     {
         $request = new ExpandPermissionTreeRequest(
             ObjectReference::create("document", "topsecret1"),
@@ -205,7 +206,7 @@ class ClientTest extends TestCase
         );
     }
 
-    public function test_permission_check_invalid()
+    public function testPermissionCheckInvalid()
     {
         $request = new CheckPermissionRequest(
             ObjectReference::create("document", "topsecret1"),
