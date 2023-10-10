@@ -24,12 +24,12 @@ class ProtobufAnyNormalizer implements DenormalizerInterface, NormalizerInterfac
 
     public function supportsDenormalization($data, $type, $format = null): bool
     {
-        return $type === 'Chiphpotle\\Rest\\Model\\ProtobufAny';
+        return $type === ProtobufAny::class;
     }
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && get_class($data) === 'Chiphpotle\\Rest\\Model\\ProtobufAny';
+        return is_object($data) && get_class($data) === ProtobufAny::class;
     }
 
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): ProtobufAny|Reference

@@ -4,6 +4,7 @@ namespace Chiphpotle\Rest\Normalizer;
 
 use ArrayObject;
 use Chiphpotle\Rest\Model\AlgebraicSubjectSet;
+use Chiphpotle\Rest\Model\PermissionRelationshipTree;
 use Chiphpotle\Rest\Runtime\Normalizer\CheckArray;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
@@ -24,12 +25,12 @@ class AlgebraicSubjectSetNormalizer implements DenormalizerInterface, Normalizer
 
     public function supportsDenormalization($data, $type, $format = null): bool
     {
-        return $type === 'Chiphpotle\\Rest\\Model\\AlgebraicSubjectSet';
+        return $type === AlgebraicSubjectSet::class;
     }
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && get_class($data) === 'Chiphpotle\\Rest\\Model\\AlgebraicSubjectSet';
+        return is_object($data) && get_class($data) === AlgebraicSubjectSet::class;
     }
 
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): AlgebraicSubjectSet|Reference
@@ -50,7 +51,7 @@ class AlgebraicSubjectSetNormalizer implements DenormalizerInterface, Normalizer
         if (array_key_exists('children', $data)) {
             $values = [];
             foreach ($data['children'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'Chiphpotle\\Rest\\Model\\PermissionRelationshipTree', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, PermissionRelationshipTree::class, 'json', $context);
             }
             $object->setChildren($values);
         }

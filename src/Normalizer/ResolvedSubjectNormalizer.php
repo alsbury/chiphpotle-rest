@@ -2,6 +2,7 @@
 
 namespace Chiphpotle\Rest\Normalizer;
 
+use Chiphpotle\Rest\Model\PartialCaveatInfo;
 use Chiphpotle\Rest\Model\ResolvedSubject;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Chiphpotle\Rest\Runtime\Normalizer\CheckArray;
@@ -22,12 +23,12 @@ class ResolvedSubjectNormalizer implements DenormalizerInterface, NormalizerInte
 
     public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Chiphpotle\\Rest\\Model\\ResolvedSubject';
+        return $type === ResolvedSubject::class;
     }
 
     public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Chiphpotle\\Rest\\Model\\ResolvedSubject';
+        return is_object($data) && get_class($data) === ResolvedSubject::class;
     }
 
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): ResolvedSubject|Reference
@@ -49,7 +50,7 @@ class ResolvedSubjectNormalizer implements DenormalizerInterface, NormalizerInte
             $object->setPermissionship($data['permissionship']);
         }
         if (\array_key_exists('partialCaveatInfo', $data)) {
-            $object->setPartialCaveatInfo($this->denormalizer->denormalize($data['partialCaveatInfo'], 'Chiphpotle\\Rest\\Model\\V1PartialCaveatInfo', 'json', $context));
+            $object->setPartialCaveatInfo($this->denormalizer->denormalize($data['partialCaveatInfo'], PartialCaveatInfo::class, 'json', $context));
         }
         return $object;
     }
@@ -71,6 +72,6 @@ class ResolvedSubjectNormalizer implements DenormalizerInterface, NormalizerInte
 
     public function getSupportedTypes(?string $format = null): array
     {
-        return ['Chiphpotle\\Rest\\Model\\ResolvedSubject' => false];
+        return [ResolvedSubject::class => false];
     }
 }

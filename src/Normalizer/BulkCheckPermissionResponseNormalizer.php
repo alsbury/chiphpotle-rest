@@ -2,7 +2,9 @@
 
 namespace Chiphpotle\Rest\Normalizer;
 
+use Chiphpotle\Rest\Model\BulkCheckPermissionPair;
 use Chiphpotle\Rest\Model\BulkCheckPermissionResponse;
+use Chiphpotle\Rest\Model\ZedToken;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Chiphpotle\Rest\Runtime\Normalizer\CheckArray;
 use Chiphpotle\Rest\Runtime\Normalizer\ValidatorTrait;
@@ -22,12 +24,12 @@ class BulkCheckPermissionResponseNormalizer implements DenormalizerInterface, No
 
     public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Chiphpotle\\Rest\\Model\\BulkCheckPermissionResponse';
+        return $type === BulkCheckPermissionResponse::class;
     }
 
     public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Chiphpotle\\Rest\\Model\\BulkCheckPermissionResponse';
+        return is_object($data) && get_class($data) === BulkCheckPermissionResponse::class;
     }
 
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): BulkCheckPermissionResponse|Reference
@@ -43,12 +45,12 @@ class BulkCheckPermissionResponseNormalizer implements DenormalizerInterface, No
             return $object;
         }
         if (\array_key_exists('checkedAt', $data)) {
-            $object->setCheckedAt($this->denormalizer->denormalize($data['checkedAt'], 'Chiphpotle\\Rest\\Model\\ZedToken', 'json', $context));
+            $object->setCheckedAt($this->denormalizer->denormalize($data['checkedAt'], ZedToken::class, 'json', $context));
         }
         if (\array_key_exists('pairs', $data)) {
             $values = [];
             foreach ($data['pairs'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'Chiphpotle\\Rest\\Model\\BulkCheckPermissionPair', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, BulkCheckPermissionPair::class, 'json', $context);
             }
             $object->setPairs($values);
         }
@@ -73,6 +75,6 @@ class BulkCheckPermissionResponseNormalizer implements DenormalizerInterface, No
 
     public function getSupportedTypes(?string $format = null): array
     {
-        return ['Chiphpotle\\Rest\\Model\\BulkCheckPermissionResponse' => false];
+        return [BulkCheckPermissionResponse::class => false];
     }
 }

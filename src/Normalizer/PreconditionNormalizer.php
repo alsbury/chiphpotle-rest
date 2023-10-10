@@ -4,6 +4,7 @@ namespace Chiphpotle\Rest\Normalizer;
 
 use ArrayObject;
 use Chiphpotle\Rest\Model\Precondition;
+use Chiphpotle\Rest\Model\RelationshipFilter;
 use Chiphpotle\Rest\Runtime\Normalizer\CheckArray;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
@@ -24,12 +25,12 @@ class PreconditionNormalizer implements DenormalizerInterface, NormalizerInterfa
 
     public function supportsDenormalization($data, $type, $format = null): bool
     {
-        return $type === 'Chiphpotle\\Rest\\Model\\Precondition';
+        return $type === Precondition::class;
     }
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && get_class($data) === 'Chiphpotle\\Rest\\Model\\Precondition';
+        return is_object($data) && get_class($data) === Precondition::class;
     }
 
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): Precondition|Reference
@@ -48,12 +49,12 @@ class PreconditionNormalizer implements DenormalizerInterface, NormalizerInterfa
             $object->setOperation($data['operation']);
         }
         if (array_key_exists('filter', $data)) {
-            $object->setFilter($this->denormalizer->denormalize($data['filter'], 'Chiphpotle\\Rest\\Model\\RelationshipFilter', 'json', $context));
+            $object->setFilter($this->denormalizer->denormalize($data['filter'], RelationshipFilter::class, 'json', $context));
         }
         return $object;
     }
 
-    public function normalize($object, $format = null, array $context = []): float|int|bool|ArrayObject|array|string|null
+    public function normalize($object, $format = null, array $context = []): array
     {
         $data = [];
         if (null !== $object->getOperation()) {

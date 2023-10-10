@@ -3,6 +3,9 @@
 namespace Chiphpotle\Rest\Normalizer;
 
 use Chiphpotle\Rest\Model\BulkCheckPermissionPair;
+use Chiphpotle\Rest\Model\BulkCheckPermissionRequestItem;
+use Chiphpotle\Rest\Model\BulkCheckPermissionResponseItem;
+use Chiphpotle\Rest\Model\RpcStatus;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Chiphpotle\Rest\Runtime\Normalizer\CheckArray;
 use Chiphpotle\Rest\Runtime\Normalizer\ValidatorTrait;
@@ -22,12 +25,12 @@ class BulkCheckPermissionPairNormalizer implements DenormalizerInterface, Normal
 
     public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Chiphpotle\\Rest\\Model\\BulkCheckPermissionPair';
+        return $type === BulkCheckPermissionPair::class;
     }
 
     public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Chiphpotle\\Rest\\Model\\BulkCheckPermissionPair';
+        return is_object($data) && get_class($data) === BulkCheckPermissionPair::class;
     }
 
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): BulkCheckPermissionPair|Reference
@@ -43,21 +46,18 @@ class BulkCheckPermissionPairNormalizer implements DenormalizerInterface, Normal
             return $object;
         }
         if (\array_key_exists('request', $data)) {
-            $object->setRequest($this->denormalizer->denormalize($data['request'], 'Chiphpotle\\Rest\\Model\\BulkCheckPermissionRequestItem', 'json', $context));
+            $object->setRequest($this->denormalizer->denormalize($data['request'], BulkCheckPermissionRequestItem::class, 'json', $context));
         }
         if (\array_key_exists('item', $data)) {
-            $object->setItem($this->denormalizer->denormalize($data['item'], 'Chiphpotle\\Rest\\Model\\BulkCheckPermissionResponseItem', 'json', $context));
+            $object->setItem($this->denormalizer->denormalize($data['item'], BulkCheckPermissionResponseItem::class, 'json', $context));
         }
         if (\array_key_exists('error', $data)) {
-            $object->setError($this->denormalizer->denormalize($data['error'], 'Chiphpotle\\Rest\\Model\\RpcStatus', 'json', $context));
+            $object->setError($this->denormalizer->denormalize($data['error'], RpcStatus::class, 'json', $context));
         }
         return $object;
     }
 
-    /**
-     * @return array|string|int|float|bool|\ArrayObject|null
-     */
-    public function normalize($object, $format = null, array $context = [])
+    public function normalize($object, $format = null, array $context = []): array
     {
         $data = [];
         if (null !== $object->getRequest()) {
@@ -74,6 +74,6 @@ class BulkCheckPermissionPairNormalizer implements DenormalizerInterface, Normal
 
     public function getSupportedTypes(?string $format = null): array
     {
-        return ['Chiphpotle\\Rest\\Model\\BulkCheckPermissionPair' => false];
+        return [BulkCheckPermissionPair::class => false];
     }
 }

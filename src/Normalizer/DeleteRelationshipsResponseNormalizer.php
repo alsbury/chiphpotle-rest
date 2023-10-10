@@ -2,8 +2,8 @@
 
 namespace Chiphpotle\Rest\Normalizer;
 
-use ArrayObject;
 use Chiphpotle\Rest\Model\DeleteRelationshipsResponse;
+use Chiphpotle\Rest\Model\ZedToken;
 use Chiphpotle\Rest\Runtime\Normalizer\CheckArray;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
@@ -24,12 +24,12 @@ class DeleteRelationshipsResponseNormalizer implements DenormalizerInterface, No
 
     public function supportsDenormalization($data, $type, $format = null): bool
     {
-        return $type === 'Chiphpotle\\Rest\\Model\\DeleteRelationshipsResponse';
+        return $type === DeleteRelationshipsResponse::class;
     }
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && get_class($data) === 'Chiphpotle\\Rest\\Model\\DeleteRelationshipsResponse';
+        return is_object($data) && get_class($data) === DeleteRelationshipsResponse::class;
     }
 
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): DeleteRelationshipsResponse|Reference
@@ -45,12 +45,12 @@ class DeleteRelationshipsResponseNormalizer implements DenormalizerInterface, No
             return $object;
         }
         if (array_key_exists('deletedAt', $data)) {
-            $object->setDeletedAt($this->denormalizer->denormalize($data['deletedAt'], 'Chiphpotle\\Rest\\Model\\ZedToken', 'json', $context));
+            $object->setDeletedAt($this->denormalizer->denormalize($data['deletedAt'], ZedToken::class, 'json', $context));
         }
         return $object;
     }
 
-    public function normalize($object, $format = null, array $context = []): float|int|bool|ArrayObject|array|string|null
+    public function normalize($object, $format = null, array $context = []): array
     {
         $data = [];
         if (null !== $object->getDeletedAt()) {

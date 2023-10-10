@@ -6,6 +6,7 @@ use Chiphpotle\Rest\Model\ContextualizedCaveat;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Chiphpotle\Rest\Runtime\Normalizer\CheckArray;
 use Chiphpotle\Rest\Runtime\Normalizer\ValidatorTrait;
+use Symfony\Component\Serializer\Exception\InvalidArgumentException;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -22,12 +23,12 @@ class ContextualizedCaveatNormalizer implements DenormalizerInterface, Normalize
 
     public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Chiphpotle\\Rest\\Model\\ContextualizedCaveat';
+        return $type === ContextualizedCaveat::class;
     }
 
     public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Chiphpotle\\Rest\\Model\\ContextualizedCaveat';
+        return is_object($data) && get_class($data) === ContextualizedCaveat::class;
     }
 
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): ContextualizedCaveat|Reference
@@ -38,13 +39,13 @@ class ContextualizedCaveatNormalizer implements DenormalizerInterface, Normalize
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new ContextualizedCaveat();
-        if (null === $data || false === \is_array($data)) {
-            return $object;
+
+        if (empty($data['caveatName'])) {
+            throw new InvalidArgumentException('Missing required caveatName');
         }
-        if (\array_key_exists('caveatName', $data)) {
-            $object->setCaveatName($data['caveatName']);
-        }
+
+        $object = new ContextualizedCaveat($data['caveatName']);
+
         if (\array_key_exists('context', $data)) {
             $object->setContext($data['context']);
         }
@@ -65,6 +66,6 @@ class ContextualizedCaveatNormalizer implements DenormalizerInterface, Normalize
 
     public function getSupportedTypes(?string $format = null): array
     {
-        return ['Chiphpotle\\Rest\\Model\\ContextualizedCaveat' => false];
+        return [ContextualizedCaveat::class => false];
     }
 }

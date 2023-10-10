@@ -2,7 +2,9 @@
 
 namespace Chiphpotle\Rest\Normalizer;
 
+use Chiphpotle\Rest\Model\Consistency;
 use Chiphpotle\Rest\Model\LookupResourcesRequest;
+use Chiphpotle\Rest\Model\SubjectReference;
 use Chiphpotle\Rest\Runtime\Normalizer\CheckArray;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
@@ -20,12 +22,12 @@ class LookupResourcesRequestNormalizer implements DenormalizerInterface, Normali
 
     public function supportsDenormalization($data, $type, $format = null): bool
     {
-        return $type === 'Chiphpotle\\Rest\\Model\\LookupResourcesRequest';
+        return $type === LookupResourcesRequest::class;
     }
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && get_class($data) === 'Chiphpotle\\Rest\\Model\\LookupResourcesRequest';
+        return is_object($data) && get_class($data) === LookupResourcesRequest::class;
     }
 
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): LookupResourcesRequest|Reference
@@ -41,7 +43,7 @@ class LookupResourcesRequestNormalizer implements DenormalizerInterface, Normali
             return $object;
         }
         if (\array_key_exists('consistency', $data)) {
-            $object->setConsistency($this->denormalizer->denormalize($data['consistency'], 'Chiphpotle\\Rest\\Model\\Consistency', 'json', $context));
+            $object->setConsistency($this->denormalizer->denormalize($data['consistency'], Consistency::class, 'json', $context));
         }
         if (\array_key_exists('resourceObjectType', $data)) {
             $object->setResourceObjectType($data['resourceObjectType']);
@@ -50,12 +52,12 @@ class LookupResourcesRequestNormalizer implements DenormalizerInterface, Normali
             $object->setPermission($data['permission']);
         }
         if (\array_key_exists('subject', $data)) {
-            $object->setSubject($this->denormalizer->denormalize($data['subject'], 'Chiphpotle\\Rest\\Model\\SubjectReference', 'json', $context));
+            $object->setSubject($this->denormalizer->denormalize($data['subject'], SubjectReference::class, 'json', $context));
         }
         return $object;
     }
 
-    public function normalize($object, $format = null, array $context = []): float|int|bool|\ArrayObject|array|string|null
+    public function normalize($object, $format = null, array $context = []): array
     {
         $data = [];
         if (null !== $object->getConsistency()) {

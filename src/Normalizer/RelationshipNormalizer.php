@@ -2,19 +2,19 @@
 
 namespace Chiphpotle\Rest\Normalizer;
 
-use ArrayObject;
+use Chiphpotle\Rest\Model\ContextualizedCaveat;
+use Chiphpotle\Rest\Model\ObjectReference;
 use Chiphpotle\Rest\Model\Relationship;
+use Chiphpotle\Rest\Model\SubjectReference;
 use Chiphpotle\Rest\Runtime\Normalizer\CheckArray;
 use Jane\Component\JsonSchemaRuntime\Reference;
+use Symfony\Component\Serializer\Exception\InvalidArgumentException;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-
-use function array_key_exists;
-use function is_array;
 
 class RelationshipNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
 {
@@ -24,12 +24,12 @@ class RelationshipNormalizer implements DenormalizerInterface, NormalizerInterfa
 
     public function supportsDenormalization($data, $type, $format = null): bool
     {
-        return $type === 'Chiphpotle\\Rest\\Model\\Relationship';
+        return $type === Relationship::class;
     }
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && get_class($data) === 'Chiphpotle\\Rest\\Model\\Relationship';
+        return is_object($data) && get_class($data) === Relationship::class;
     }
 
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): Relationship|Reference
@@ -40,20 +40,22 @@ class RelationshipNormalizer implements DenormalizerInterface, NormalizerInterfa
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new Relationship();
-        if (null === $data || false === is_array($data)) {
-            return $object;
+
+        $missing = array_filter(['resource', 'relation', 'subject'], fn (string $field) => empty($data[$field]));
+        if (!empty($missing)) {
+            throw new InvalidArgumentException('Missing required '.implode(', ', $missing));
         }
-        if (array_key_exists('resource', $data)) {
-            $object->setResource($this->denormalizer->denormalize($data['resource'], 'Chiphpotle\\Rest\\Model\\ObjectReference', 'json', $context));
+
+        $resource = $this->denormalizer->denormalize($data['resource'], ObjectReference::class, 'json', $context);
+        $relation = $data['relation'];
+        $subject = $this->denormalizer->denormalize($data['subject'], SubjectReference::class, 'json', $context);
+
+        $relationship =  new Relationship($resource, $relation, $subject);
+
+        if (!empty($data['optionalCaveat'])) {
+            $relationship->setOptionalCaveat($this->denormalizer->denormalize($data['optionalCaveat'], ContextualizedCaveat::class, 'json', $context));
         }
-        if (array_key_exists('relation', $data)) {
-            $object->setRelation($data['relation']);
-        }
-        if (array_key_exists('subject', $data)) {
-            $object->setSubject($this->denormalizer->denormalize($data['subject'], 'Chiphpotle\\Rest\\Model\\SubjectReference', 'json', $context));
-        }
-        return $object;
+        return $relationship;
     }
 
     public function normalize(mixed $object, string $format = null, array $context = []): array

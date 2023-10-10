@@ -22,12 +22,12 @@ class BulkImportRelationshipsResponseNormalizer implements DenormalizerInterface
 
     public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Chiphpotle\\Rest\\Model\\BulkImportRelationshipsResponse';
+        return $type === BulkImportRelationshipsResponse::class;
     }
 
     public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Chiphpotle\\Rest\\Model\\BulkImportRelationshipsResponse';
+        return is_object($data) && get_class($data) === BulkImportRelationshipsResponse::class;
     }
 
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): BulkImportRelationshipsResponse|Reference
@@ -59,6 +59,6 @@ class BulkImportRelationshipsResponseNormalizer implements DenormalizerInterface
 
     public function getSupportedTypes(?string $format = null): array
     {
-        return ['Chiphpotle\\Rest\\Model\\BulkImportRelationshipsResponse' => false];
+        return [BulkImportRelationshipsResponse::class => false];
     }
 }

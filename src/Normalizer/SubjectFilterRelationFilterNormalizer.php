@@ -20,12 +20,12 @@ class SubjectFilterRelationFilterNormalizer implements DenormalizerInterface, No
 
     public function supportsDenormalization($data, $type, $format = null): bool
     {
-        return $type === 'Chiphpotle\\Rest\\Model\\SubjectFilterRelationFilter';
+        return $type === SubjectFilterRelationFilter::class;
     }
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && get_class($data) === 'Chiphpotle\\Rest\\Model\\SubjectFilterRelationFilter';
+        return is_object($data) && get_class($data) === SubjectFilterRelationFilter::class;
     }
 
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): SubjectFilterRelationFilter|Reference
@@ -46,7 +46,7 @@ class SubjectFilterRelationFilterNormalizer implements DenormalizerInterface, No
         return $object;
     }
 
-    public function normalize($object, $format = null, array $context = []): float|int|bool|\ArrayObject|array|string|null
+    public function normalize($object, $format = null, array $context = []): array
     {
         $data = [];
         if (null !== $object->getRelation()) {

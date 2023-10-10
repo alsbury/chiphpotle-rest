@@ -3,6 +3,8 @@
 namespace Chiphpotle\Rest\Normalizer;
 
 use Chiphpotle\Rest\Model\BulkCheckPermissionRequest;
+use Chiphpotle\Rest\Model\BulkCheckPermissionRequestItem;
+use Chiphpotle\Rest\Model\Consistency;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Chiphpotle\Rest\Runtime\Normalizer\CheckArray;
 use Chiphpotle\Rest\Runtime\Normalizer\ValidatorTrait;
@@ -23,12 +25,12 @@ class BulkCheckPermissionRequestNormalizer implements DenormalizerInterface, Nor
 
     public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Chiphpotle\\Rest\\Model\\BulkCheckPermissionRequest';
+        return $type === BulkCheckPermissionRequest::class;
     }
 
     public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Chiphpotle\\Rest\\Model\\BulkCheckPermissionRequest';
+        return is_object($data) && get_class($data) === BulkCheckPermissionRequest::class;
     }
 
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): BulkCheckPermissionRequest|Reference
@@ -43,7 +45,7 @@ class BulkCheckPermissionRequestNormalizer implements DenormalizerInterface, Nor
         if (\array_key_exists('items', $data)) {
             $items = [];
             foreach ($data['items'] as $value) {
-                $items[] = $this->denormalizer->denormalize($value, 'Chiphpotle\\Rest\\Model\\BulkCheckPermissionRequestItem', 'json', $context);
+                $items[] = $this->denormalizer->denormalize($value, BulkCheckPermissionRequestItem::class, 'json', $context);
             }
         } else {
             throw new InvalidArgumentException('Missing items data');
@@ -54,16 +56,13 @@ class BulkCheckPermissionRequestNormalizer implements DenormalizerInterface, Nor
             return $object;
         }
         if (\array_key_exists('consistency', $data)) {
-            $object->setConsistency($this->denormalizer->denormalize($data['consistency'], 'Chiphpotle\\Rest\\Model\\Consistency', 'json', $context));
+            $object->setConsistency($this->denormalizer->denormalize($data['consistency'], Consistency::class, 'json', $context));
         }
 
         return $object;
     }
 
-    /**
-     * @return array|string|int|float|bool|\ArrayObject|null
-     */
-    public function normalize($object, $format = null, array $context = [])
+    public function normalize($object, $format = null, array $context = []): array
     {
         $data = [];
         if (null !== $object->getConsistency()) {
@@ -81,6 +80,6 @@ class BulkCheckPermissionRequestNormalizer implements DenormalizerInterface, Nor
 
     public function getSupportedTypes(?string $format = null): array
     {
-        return ['Chiphpotle\\Rest\\Model\\BulkCheckPermissionRequest' => false];
+        return [BulkCheckPermissionRequest::class => false];
     }
 }

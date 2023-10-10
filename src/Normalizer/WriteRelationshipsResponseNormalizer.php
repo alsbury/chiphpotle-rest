@@ -2,8 +2,8 @@
 
 namespace Chiphpotle\Rest\Normalizer;
 
-use ArrayObject;
 use Chiphpotle\Rest\Model\WriteRelationshipsResponse;
+use Chiphpotle\Rest\Model\ZedToken;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Chiphpotle\Rest\Runtime\Normalizer\CheckArray;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
@@ -24,12 +24,12 @@ class WriteRelationshipsResponseNormalizer implements DenormalizerInterface, Nor
 
     public function supportsDenormalization($data, $type, $format = null): bool
     {
-        return $type === 'Chiphpotle\\Rest\\Model\\WriteRelationshipsResponse';
+        return $type === WriteRelationshipsResponse::class;
     }
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && get_class($data) === 'Chiphpotle\\Rest\\Model\\WriteRelationshipsResponse';
+        return is_object($data) && get_class($data) === WriteRelationshipsResponse::class;
     }
 
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): WriteRelationshipsResponse|Reference
@@ -45,12 +45,12 @@ class WriteRelationshipsResponseNormalizer implements DenormalizerInterface, Nor
             return $object;
         }
         if (array_key_exists('writtenAt', $data)) {
-            $object->setWrittenAt($this->denormalizer->denormalize($data['writtenAt'], 'Chiphpotle\\Rest\\Model\\ZedToken', 'json', $context));
+            $object->setWrittenAt($this->denormalizer->denormalize($data['writtenAt'], ZedToken::class, 'json', $context));
         }
         return $object;
     }
 
-    public function normalize($object, $format = null, array $context = []): float|int|bool|ArrayObject|array|string|null
+    public function normalize($object, $format = null, array $context = []): array
     {
         $data = [];
         if (null !== $object->getWrittenAt()) {

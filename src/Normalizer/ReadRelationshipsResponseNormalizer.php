@@ -2,8 +2,9 @@
 
 namespace Chiphpotle\Rest\Normalizer;
 
-use ArrayObject;
 use Chiphpotle\Rest\Model\ReadRelationshipsResponse;
+use Chiphpotle\Rest\Model\Relationship;
+use Chiphpotle\Rest\Model\ZedToken;
 use Chiphpotle\Rest\Runtime\Normalizer\CheckArray;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
@@ -24,12 +25,12 @@ class ReadRelationshipsResponseNormalizer implements DenormalizerInterface, Norm
 
     public function supportsDenormalization($data, $type, $format = null): bool
     {
-        return $type === 'Chiphpotle\\Rest\\Model\\ReadRelationshipsResponse';
+        return $type === ReadRelationshipsResponse::class;
     }
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && get_class($data) === 'Chiphpotle\\Rest\\Model\\ReadRelationshipsResponse';
+        return is_object($data) && get_class($data) === ReadRelationshipsResponse::class;
     }
 
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): ReadRelationshipsResponse|Reference
@@ -45,15 +46,15 @@ class ReadRelationshipsResponseNormalizer implements DenormalizerInterface, Norm
             return $object;
         }
         if (array_key_exists('readAt', $data)) {
-            $object->setReadAt($this->denormalizer->denormalize($data['readAt'], 'Chiphpotle\\Rest\\Model\\ZedToken', 'json', $context));
+            $object->setReadAt($this->denormalizer->denormalize($data['readAt'], ZedToken::class, 'json', $context));
         }
         if (array_key_exists('relationship', $data)) {
-            $object->setRelationship($this->denormalizer->denormalize($data['relationship'], 'Chiphpotle\\Rest\\Model\\Relationship', 'json', $context));
+            $object->setRelationship($this->denormalizer->denormalize($data['relationship'], Relationship::class, 'json', $context));
         }
         return $object;
     }
 
-    public function normalize($object, $format = null, array $context = []): float|int|bool|ArrayObject|array|string|null
+    public function normalize($object, $format = null, array $context = []): array
     {
         $data = [];
         if (null !== $object->getReadAt()) {

@@ -3,6 +3,7 @@
 namespace Chiphpotle\Rest\Normalizer;
 
 use Chiphpotle\Rest\Model\WatchRequest;
+use Chiphpotle\Rest\Model\ZedToken;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Chiphpotle\Rest\Runtime\Normalizer\CheckArray;
 use Chiphpotle\Rest\Runtime\Normalizer\ValidatorTrait;
@@ -22,12 +23,12 @@ class WatchRequestNormalizer implements DenormalizerInterface, NormalizerInterfa
 
     public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Chiphpotle\\Rest\\Model\\WatchRequest';
+        return $type === WatchRequest::class;
     }
 
     public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Chiphpotle\\Rest\\Model\\WatchRequest';
+        return is_object($data) && get_class($data) === WatchRequest::class;
     }
 
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): WatchRequest|Reference
@@ -50,7 +51,7 @@ class WatchRequestNormalizer implements DenormalizerInterface, NormalizerInterfa
             $object->setOptionalObjectTypes($values);
         }
         if (\array_key_exists('optionalStartCursor', $data)) {
-            $object->setOptionalStartCursor($this->denormalizer->denormalize($data['optionalStartCursor'], 'Chiphpotle\\Rest\\Model\\ZedToken', 'json', $context));
+            $object->setOptionalStartCursor($this->denormalizer->denormalize($data['optionalStartCursor'], ZedToken::class, 'json', $context));
         }
         return $object;
     }
@@ -74,6 +75,6 @@ class WatchRequestNormalizer implements DenormalizerInterface, NormalizerInterfa
 
     public function getSupportedTypes(?string $format = null): array
     {
-        return ['Chiphpotle\\Rest\\Model\\WatchRequest' => false];
+        return [WatchRequest::class => false];
     }
 }

@@ -3,6 +3,7 @@
 namespace Chiphpotle\Rest\Normalizer;
 
 use ArrayObject;
+use Chiphpotle\Rest\Model\ProtobufAny;
 use Chiphpotle\Rest\Model\RpcStatus;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Chiphpotle\Rest\Runtime\Normalizer\CheckArray;
@@ -24,12 +25,12 @@ class RpcStatusNormalizer implements DenormalizerInterface, NormalizerInterface,
 
     public function supportsDenormalization($data, $type, $format = null): bool
     {
-        return $type === 'Chiphpotle\\Rest\\Model\\RpcStatus';
+        return $type === RpcStatus::class;
     }
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && get_class($data) === 'Chiphpotle\\Rest\\Model\\RpcStatus';
+        return is_object($data) && get_class($data) === RpcStatus::class;
     }
 
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): RpcStatus|Reference
@@ -53,7 +54,7 @@ class RpcStatusNormalizer implements DenormalizerInterface, NormalizerInterface,
         if (array_key_exists('details', $data)) {
             $values = [];
             foreach ($data['details'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'Chiphpotle\\Rest\\Model\\ProtobufAny', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, ProtobufAny::class, 'json', $context);
             }
             $object->setDetails($values);
         }

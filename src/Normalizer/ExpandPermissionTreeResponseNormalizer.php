@@ -4,6 +4,8 @@ namespace Chiphpotle\Rest\Normalizer;
 
 use ArrayObject;
 use Chiphpotle\Rest\Model\ExpandPermissionTreeResponse;
+use Chiphpotle\Rest\Model\PermissionRelationshipTree;
+use Chiphpotle\Rest\Model\ZedToken;
 use Chiphpotle\Rest\Runtime\Normalizer\CheckArray;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
@@ -24,12 +26,12 @@ class ExpandPermissionTreeResponseNormalizer implements DenormalizerInterface, N
 
     public function supportsDenormalization($data, $type, $format = null): bool
     {
-        return $type === 'Chiphpotle\\Rest\\Model\\ExpandPermissionTreeResponse';
+        return $type === ExpandPermissionTreeResponse::class;
     }
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && get_class($data) === 'Chiphpotle\\Rest\\Model\\ExpandPermissionTreeResponse';
+        return is_object($data) && get_class($data) === ExpandPermissionTreeResponse::class;
     }
 
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): ExpandPermissionTreeResponse|Reference
@@ -45,10 +47,10 @@ class ExpandPermissionTreeResponseNormalizer implements DenormalizerInterface, N
             return $object;
         }
         if (array_key_exists('expandedAt', $data)) {
-            $object->setExpandedAt($this->denormalizer->denormalize($data['expandedAt'], 'Chiphpotle\\Rest\\Model\\ZedToken', 'json', $context));
+            $object->setExpandedAt($this->denormalizer->denormalize($data['expandedAt'], ZedToken::class, 'json', $context));
         }
         if (array_key_exists('treeRoot', $data)) {
-            $object->setTreeRoot($this->denormalizer->denormalize($data['treeRoot'], 'Chiphpotle\\Rest\\Model\\PermissionRelationshipTree', 'json', $context));
+            $object->setTreeRoot($this->denormalizer->denormalize($data['treeRoot'], PermissionRelationshipTree::class, 'json', $context));
         }
         return $object;
     }

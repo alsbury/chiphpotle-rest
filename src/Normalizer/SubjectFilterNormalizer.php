@@ -3,6 +3,7 @@
 namespace Chiphpotle\Rest\Normalizer;
 
 use Chiphpotle\Rest\Model\SubjectFilter;
+use Chiphpotle\Rest\Model\SubjectFilterRelationFilter;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Chiphpotle\Rest\Runtime\Normalizer\CheckArray;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
@@ -20,12 +21,12 @@ class SubjectFilterNormalizer implements DenormalizerInterface, NormalizerInterf
 
     public function supportsDenormalization($data, $type, $format = null): bool
     {
-        return $type === 'Chiphpotle\\Rest\\Model\\SubjectFilter';
+        return $type === SubjectFilter::class;
     }
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && get_class($data) === 'Chiphpotle\\Rest\\Model\\SubjectFilter';
+        return is_object($data) && get_class($data) === SubjectFilter::class;
     }
 
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): SubjectFilter|Reference
@@ -47,12 +48,12 @@ class SubjectFilterNormalizer implements DenormalizerInterface, NormalizerInterf
             $object->setOptionalSubjectId($data['optionalSubjectId']);
         }
         if (\array_key_exists('optionalRelation', $data)) {
-            $object->setOptionalRelation($this->denormalizer->denormalize($data['optionalRelation'], 'Chiphpotle\\Rest\\Model\\SubjectFilterRelationFilter', 'json', $context));
+            $object->setOptionalRelation($this->denormalizer->denormalize($data['optionalRelation'], SubjectFilterRelationFilter::class, 'json', $context));
         }
         return $object;
     }
 
-    public function normalize($object, $format = null, array $context = []): float|int|bool|\ArrayObject|array|string|null
+    public function normalize($object, $format = null, array $context = []): array
     {
         $data = [];
         if (null !== $object->getSubjectType()) {

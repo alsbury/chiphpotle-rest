@@ -3,6 +3,8 @@
 namespace Chiphpotle\Rest\Normalizer;
 
 use Chiphpotle\Rest\Model\BulkExportRelationshipsRequest;
+use Chiphpotle\Rest\Model\Consistency;
+use Chiphpotle\Rest\Model\Cursor;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Chiphpotle\Rest\Runtime\Normalizer\CheckArray;
 use Chiphpotle\Rest\Runtime\Normalizer\ValidatorTrait;
@@ -22,12 +24,12 @@ class BulkExportRelationshipsRequestNormalizer implements DenormalizerInterface,
 
     public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Chiphpotle\\Rest\\Model\\BulkExportRelationshipsRequest';
+        return $type === BulkExportRelationshipsRequest::class;
     }
 
     public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Chiphpotle\\Rest\\Model\\BulkExportRelationshipsRequest';
+        return is_object($data) && get_class($data) === BulkExportRelationshipsRequest::class;
     }
 
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): BulkExportRelationshipsRequest|Reference
@@ -43,13 +45,13 @@ class BulkExportRelationshipsRequestNormalizer implements DenormalizerInterface,
             return $object;
         }
         if (\array_key_exists('consistency', $data)) {
-            $object->setConsistency($this->denormalizer->denormalize($data['consistency'], 'Chiphpotle\\Rest\\Model\\Consistency', 'json', $context));
+            $object->setConsistency($this->denormalizer->denormalize($data['consistency'], Consistency::class, 'json', $context));
         }
         if (\array_key_exists('optionalLimit', $data)) {
             $object->setOptionalLimit($data['optionalLimit']);
         }
         if (\array_key_exists('optionalCursor', $data)) {
-            $object->setOptionalCursor($this->denormalizer->denormalize($data['optionalCursor'], 'Chiphpotle\\Rest\\Model\\Cursor', 'json', $context));
+            $object->setOptionalCursor($this->denormalizer->denormalize($data['optionalCursor'], Cursor::class, 'json', $context));
         }
         return $object;
     }
@@ -71,6 +73,6 @@ class BulkExportRelationshipsRequestNormalizer implements DenormalizerInterface,
 
     public function getSupportedTypes(?string $format = null): array
     {
-        return ['Chiphpotle\\Rest\\Model\\BulkExportRelationshipsRequest' => false];
+        return [BulkExportRelationshipsRequest::class => false];
     }
 }

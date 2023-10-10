@@ -3,6 +3,7 @@
 namespace Chiphpotle\Rest\Normalizer;
 
 use Chiphpotle\Rest\Model\BulkCheckPermissionResponseItem;
+use Chiphpotle\Rest\Model\PartialCaveatInfo;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Chiphpotle\Rest\Runtime\Normalizer\CheckArray;
 use Chiphpotle\Rest\Runtime\Normalizer\ValidatorTrait;
@@ -22,12 +23,12 @@ class BulkCheckPermissionResponseItemNormalizer implements DenormalizerInterface
 
     public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Chiphpotle\\Rest\\Model\\BulkCheckPermissionResponseItem';
+        return $type === BulkCheckPermissionResponseItem::class;
     }
 
     public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Chiphpotle\\Rest\\Model\\BulkCheckPermissionResponseItem';
+        return is_object($data) && get_class($data) === BulkCheckPermissionResponseItem::class;
     }
 
 
@@ -47,15 +48,12 @@ class BulkCheckPermissionResponseItemNormalizer implements DenormalizerInterface
             $object->setPermissionship($data['permissionship']);
         }
         if (\array_key_exists('partialCaveatInfo', $data)) {
-            $object->setPartialCaveatInfo($this->denormalizer->denormalize($data['partialCaveatInfo'], 'Chiphpotle\\Rest\\Model\\PartialCaveatInfo', 'json', $context));
+            $object->setPartialCaveatInfo($this->denormalizer->denormalize($data['partialCaveatInfo'], PartialCaveatInfo::class, 'json', $context));
         }
         return $object;
     }
 
-    /**
-     * @return array|string|int|float|bool|\ArrayObject|null
-     */
-    public function normalize($object, $format = null, array $context = [])
+    public function normalize($object, $format = null, array $context = []): array
     {
         $data = [];
         if (null !== $object->getPermissionship()) {
@@ -69,6 +67,6 @@ class BulkCheckPermissionResponseItemNormalizer implements DenormalizerInterface
 
     public function getSupportedTypes(?string $format = null): array
     {
-        return ['Chiphpotle\\Rest\\Model\\BulkCheckPermissionResponseItem' => false];
+        return [BulkCheckPermissionResponseItem::class => false];
     }
 }

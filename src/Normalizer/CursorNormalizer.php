@@ -22,12 +22,12 @@ class CursorNormalizer implements DenormalizerInterface, NormalizerInterface, De
 
     public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Chiphpotle\\Rest\\Model\\Cursor';
+        return $type === Cursor::class;
     }
 
     public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Chiphpotle\\Rest\\Model\\Cursor';
+        return is_object($data) && get_class($data) === Cursor::class;
     }
 
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): Cursor|Reference
@@ -59,6 +59,6 @@ class CursorNormalizer implements DenormalizerInterface, NormalizerInterface, De
 
     public function getSupportedTypes(?string $format = null): array
     {
-        return ['Chiphpotle\\Rest\\Model\\Cursor' => false];
+        return [Cursor::class => false];
     }
 }

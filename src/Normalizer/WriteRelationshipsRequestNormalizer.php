@@ -2,7 +2,8 @@
 
 namespace Chiphpotle\Rest\Normalizer;
 
-use ArrayObject;
+use Chiphpotle\Rest\Model\Precondition;
+use Chiphpotle\Rest\Model\RelationshipUpdate;
 use Chiphpotle\Rest\Model\WriteRelationshipsRequest;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Chiphpotle\Rest\Runtime\Normalizer\CheckArray;
@@ -24,12 +25,12 @@ class WriteRelationshipsRequestNormalizer implements DenormalizerInterface, Norm
 
     public function supportsDenormalization($data, $type, $format = null): bool
     {
-        return $type === 'Chiphpotle\\Rest\\Model\\WriteRelationshipsRequest';
+        return $type === WriteRelationshipsRequest::class;
     }
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && get_class($data) === 'Chiphpotle\\Rest\\Model\\WriteRelationshipsRequest';
+        return is_object($data) && get_class($data) === WriteRelationshipsRequest::class;
     }
 
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): WriteRelationshipsRequest|Reference
@@ -47,21 +48,21 @@ class WriteRelationshipsRequestNormalizer implements DenormalizerInterface, Norm
         if (array_key_exists('updates', $data)) {
             $values = [];
             foreach ($data['updates'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'Chiphpotle\\Rest\\Model\\RelationshipUpdate', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, RelationshipUpdate::class, 'json', $context);
             }
             $object->setUpdates($values);
         }
         if (array_key_exists('optionalPreconditions', $data)) {
             $values_1 = [];
             foreach ($data['optionalPreconditions'] as $value_1) {
-                $values_1[] = $this->denormalizer->denormalize($value_1, 'Chiphpotle\\Rest\\Model\\Precondition', 'json', $context);
+                $values_1[] = $this->denormalizer->denormalize($value_1, Precondition::class, 'json', $context);
             }
             $object->setOptionalPreconditions($values_1);
         }
         return $object;
     }
 
-    public function normalize($object, $format = null, array $context = []): float|int|bool|ArrayObject|array|string|null
+    public function normalize($object, $format = null, array $context = []): array
     {
         $data = [];
         if (null !== $object->getUpdates()) {

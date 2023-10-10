@@ -3,7 +3,7 @@
 namespace Chiphpotle\Rest\Normalizer;
 
 use Chiphpotle\Rest\Model\CheckPermissionResponse;
-use ArrayObject;
+use Chiphpotle\Rest\Model\ZedToken;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Chiphpotle\Rest\Runtime\Normalizer\CheckArray;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
@@ -24,12 +24,12 @@ class CheckPermissionResponseNormalizer implements DenormalizerInterface, Normal
 
     public function supportsDenormalization($data, $type, $format = null): bool
     {
-        return $type === 'Chiphpotle\\Rest\\Model\\CheckPermissionResponse';
+        return $type === CheckPermissionResponse::class;
     }
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && get_class($data) === 'Chiphpotle\\Rest\\Model\\CheckPermissionResponse';
+        return is_object($data) && get_class($data) === CheckPermissionResponse::class;
     }
 
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): CheckPermissionResponse|Reference
@@ -45,7 +45,7 @@ class CheckPermissionResponseNormalizer implements DenormalizerInterface, Normal
             return $object;
         }
         if (array_key_exists('checkedAt', $data)) {
-            $object->setCheckedAt($this->denormalizer->denormalize($data['checkedAt'], 'Chiphpotle\\Rest\\Model\\ZedToken', 'json', $context));
+            $object->setCheckedAt($this->denormalizer->denormalize($data['checkedAt'], ZedToken::class, 'json', $context));
         }
         if (array_key_exists('permissionship', $data)) {
             $object->setPermissionship($data['permissionship']);

@@ -6,7 +6,6 @@ use Chiphpotle\Rest\Model\PartialCaveatInfo;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Chiphpotle\Rest\Runtime\Normalizer\CheckArray;
 use Chiphpotle\Rest\Runtime\Normalizer\ValidatorTrait;
-use Symfony\Component\Serializer\Exception\InvalidArgumentException;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -23,12 +22,12 @@ class PartialCaveatInfoNormalizer implements DenormalizerInterface, NormalizerIn
 
     public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Chiphpotle\\Rest\\Model\\PartialCaveatInfo';
+        return $type === PartialCaveatInfo::class;
     }
 
     public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Chiphpotle\\Rest\\Model\\PartialCaveatInfo';
+        return is_object($data) && get_class($data) === PartialCaveatInfo::class;
     }
 
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): PartialCaveatInfo|Reference
@@ -68,6 +67,6 @@ class PartialCaveatInfoNormalizer implements DenormalizerInterface, NormalizerIn
 
     public function getSupportedTypes(?string $format = null): array
     {
-        return ['Chiphpotle\\Rest\\Model\\PartialCaveatInfo' => false];
+        return [PartialCaveatInfo::class => false];
     }
 }

@@ -2,10 +2,12 @@
 
 namespace Chiphpotle\Rest\Normalizer;
 
-use ArrayObject;
+use Chiphpotle\Rest\Model\Consistency;
 use Chiphpotle\Rest\Model\ExpandPermissionTreeRequest;
+use Chiphpotle\Rest\Model\ObjectReference;
 use Chiphpotle\Rest\Runtime\Normalizer\CheckArray;
 use Jane\Component\JsonSchemaRuntime\Reference;
+use Symfony\Component\Serializer\Exception\InvalidArgumentException;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -14,7 +16,6 @@ use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 use function array_key_exists;
-use function is_array;
 
 class ExpandPermissionTreeRequestNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
 {
@@ -24,12 +25,12 @@ class ExpandPermissionTreeRequestNormalizer implements DenormalizerInterface, No
 
     public function supportsDenormalization($data, $type, $format = null): bool
     {
-        return $type === 'Chiphpotle\\Rest\\Model\\ExpandPermissionTreeRequest';
+        return $type === ExpandPermissionTreeRequest::class;
     }
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && get_class($data) === 'Chiphpotle\\Rest\\Model\\ExpandPermissionTreeRequest';
+        return is_object($data) && get_class($data) === ExpandPermissionTreeRequest::class;
     }
 
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): ExpandPermissionTreeRequest|Reference
@@ -40,23 +41,28 @@ class ExpandPermissionTreeRequestNormalizer implements DenormalizerInterface, No
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new ExpandPermissionTreeRequest();
-        if (null === $data || false === is_array($data)) {
-            return $object;
+
+        if (empty($data['resource'])) {
+            throw new InvalidArgumentException('Missing required resource');
         }
+
+        if (empty($data['permission'])) {
+            throw new InvalidArgumentException('Missing required permission');
+        }
+
+        $resource = $this->denormalizer->denormalize($data['resource'], ObjectReference::class, 'json', $context);
+        $permission = $data['permission'];
+
+        $object = new ExpandPermissionTreeRequest($resource, $permission);
+
         if (array_key_exists('consistency', $data)) {
-            $object->setConsistency($this->denormalizer->denormalize($data['consistency'], 'Chiphpotle\\Rest\\Model\\Consistency', 'json', $context));
+            $object->setConsistency($this->denormalizer->denormalize($data['consistency'], Consistency::class, 'json', $context));
         }
-        if (array_key_exists('resource', $data)) {
-            $object->setResource($this->denormalizer->denormalize($data['resource'], 'Chiphpotle\\Rest\\Model\\ObjectReference', 'json', $context));
-        }
-        if (array_key_exists('permission', $data)) {
-            $object->setPermission($data['permission']);
-        }
+
         return $object;
     }
 
-    public function normalize($object, $format = null, array $context = []): float|int|bool|ArrayObject|array|string|null
+    public function normalize($object, $format = null, array $context = []): array
     {
         $data = [];
         if (null !== $object->getConsistency()) {

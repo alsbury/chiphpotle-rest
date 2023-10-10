@@ -2,7 +2,7 @@
 
 namespace Chiphpotle\Rest\Normalizer;
 
-use ArrayObject;
+use Chiphpotle\Rest\Model\Relationship;
 use Chiphpotle\Rest\Model\RelationshipUpdate;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Chiphpotle\Rest\Runtime\Normalizer\CheckArray;
@@ -24,12 +24,12 @@ class RelationshipUpdateNormalizer implements DenormalizerInterface, NormalizerI
 
     public function supportsDenormalization($data, $type, $format = null): bool
     {
-        return $type === 'Chiphpotle\\Rest\\Model\\RelationshipUpdate';
+        return $type === RelationshipUpdate::class;
     }
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && get_class($data) === 'Chiphpotle\\Rest\\Model\\RelationshipUpdate';
+        return is_object($data) && get_class($data) === RelationshipUpdate::class;
     }
 
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): RelationshipUpdate|Reference
@@ -48,12 +48,12 @@ class RelationshipUpdateNormalizer implements DenormalizerInterface, NormalizerI
             $object->setOperation($data['operation']);
         }
         if (array_key_exists('relationship', $data)) {
-            $object->setRelationship($this->denormalizer->denormalize($data['relationship'], 'Chiphpotle\\Rest\\Model\\Relationship', 'json', $context));
+            $object->setRelationship($this->denormalizer->denormalize($data['relationship'], Relationship::class, 'json', $context));
         }
         return $object;
     }
 
-    public function normalize($object, $format = null, array $context = []): float|int|bool|ArrayObject|array|string|null
+    public function normalize($object, $format = null, array $context = []): array
     {
         $data = [];
         if (null !== $object->getOperation()) {

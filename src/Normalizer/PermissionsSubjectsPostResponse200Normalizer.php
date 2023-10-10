@@ -2,8 +2,10 @@
 
 namespace Chiphpotle\Rest\Normalizer;
 
+use Chiphpotle\Rest\Model\LookupSubjectsResponse;
 use Chiphpotle\Rest\Model\PermissionsSubjectsPostResponse200;
 use ArrayObject;
+use Chiphpotle\Rest\Model\RpcStatus;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Chiphpotle\Rest\Runtime\Normalizer\CheckArray;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
@@ -24,12 +26,12 @@ class PermissionsSubjectsPostResponse200Normalizer implements DenormalizerInterf
 
     public function supportsDenormalization($data, $type, $format = null): bool
     {
-        return $type === 'Chiphpotle\\Rest\\Model\\PermissionsSubjectsPostResponse200';
+        return $type === PermissionsSubjectsPostResponse200::class;
     }
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && get_class($data) === 'Chiphpotle\\Rest\\Model\\PermissionsSubjectsPostResponse200';
+        return is_object($data) && get_class($data) === PermissionsSubjectsPostResponse200::class;
     }
 
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): PermissionsSubjectsPostResponse200|Reference
@@ -45,15 +47,15 @@ class PermissionsSubjectsPostResponse200Normalizer implements DenormalizerInterf
             return $object;
         }
         if (array_key_exists('result', $data)) {
-            $object->setResult($this->denormalizer->denormalize($data['result'], 'Chiphpotle\\Rest\\Model\\LookupSubjectsResponse', 'json', $context));
+            $object->setResult($this->denormalizer->denormalize($data['result'], LookupSubjectsResponse::class, 'json', $context));
         }
         if (array_key_exists('error', $data)) {
-            $object->setError($this->denormalizer->denormalize($data['error'], 'Chiphpotle\\Rest\\Model\\RpcStatus', 'json', $context));
+            $object->setError($this->denormalizer->denormalize($data['error'], RpcStatus::class, 'json', $context));
         }
         return $object;
     }
 
-    public function normalize($object, $format = null, array $context = []): float|int|bool|ArrayObject|array|string|null
+    public function normalize($object, $format = null, array $context = []): array
     {
         $data = [];
         if (null !== $object->getResult()) {

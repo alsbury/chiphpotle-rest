@@ -2,7 +2,9 @@
 
 namespace Chiphpotle\Rest\Normalizer;
 
-use ArrayObject;
+use Chiphpotle\Rest\Model\AlgebraicSubjectSet;
+use Chiphpotle\Rest\Model\DirectSubjectSet;
+use Chiphpotle\Rest\Model\ObjectReference;
 use Chiphpotle\Rest\Model\PermissionRelationshipTree;
 use Chiphpotle\Rest\Runtime\Normalizer\CheckArray;
 use Jane\Component\JsonSchemaRuntime\Reference;
@@ -24,12 +26,12 @@ class PermissionRelationshipTreeNormalizer implements DenormalizerInterface, Nor
 
     public function supportsDenormalization($data, $type, $format = null): bool
     {
-        return $type === 'Chiphpotle\\Rest\\Model\\PermissionRelationshipTree';
+        return $type === PermissionRelationshipTree::class;
     }
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && get_class($data) === 'Chiphpotle\\Rest\\Model\\PermissionRelationshipTree';
+        return is_object($data) && get_class($data) === PermissionRelationshipTree::class;
     }
 
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): PermissionRelationshipTree|Reference
@@ -45,13 +47,13 @@ class PermissionRelationshipTreeNormalizer implements DenormalizerInterface, Nor
             return $object;
         }
         if (array_key_exists('intermediate', $data)) {
-            $object->setIntermediate($this->denormalizer->denormalize($data['intermediate'], 'Chiphpotle\\Rest\\Model\\AlgebraicSubjectSet', 'json', $context));
+            $object->setIntermediate($this->denormalizer->denormalize($data['intermediate'], AlgebraicSubjectSet::class, 'json', $context));
         }
         if (array_key_exists('leaf', $data)) {
-            $object->setLeaf($this->denormalizer->denormalize($data['leaf'], 'Chiphpotle\\Rest\\Model\\DirectSubjectSet', 'json', $context));
+            $object->setLeaf($this->denormalizer->denormalize($data['leaf'], DirectSubjectSet::class, 'json', $context));
         }
         if (array_key_exists('expandedObject', $data)) {
-            $object->setExpandedObject($this->denormalizer->denormalize($data['expandedObject'], 'Chiphpotle\\Rest\\Model\\ObjectReference', 'json', $context));
+            $object->setExpandedObject($this->denormalizer->denormalize($data['expandedObject'], ObjectReference::class, 'json', $context));
         }
         if (array_key_exists('expandedRelation', $data)) {
             $object->setExpandedRelation($data['expandedRelation']);
@@ -59,7 +61,7 @@ class PermissionRelationshipTreeNormalizer implements DenormalizerInterface, Nor
         return $object;
     }
 
-    public function normalize($object, $format = null, array $context = []): float|int|bool|ArrayObject|array|string|null
+    public function normalize($object, $format = null, array $context = []): array
     {
         $data = [];
         if (null !== $object->getIntermediate()) {

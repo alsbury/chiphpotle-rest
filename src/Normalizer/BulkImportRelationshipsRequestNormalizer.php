@@ -3,9 +3,11 @@
 namespace Chiphpotle\Rest\Normalizer;
 
 use Chiphpotle\Rest\Model\BulkImportRelationshipsRequest;
+use Chiphpotle\Rest\Model\Relationship;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Chiphpotle\Rest\Runtime\Normalizer\CheckArray;
 use Chiphpotle\Rest\Runtime\Normalizer\ValidatorTrait;
+use Symfony\Component\Serializer\Exception\InvalidArgumentException;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -22,12 +24,12 @@ class BulkImportRelationshipsRequestNormalizer implements DenormalizerInterface,
 
     public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Chiphpotle\\Rest\\Model\\BulkImportRelationshipsRequest';
+        return $type === BulkImportRelationshipsRequest::class;
     }
 
     public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Chiphpotle\\Rest\\Model\\BulkImportRelationshipsRequest';
+        return is_object($data) && get_class($data) === BulkImportRelationshipsRequest::class;
     }
 
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): BulkImportRelationshipsRequest|Reference
@@ -38,18 +40,17 @@ class BulkImportRelationshipsRequestNormalizer implements DenormalizerInterface,
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new BulkImportRelationshipsRequest();
-        if (null === $data || false === \is_array($data)) {
-            return $object;
+
+        if (empty($data['relationships'])) {
+            throw new InvalidArgumentException('Missing required relationships');
         }
-        if (\array_key_exists('relationships', $data)) {
-            $values = [];
-            foreach ($data['relationships'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'Chiphpotle\\Rest\\Model\\Relationship', 'json', $context);
-            }
-            $object->setRelationships($values);
+
+        $relationships = [];
+        foreach ($data['relationships'] as $value) {
+            $relationships[] = $this->denormalizer->denormalize($value, Relationship::class, 'json', $context);
         }
-        return $object;
+
+        return new BulkImportRelationshipsRequest($relationships);
     }
 
     public function normalize($object, $format = null, array $context = []): array
@@ -67,6 +68,6 @@ class BulkImportRelationshipsRequestNormalizer implements DenormalizerInterface,
 
     public function getSupportedTypes(?string $format = null): array
     {
-        return ['Chiphpotle\\Rest\\Model\\BulkImportRelationshipsRequest' => false];
+        return [BulkImportRelationshipsRequest::class => false];
     }
 }

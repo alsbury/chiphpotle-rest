@@ -7,7 +7,7 @@ class SubjectReference
     /**
      * ObjectReference is used to refer to a specific object in the system.
      */
-    protected ?ObjectReference $object;
+    protected ObjectReference $object;
 
     protected ?string $optionalRelation = null;
 
@@ -15,7 +15,7 @@ class SubjectReference
      * @param ObjectReference|null $object
      * @param string|null $optionalRelation
      */
-    public function __construct(?ObjectReference $object = null, ?string $optionalRelation = null)
+    public function __construct(ObjectReference $object = null, ?string $optionalRelation = null)
     {
         $this->object = $object;
         $this->optionalRelation = $optionalRelation;

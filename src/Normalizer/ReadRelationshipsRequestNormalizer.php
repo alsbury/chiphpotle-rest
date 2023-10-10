@@ -2,7 +2,9 @@
 
 namespace Chiphpotle\Rest\Normalizer;
 
+use Chiphpotle\Rest\Model\Consistency;
 use Chiphpotle\Rest\Model\ReadRelationshipsRequest;
+use Chiphpotle\Rest\Model\RelationshipFilter;
 use Chiphpotle\Rest\Runtime\Normalizer\CheckArray;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
@@ -20,12 +22,12 @@ class ReadRelationshipsRequestNormalizer implements DenormalizerInterface, Norma
 
     public function supportsDenormalization($data, $type, $format = null): bool
     {
-        return $type === 'Chiphpotle\\Rest\\Model\\ReadRelationshipsRequest';
+        return $type === ReadRelationshipsRequest::class;
     }
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && get_class($data) === 'Chiphpotle\\Rest\\Model\\ReadRelationshipsRequest';
+        return is_object($data) && get_class($data) === ReadRelationshipsRequest::class;
     }
 
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): ReadRelationshipsRequest|Reference
@@ -41,15 +43,15 @@ class ReadRelationshipsRequestNormalizer implements DenormalizerInterface, Norma
             return $object;
         }
         if (\array_key_exists('consistency', $data)) {
-            $object->setConsistency($this->denormalizer->denormalize($data['consistency'], 'Chiphpotle\\Rest\\Model\\Consistency', 'json', $context));
+            $object->setConsistency($this->denormalizer->denormalize($data['consistency'], Consistency::class, 'json', $context));
         }
         if (\array_key_exists('relationshipFilter', $data)) {
-            $object->setRelationshipFilter($this->denormalizer->denormalize($data['relationshipFilter'], 'Chiphpotle\\Rest\\Model\\RelationshipFilter', 'json', $context));
+            $object->setRelationshipFilter($this->denormalizer->denormalize($data['relationshipFilter'], RelationshipFilter::class, 'json', $context));
         }
         return $object;
     }
 
-    public function normalize($object, $format = null, array $context = []): float|int|bool|\ArrayObject|array|string|null
+    public function normalize($object, $format = null, array $context = []): array
     {
         $data = [];
         if (null !== $object->getConsistency()) {

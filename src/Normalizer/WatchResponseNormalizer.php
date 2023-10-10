@@ -2,7 +2,9 @@
 
 namespace Chiphpotle\Rest\Normalizer;
 
+use Chiphpotle\Rest\Model\RelationshipUpdate;
 use Chiphpotle\Rest\Model\WatchResponse;
+use Chiphpotle\Rest\Model\ZedToken;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Chiphpotle\Rest\Runtime\Normalizer\CheckArray;
 use Chiphpotle\Rest\Runtime\Normalizer\ValidatorTrait;
@@ -22,12 +24,12 @@ class WatchResponseNormalizer implements DenormalizerInterface, NormalizerInterf
 
     public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Chiphpotle\\Rest\\Model\\WatchResponse';
+        return $type === WatchResponse::class;
     }
 
     public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Chiphpotle\\Rest\\Model\\WatchResponse';
+        return is_object($data) && get_class($data) === WatchResponse::class;
     }
 
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): WatchResponse|Reference
@@ -45,12 +47,12 @@ class WatchResponseNormalizer implements DenormalizerInterface, NormalizerInterf
         if (\array_key_exists('updates', $data)) {
             $values = [];
             foreach ($data['updates'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'Chiphpotle\\Rest\\Model\\RelationshipUpdate', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, RelationshipUpdate::class, 'json', $context);
             }
             $object->setUpdates($values);
         }
         if (\array_key_exists('changesThrough', $data)) {
-            $object->setChangesThrough($this->denormalizer->denormalize($data['changesThrough'], 'Chiphpotle\\Rest\\Model\\ZedToken', 'json', $context));
+            $object->setChangesThrough($this->denormalizer->denormalize($data['changesThrough'], ZedToken::class, 'json', $context));
         }
         return $object;
     }
@@ -73,6 +75,6 @@ class WatchResponseNormalizer implements DenormalizerInterface, NormalizerInterf
 
     public function getSupportedTypes(?string $format = null): array
     {
-        return ['Chiphpotle\\Rest\\Model\\WatchResponse' => false];
+        return [WatchResponse::class => false];
     }
 }

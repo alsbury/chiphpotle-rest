@@ -2,8 +2,10 @@
 
 namespace Chiphpotle\Rest\Normalizer;
 
+use Chiphpotle\Rest\Model\Consistency;
 use Chiphpotle\Rest\Model\LookupSubjectsRequest;
 use ArrayObject;
+use Chiphpotle\Rest\Model\ObjectReference;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Chiphpotle\Rest\Runtime\Normalizer\CheckArray;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
@@ -24,12 +26,12 @@ class LookupSubjectsRequestNormalizer implements DenormalizerInterface, Normaliz
 
     public function supportsDenormalization($data, $type, $format = null): bool
     {
-        return $type === 'Chiphpotle\\Rest\\Model\\LookupSubjectsRequest';
+        return $type === LookupSubjectsRequest::class;
     }
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && get_class($data) === 'Chiphpotle\\Rest\\Model\\LookupSubjectsRequest';
+        return is_object($data) && get_class($data) === LookupSubjectsRequest::class;
     }
 
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): LookupSubjectsRequest|Reference
@@ -45,10 +47,10 @@ class LookupSubjectsRequestNormalizer implements DenormalizerInterface, Normaliz
             return $object;
         }
         if (array_key_exists('consistency', $data)) {
-            $object->setConsistency($this->denormalizer->denormalize($data['consistency'], 'Chiphpotle\\Rest\\Model\\Consistency', 'json', $context));
+            $object->setConsistency($this->denormalizer->denormalize($data['consistency'], Consistency::class, 'json', $context));
         }
         if (array_key_exists('resource', $data)) {
-            $object->setResource($this->denormalizer->denormalize($data['resource'], 'Chiphpotle\\Rest\\Model\\ObjectReference', 'json', $context));
+            $object->setResource($this->denormalizer->denormalize($data['resource'], ObjectReference::class, 'json', $context));
         }
         if (array_key_exists('permission', $data)) {
             $object->setPermission($data['permission']);

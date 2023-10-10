@@ -3,6 +3,8 @@
 namespace Chiphpotle\Rest\Normalizer;
 
 use Chiphpotle\Rest\Model\BulkCheckPermissionRequestItem;
+use Chiphpotle\Rest\Model\ObjectReference;
+use Chiphpotle\Rest\Model\SubjectReference;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Chiphpotle\Rest\Runtime\Normalizer\CheckArray;
 use Chiphpotle\Rest\Runtime\Normalizer\ValidatorTrait;
@@ -23,12 +25,12 @@ class BulkCheckPermissionRequestItemNormalizer implements DenormalizerInterface,
 
     public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Chiphpotle\\Rest\\Model\\BulkCheckPermissionRequestItem';
+        return $type === BulkCheckPermissionRequestItem::class;
     }
 
     public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Chiphpotle\\Rest\\Model\\BulkCheckPermissionRequestItem';
+        return is_object($data) && get_class($data) === BulkCheckPermissionRequestItem::class;
     }
 
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): BulkCheckPermissionRequestItem|Reference
@@ -45,7 +47,7 @@ class BulkCheckPermissionRequestItemNormalizer implements DenormalizerInterface,
         $permission = null;
         $subject = null;
         if (\array_key_exists('resource', $data)) {
-            $resource = $this->denormalizer->denormalize($data['resource'], 'Chiphpotle\\Rest\\Model\\ObjectReference', 'json', $context);
+            $resource = $this->denormalizer->denormalize($data['resource'], ObjectReference::class, 'json', $context);
         } else {
             $missing[] = 'resource';
         }
@@ -57,7 +59,7 @@ class BulkCheckPermissionRequestItemNormalizer implements DenormalizerInterface,
         }
 
         if (\array_key_exists('subject', $data)) {
-            $subject = $this->denormalizer->denormalize($data['subject'], 'Chiphpotle\\Rest\\Model\\SubjectReference', 'json', $context);
+            $subject = $this->denormalizer->denormalize($data['subject'], SubjectReference::class, 'json', $context);
         } else {
             $missing[] = 'subject';
         }
@@ -96,6 +98,6 @@ class BulkCheckPermissionRequestItemNormalizer implements DenormalizerInterface,
 
     public function getSupportedTypes(?string $format = null): array
     {
-        return ['Chiphpotle\\Rest\\Model\\BulkCheckPermissionRequestItem' => false];
+        return [BulkCheckPermissionRequestItem::class => false];
     }
 }

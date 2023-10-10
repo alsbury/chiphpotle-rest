@@ -24,12 +24,12 @@ class ZedTokenNormalizer implements DenormalizerInterface, NormalizerInterface, 
 
     public function supportsDenormalization($data, $type, $format = null): bool
     {
-        return $type === 'Chiphpotle\\Rest\\Model\\ZedToken';
+        return $type === ZedToken::class;
     }
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && get_class($data) === 'Chiphpotle\\Rest\\Model\\ZedToken';
+        return is_object($data) && get_class($data) === ZedToken::class;
     }
 
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): ZedToken|Reference
@@ -50,7 +50,7 @@ class ZedTokenNormalizer implements DenormalizerInterface, NormalizerInterface, 
         return $object;
     }
 
-    public function normalize($object, $format = null, array $context = []): float|int|bool|ArrayObject|array|string|null
+    public function normalize($object, $format = null, array $context = []): array
     {
         $data = [];
         if (null !== $object->getToken()) {

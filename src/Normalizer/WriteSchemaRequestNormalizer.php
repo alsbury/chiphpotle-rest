@@ -21,12 +21,12 @@ class WriteSchemaRequestNormalizer implements DenormalizerInterface, NormalizerI
 
     public function supportsDenormalization($data, $type, $format = null): bool
     {
-        return $type === 'Chiphpotle\\Rest\\Model\\WriteSchemaRequest';
+        return $type === WriteSchemaRequest::class;
     }
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && get_class($data) === 'Chiphpotle\\Rest\\Model\\WriteSchemaRequest';
+        return is_object($data) && get_class($data) === WriteSchemaRequest::class;
     }
 
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): WriteSchemaRequest|Reference
@@ -38,7 +38,7 @@ class WriteSchemaRequestNormalizer implements DenormalizerInterface, NormalizerI
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
 
-        if(empty($data['schema'])) {
+        if (empty($data['schema'])) {
             throw new InvalidArgumentException('Missing required schema');
         }
 

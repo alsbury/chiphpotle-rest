@@ -87,7 +87,7 @@ class LookupSubjectsResponse
         return $this;
     }
 
-    public function getPartialCaveatInfo(): PartialCaveatInfo
+    public function getPartialCaveatInfo(): ?PartialCaveatInfo
     {
         return $this->partialCaveatInfo;
     }
@@ -98,7 +98,7 @@ class LookupSubjectsResponse
         return $this;
     }
 
-    public function getSubject(): ResolvedSubject
+    public function getSubject(): ResolvedSubject|null
     {
         return $this->subject;
     }
@@ -110,13 +110,13 @@ class LookupSubjectsResponse
     }
 
     /**
-    * excluded_subjects are the subjects excluded. This list
-    * will only contain subjects if `subject.subject_object_id` is a wildcard (`*`) and
-    * will only be populated if exclusions exist from the wildcard.
-    *
-    * @return ResolvedSubject[]
-    */
-    public function getExcludedSubjects(): array
+     * excluded_subjects are the subjects excluded. This list
+     * will only contain subjects if `subject.subject_object_id` is a wildcard (`*`) and
+     * will only be populated if exclusions exist from the wildcard.
+     *
+     * @return ResolvedSubject[]|null
+     */
+    public function getExcludedSubjects(): ?array
     {
         return $this->excludedSubjects;
     }
@@ -127,7 +127,7 @@ class LookupSubjectsResponse
         return $this;
     }
 
-    public function getAfterResultCursor(): Cursor
+    public function getAfterResultCursor(): Cursor|null
     {
         return $this->afterResultCursor;
     }

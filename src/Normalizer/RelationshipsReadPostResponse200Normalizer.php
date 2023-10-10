@@ -3,7 +3,9 @@
 namespace Chiphpotle\Rest\Normalizer;
 
 use ArrayObject;
+use Chiphpotle\Rest\Model\ReadRelationshipsResponse;
 use Chiphpotle\Rest\Model\RelationshipsReadPostResponse200;
+use Chiphpotle\Rest\Model\RpcStatus;
 use Chiphpotle\Rest\Runtime\Normalizer\CheckArray;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
@@ -24,12 +26,12 @@ class RelationshipsReadPostResponse200Normalizer implements DenormalizerInterfac
 
     public function supportsDenormalization($data, $type, $format = null): bool
     {
-        return $type === 'Chiphpotle\\Rest\\Model\\RelationshipsReadPostResponse200';
+        return $type === RelationshipsReadPostResponse200::class;
     }
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && get_class($data) === 'Chiphpotle\\Rest\\Model\\RelationshipsReadPostResponse200';
+        return is_object($data) && get_class($data) === RelationshipsReadPostResponse200::class;
     }
 
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): RelationshipsReadPostResponse200|Reference
@@ -46,12 +48,12 @@ class RelationshipsReadPostResponse200Normalizer implements DenormalizerInterfac
         }
 
         if (array_key_exists('error', $data)) {
-            $object->setError($this->denormalizer->denormalize($data['error'], 'Chiphpotle\\Rest\\Model\\RpcStatus', 'json', $context));
+            $object->setError($this->denormalizer->denormalize($data['error'], RpcStatus::class, 'json', $context));
         }
         if (count($data) > 0) {
             $result = [];
             foreach ($data as $part) {
-                $result[] = $this->denormalizer->denormalize($part['result'], 'Chiphpotle\\Rest\\Model\\ReadRelationshipsResponse', 'json', $context);
+                $result[] = $this->denormalizer->denormalize($part['result'], ReadRelationshipsResponse::class, 'json', $context);
             }
             $object->setResult($result);
         }

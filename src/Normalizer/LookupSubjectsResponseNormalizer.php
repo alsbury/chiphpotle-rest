@@ -3,6 +3,7 @@
 namespace Chiphpotle\Rest\Normalizer;
 
 use Chiphpotle\Rest\Model\LookupSubjectsResponse;
+use Chiphpotle\Rest\Model\ZedToken;
 use Chiphpotle\Rest\Runtime\Normalizer\CheckArray;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
@@ -20,12 +21,12 @@ class LookupSubjectsResponseNormalizer implements DenormalizerInterface, Normali
 
     public function supportsDenormalization($data, $type, $format = null): bool
     {
-        return $type === 'Chiphpotle\\Rest\\Model\\LookupSubjectsResponse';
+        return $type === LookupSubjectsResponse::class;
     }
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && get_class($data) === 'Chiphpotle\\Rest\\Model\\LookupSubjectsResponse';
+        return is_object($data) && get_class($data) === LookupSubjectsResponse::class;
     }
 
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): LookupSubjectsResponse|Reference
@@ -41,7 +42,7 @@ class LookupSubjectsResponseNormalizer implements DenormalizerInterface, Normali
             return $object;
         }
         if (\array_key_exists('lookedUpAt', $data)) {
-            $object->setLookedUpAt($this->denormalizer->denormalize($data['lookedUpAt'], 'Chiphpotle\\Rest\\Model\\ZedToken', 'json', $context));
+            $object->setLookedUpAt($this->denormalizer->denormalize($data['lookedUpAt'], ZedToken::class, 'json', $context));
         }
         if (\array_key_exists('subjectObjectId', $data)) {
             $object->setSubjectObjectId($data['subjectObjectId']);
@@ -56,7 +57,7 @@ class LookupSubjectsResponseNormalizer implements DenormalizerInterface, Normali
         return $object;
     }
 
-    public function normalize($object, $format = null, array $context = []): float|int|bool|\ArrayObject|array|string|null
+    public function normalize($object, $format = null, array $context = []): array
     {
         $data = [];
         if (null !== $object->getLookedUpAt()) {

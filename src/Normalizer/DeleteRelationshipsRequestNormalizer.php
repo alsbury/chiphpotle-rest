@@ -4,6 +4,8 @@ namespace Chiphpotle\Rest\Normalizer;
 
 use ArrayObject;
 use Chiphpotle\Rest\Model\DeleteRelationshipsRequest;
+use Chiphpotle\Rest\Model\Precondition;
+use Chiphpotle\Rest\Model\RelationshipFilter;
 use Chiphpotle\Rest\Runtime\Normalizer\CheckArray;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
@@ -24,12 +26,12 @@ class DeleteRelationshipsRequestNormalizer implements DenormalizerInterface, Nor
 
     public function supportsDenormalization($data, $type, $format = null): bool
     {
-        return $type === 'Chiphpotle\\Rest\\Model\\DeleteRelationshipsRequest';
+        return $type === DeleteRelationshipsRequest::class;
     }
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && get_class($data) === 'Chiphpotle\\Rest\\Model\\DeleteRelationshipsRequest';
+        return is_object($data) && get_class($data) === DeleteRelationshipsRequest::class;
     }
 
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): DeleteRelationshipsRequest|Reference
@@ -45,12 +47,12 @@ class DeleteRelationshipsRequestNormalizer implements DenormalizerInterface, Nor
             return $object;
         }
         if (array_key_exists('relationshipFilter', $data)) {
-            $object->setRelationshipFilter($this->denormalizer->denormalize($data['relationshipFilter'], 'Chiphpotle\\Rest\\Model\\RelationshipFilter', 'json', $context));
+            $object->setRelationshipFilter($this->denormalizer->denormalize($data['relationshipFilter'], RelationshipFilter::class, 'json', $context));
         }
         if (array_key_exists('optionalPreconditions', $data)) {
             $values = [];
             foreach ($data['optionalPreconditions'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'Chiphpotle\\Rest\\Model\\Precondition', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, Precondition::class, 'json', $context);
             }
             $object->setOptionalPreconditions($values);
         }

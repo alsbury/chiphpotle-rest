@@ -2,7 +2,9 @@
 
 namespace Chiphpotle\Rest\Normalizer;
 
+use Chiphpotle\Rest\Model\RpcStatus;
 use Chiphpotle\Rest\Model\WatchPostResponse200;
+use Chiphpotle\Rest\Model\WatchResponse;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Chiphpotle\Rest\Runtime\Normalizer\CheckArray;
 use Chiphpotle\Rest\Runtime\Normalizer\ValidatorTrait;
@@ -22,12 +24,12 @@ class WatchPostResponse200Normalizer implements DenormalizerInterface, Normalize
 
     public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Chiphpotle\\Rest\\Model\\WatchPostResponse200';
+        return $type === WatchPostResponse200::class;
     }
 
     public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Chiphpotle\\Rest\\Model\\WatchPostResponse200';
+        return is_object($data) && get_class($data) === WatchPostResponse200::class;
     }
 
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): WatchPostResponse200|Reference
@@ -43,10 +45,10 @@ class WatchPostResponse200Normalizer implements DenormalizerInterface, Normalize
             return $object;
         }
         if (\array_key_exists('result', $data)) {
-            $object->setResult($this->denormalizer->denormalize($data['result'], 'Chiphpotle\\Rest\\Model\\WatchResponse', 'json', $context));
+            $object->setResult($this->denormalizer->denormalize($data['result'], WatchResponse::class, 'json', $context));
         }
         if (\array_key_exists('error', $data)) {
-            $object->setError($this->denormalizer->denormalize($data['error'], 'Chiphpotle\\Rest\\Model\\RpcStatus', 'json', $context));
+            $object->setError($this->denormalizer->denormalize($data['error'], RpcStatus::class, 'json', $context));
         }
         return $object;
     }
@@ -65,6 +67,6 @@ class WatchPostResponse200Normalizer implements DenormalizerInterface, Normalize
 
     public function getSupportedTypes(?string $format = null): array
     {
-        return ['Chiphpotle\\Rest\\Model\\WatchPostResponse200' => false];
+        return [WatchPostResponse200::class => false];
     }
 }

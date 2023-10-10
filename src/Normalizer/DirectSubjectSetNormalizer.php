@@ -4,6 +4,7 @@ namespace Chiphpotle\Rest\Normalizer;
 
 use ArrayObject;
 use Chiphpotle\Rest\Model\DirectSubjectSet;
+use Chiphpotle\Rest\Model\SubjectReference;
 use Chiphpotle\Rest\Runtime\Normalizer\CheckArray;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
@@ -24,12 +25,12 @@ class DirectSubjectSetNormalizer implements DenormalizerInterface, NormalizerInt
 
     public function supportsDenormalization($data, $type, $format = null): bool
     {
-        return $type === 'Chiphpotle\\Rest\\Model\\DirectSubjectSet';
+        return $type === DirectSubjectSet::class;
     }
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && get_class($data) === 'Chiphpotle\\Rest\\Model\\DirectSubjectSet';
+        return is_object($data) && get_class($data) === DirectSubjectSet::class;
     }
 
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): DirectSubjectSet|Reference
@@ -47,7 +48,7 @@ class DirectSubjectSetNormalizer implements DenormalizerInterface, NormalizerInt
         if (array_key_exists('subjects', $data)) {
             $values = [];
             foreach ($data['subjects'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'Chiphpotle\\Rest\\Model\\SubjectReference', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, SubjectReference::class, 'json', $context);
             }
             $object->setSubjects($values);
         }

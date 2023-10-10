@@ -3,6 +3,8 @@
 namespace Chiphpotle\Rest\Normalizer;
 
 use Chiphpotle\Rest\Model\BulkExportRelationshipsResponse;
+use Chiphpotle\Rest\Model\Cursor;
+use Chiphpotle\Rest\Model\Relationship;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Chiphpotle\Rest\Runtime\Normalizer\CheckArray;
 use Chiphpotle\Rest\Runtime\Normalizer\ValidatorTrait;
@@ -22,12 +24,12 @@ class BulkExportRelationshipsResponseNormalizer implements DenormalizerInterface
 
     public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Chiphpotle\\Rest\\Model\\BulkExportRelationshipsResponse';
+        return $type === BulkExportRelationshipsResponse::class;
     }
 
     public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Chiphpotle\\Rest\\Model\\BulkExportRelationshipsResponse';
+        return is_object($data) && get_class($data) === BulkExportRelationshipsResponse::class;
     }
 
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): BulkExportRelationshipsResponse|Reference
@@ -43,12 +45,12 @@ class BulkExportRelationshipsResponseNormalizer implements DenormalizerInterface
             return $object;
         }
         if (\array_key_exists('afterResultCursor', $data)) {
-            $object->setAfterResultCursor($this->denormalizer->denormalize($data['afterResultCursor'], 'Chiphpotle\\Rest\\Model\\Cursor', 'json', $context));
+            $object->setAfterResultCursor($this->denormalizer->denormalize($data['afterResultCursor'], Cursor::class, 'json', $context));
         }
         if (\array_key_exists('relationships', $data)) {
             $values = [];
             foreach ($data['relationships'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'Chiphpotle\\Rest\\Model\\Relationship', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, Relationship::class, 'json', $context);
             }
             $object->setRelationships($values);
         }
@@ -73,6 +75,6 @@ class BulkExportRelationshipsResponseNormalizer implements DenormalizerInterface
 
     public function getSupportedTypes(?string $format = null): array
     {
-        return ['Chiphpotle\\Rest\\Model\\BulkExportRelationshipsResponse' => false];
+        return [BulkExportRelationshipsResponse::class => false];
     }
 }

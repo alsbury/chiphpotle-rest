@@ -2,10 +2,11 @@
 
 namespace Chiphpotle\Rest\Normalizer;
 
-use ArrayObject;
+use Chiphpotle\Rest\Model\ObjectReference;
 use Chiphpotle\Rest\Model\SubjectReference;
 use Chiphpotle\Rest\Runtime\Normalizer\CheckArray;
 use Jane\Component\JsonSchemaRuntime\Reference;
+use Symfony\Component\Serializer\Exception\InvalidArgumentException;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -21,12 +22,12 @@ class SubjectReferenceNormalizer implements DenormalizerInterface, NormalizerInt
 
     public function supportsDenormalization($data, $type, $format = null): bool
     {
-        return $type === 'Chiphpotle\\Rest\\Model\\SubjectReference';
+        return $type === SubjectReference::class;
     }
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && get_class($data) === 'Chiphpotle\\Rest\\Model\\SubjectReference';
+        return is_object($data) && get_class($data) === SubjectReference::class;
     }
 
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): SubjectReference|Reference
@@ -37,20 +38,22 @@ class SubjectReferenceNormalizer implements DenormalizerInterface, NormalizerInt
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new SubjectReference();
-        if (null === $data || false === \is_array($data)) {
-            return $object;
+
+        if (empty($data['object'])) {
+            throw new InvalidArgumentException('Missing required object');
         }
-        if (\array_key_exists('object', $data)) {
-            $object->setObject($this->denormalizer->denormalize($data['object'], 'Chiphpotle\\Rest\\Model\\ObjectReference', 'json', $context));
-        }
+
+        $object = $this->denormalizer->denormalize($data['object'], ObjectReference::class, 'json', $context);
+
+        $object = new SubjectReference($object);
+
         if (\array_key_exists('optionalRelation', $data)) {
             $object->setOptionalRelation($data['optionalRelation']);
         }
         return $object;
     }
 
-    public function normalize($object, $format = null, array $context = []): float|int|bool|ArrayObject|array|string|null
+    public function normalize($object, $format = null, array $context = []): array
     {
         $data = [];
         if (null !== $object->getObject()) {

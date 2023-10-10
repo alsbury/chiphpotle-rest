@@ -24,12 +24,12 @@ class ReadSchemaResponseNormalizer implements DenormalizerInterface, NormalizerI
 
     public function supportsDenormalization($data, $type, $format = null): bool
     {
-        return $type === 'Chiphpotle\\Rest\\Model\\ReadSchemaResponse';
+        return $type === ReadSchemaResponse::class;
     }
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && get_class($data) === 'Chiphpotle\\Rest\\Model\\ReadSchemaResponse';
+        return is_object($data) && get_class($data) === ReadSchemaResponse::class;
     }
 
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): ReadSchemaResponse|Reference

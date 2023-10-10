@@ -3,7 +3,7 @@
 namespace Chiphpotle\Rest\Normalizer;
 
 use Chiphpotle\Rest\Model\Consistency;
-use ArrayObject;
+use Chiphpotle\Rest\Model\ZedToken;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Chiphpotle\Rest\Runtime\Normalizer\CheckArray;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
@@ -24,12 +24,12 @@ class ConsistencyNormalizer implements DenormalizerInterface, NormalizerInterfac
 
     public function supportsDenormalization($data, $type, $format = null): bool
     {
-        return $type === 'Chiphpotle\\Rest\\Model\\Consistency';
+        return $type === Consistency::class;
     }
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && get_class($data) === 'Chiphpotle\\Rest\\Model\\Consistency';
+        return is_object($data) && get_class($data) === Consistency::class;
     }
 
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): Consistency|Reference
@@ -48,10 +48,10 @@ class ConsistencyNormalizer implements DenormalizerInterface, NormalizerInterfac
             $object->setMinimizeLatency($data['minimizeLatency']);
         }
         if (array_key_exists('atLeastAsFresh', $data)) {
-            $object->setAtLeastAsFresh($this->denormalizer->denormalize($data['atLeastAsFresh'], 'Chiphpotle\\Rest\\Model\\ZedToken', 'json', $context));
+            $object->setAtLeastAsFresh($this->denormalizer->denormalize($data['atLeastAsFresh'], ZedToken::class, 'json', $context));
         }
         if (array_key_exists('atExactSnapshot', $data)) {
-            $object->setAtExactSnapshot($this->denormalizer->denormalize($data['atExactSnapshot'], 'Chiphpotle\\Rest\\Model\\ZedToken', 'json', $context));
+            $object->setAtExactSnapshot($this->denormalizer->denormalize($data['atExactSnapshot'], ZedToken::class, 'json', $context));
         }
         if (array_key_exists('fullyConsistent', $data)) {
             $object->setFullyConsistent($data['fullyConsistent']);
@@ -59,7 +59,7 @@ class ConsistencyNormalizer implements DenormalizerInterface, NormalizerInterfac
         return $object;
     }
 
-    public function normalize($object, $format = null, array $context = []): float|int|bool|ArrayObject|array|string|null
+    public function normalize($object, $format = null, array $context = []): array
     {
         $data = [];
         if (null !== $object->getMinimizeLatency()) {

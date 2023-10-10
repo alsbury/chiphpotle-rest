@@ -4,6 +4,7 @@ namespace Chiphpotle\Rest\Normalizer;
 
 use ArrayObject;
 use Chiphpotle\Rest\Model\LookupResourcesResponse;
+use Chiphpotle\Rest\Model\ZedToken;
 use Chiphpotle\Rest\Runtime\Normalizer\CheckArray;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
@@ -24,12 +25,12 @@ class LookupResourcesResponseNormalizer implements DenormalizerInterface, Normal
 
     public function supportsDenormalization($data, $type, $format = null): bool
     {
-        return $type === 'Chiphpotle\\Rest\\Model\\LookupResourcesResponse';
+        return $type === LookupResourcesResponse::class;
     }
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && get_class($data) === 'Chiphpotle\\Rest\\Model\\LookupResourcesResponse';
+        return is_object($data) && get_class($data) === LookupResourcesResponse::class;
     }
 
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): LookupResourcesResponse|Reference
@@ -45,7 +46,7 @@ class LookupResourcesResponseNormalizer implements DenormalizerInterface, Normal
             return $object;
         }
         if (array_key_exists('lookedUpAt', $data)) {
-            $object->setLookedUpAt($this->denormalizer->denormalize($data['lookedUpAt'], 'Chiphpotle\\Rest\\Model\\ZedToken', 'json', $context));
+            $object->setLookedUpAt($this->denormalizer->denormalize($data['lookedUpAt'], ZedToken::class, 'json', $context));
         }
         if (array_key_exists('resourceObjectId', $data)) {
             $object->setResourceObjectId($data['resourceObjectId']);
