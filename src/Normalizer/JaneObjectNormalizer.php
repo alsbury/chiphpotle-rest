@@ -20,6 +20,7 @@ final class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInt
         Model\SubjectFilterRelationFilter::class => Normalizer\SubjectFilterRelationFilterNormalizer::class,
         Model\ReadSchemaResponse::class => Normalizer\ReadSchemaResponseNormalizer::class,
         Model\WriteSchemaRequest::class => Normalizer\WriteSchemaRequestNormalizer::class,
+        Model\WriteSchemaResponse::class => Normalizer\WriteSchemaResponseNormalizer::class,
         Model\ProtobufAny::class => Normalizer\ProtobufAnyNormalizer::class,
         Model\RpcStatus::class => Normalizer\RpcStatusNormalizer::class,
         Model\AlgebraicSubjectSet::class => Normalizer\AlgebraicSubjectSetNormalizer::class,

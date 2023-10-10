@@ -3,6 +3,7 @@
 namespace Chiphpotle\Rest\Endpoint;
 
 use Chiphpotle\Rest\Model\WriteSchemaRequest;
+use Chiphpotle\Rest\Model\WriteSchemaResponse;
 use Chiphpotle\Rest\Runtime\Client\BaseEndpoint;
 use Chiphpotle\Rest\Runtime\Client\Endpoint as ClientEndpoint;
 use Chiphpotle\Rest\Runtime\Client\EndpointTrait;
@@ -39,12 +40,12 @@ final class SchemaServiceWriteSchema extends BaseEndpoint implements ClientEndpo
         return ['Accept' => ['application/json']];
     }
 
-    protected function transformResponseBody(ResponseInterface $response, SerializerInterface $serializer, ?string $contentType = null): stdClass
+    protected function transformResponseBody(ResponseInterface $response, SerializerInterface $serializer, ?string $contentType = null): WriteSchemaResponse
     {
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
         if (200 === $status) {
-            return json_decode($body);
+            return $serializer->deserialize($body, WriteSchemaResponse::class, 'json');
         }
         $this->throwRpcException($body, $serializer);
     }

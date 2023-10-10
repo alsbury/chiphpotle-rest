@@ -36,6 +36,7 @@ use Chiphpotle\Rest\Model\RelationshipsReadPostResponse200;
 use Chiphpotle\Rest\Model\WriteRelationshipsRequest;
 use Chiphpotle\Rest\Model\WriteRelationshipsResponse;
 use Chiphpotle\Rest\Model\WriteSchemaRequest;
+use Chiphpotle\Rest\Model\WriteSchemaResponse;
 use Chiphpotle\Rest\Normalizer\JaneObjectNormalizer;
 use Http\Discovery\Psr17FactoryDiscovery;
 use stdClass;
@@ -175,9 +176,9 @@ final class Client extends Runtime\Client\Client
      * @param WriteSchemaRequest $request WriteSchemaRequest is the required data used to "upsert" the Schema of a
      * Permissions System.
      *
-     * @return stdClass
+     * @return WriteSchemaResponse
      */
-    public function schemaServiceWriteSchema(WriteSchemaRequest $request): stdClass
+    public function schemaServiceWriteSchema(WriteSchemaRequest $request): WriteSchemaResponse
     {
         return $this->executeEndpoint(new SchemaServiceWriteSchema($request));
     }
