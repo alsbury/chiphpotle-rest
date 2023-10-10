@@ -2,19 +2,16 @@
 
 namespace Chiphpotle\Rest\Normalizer;
 
-use ArrayObject;
 use Chiphpotle\Rest\Model\WriteSchemaRequest;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Chiphpotle\Rest\Runtime\Normalizer\CheckArray;
+use Symfony\Component\Serializer\Exception\InvalidArgumentException;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-
-use function array_key_exists;
-use function is_array;
 
 class WriteSchemaRequestNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
 {
@@ -40,22 +37,18 @@ class WriteSchemaRequestNormalizer implements DenormalizerInterface, NormalizerI
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new WriteSchemaRequest();
-        if (null === $data || false === is_array($data)) {
-            return $object;
+
+        if(empty($data['schema'])) {
+            throw new InvalidArgumentException('Missing required schema');
         }
-        if (array_key_exists('schema', $data)) {
-            $object->setSchema($data['schema']);
-        }
-        return $object;
+
+        return new WriteSchemaRequest($data['schema']);
     }
 
-    public function normalize($object, $format = null, array $context = []): float|int|bool|ArrayObject|array|string|null
+    public function normalize($object, $format = null, array $context = []): array
     {
         $data = [];
-        if (null !== $object->getSchema()) {
-            $data['schema'] = $object->getSchema();
-        }
+        $data['schema'] = $object->getSchema();
         return $data;
     }
 }

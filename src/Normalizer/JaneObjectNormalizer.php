@@ -102,7 +102,7 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         return $this->normalizersCache[$normalizerClass] ?? $this->initNormalizer($normalizerClass);
     }
 
-    private function initNormalizer(string $normalizerClass)
+    private function initNormalizer(string $normalizerClass): object
     {
         $normalizer = new $normalizerClass();
         $normalizer->setNormalizer($this->normalizer);

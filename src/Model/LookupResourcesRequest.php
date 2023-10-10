@@ -48,7 +48,7 @@ class LookupResourcesRequest
         return $this;
     }
 
-    public function getResourceObjectType(): string
+    public function getResourceObjectType(): ?string
     {
         return $this->resourceObjectType;
     }
@@ -59,7 +59,7 @@ class LookupResourcesRequest
         return $this;
     }
 
-    public function getPermission(): string
+    public function getPermission(): ?string
     {
         return $this->permission;
     }
@@ -70,7 +70,7 @@ class LookupResourcesRequest
         return $this;
     }
 
-    public function getSubject(): SubjectReference
+    public function getSubject(): SubjectReference|null
     {
         return $this->subject;
     }

@@ -10,27 +10,18 @@ namespace Chiphpotle\Rest\Model;
  */
 class SubjectFilter
 {
-    protected ?string $subjectType = null;
+    protected string $subjectType;
 
     protected ?string $optionalSubjectId = null;
 
     protected ?SubjectFilterRelationFilter $optionalRelation = null;
 
-    public static function createFromArray(array $subject)
-    {
-        $self = new self();
-        $self->setSubjectType($subject[0])
-            ->setOptionalSubjectId($subject[1] ?? null)
-            ->setOptionalRelation($subject[2] ?? null);
-        return $self;
-    }
-
-    public function getSubjectType(): ?string
+    public function getSubjectType(): string
     {
         return $this->subjectType;
     }
 
-    public function setSubjectType(?string $subjectType): SubjectFilter
+    public function setSubjectType(string $subjectType): SubjectFilter
     {
         $this->subjectType = $subjectType;
         return $this;

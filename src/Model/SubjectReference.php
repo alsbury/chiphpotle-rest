@@ -34,7 +34,7 @@ class SubjectReference
         return new self(new ObjectReference($data[0], $data[1]), $data[2] ?? null);
     }
 
-    public function getObject(): ObjectReference
+    public function getObject(): ObjectReference|null
     {
         return $this->object;
     }
@@ -61,7 +61,10 @@ class SubjectReference
         return $this->getObject() . ($this->getOptionalRelation() ? '#'. $this->getOptionalRelation() : '');
     }
 
-    public function toArray()
+    /**
+     * @return (null|string)[]
+     */
+    public function toArray(): array
     {
         $arr = [$this->getObject()->getObjectType(), $this->getObject()->getObjectId()];
         if ($this->getOptionalRelation()) {

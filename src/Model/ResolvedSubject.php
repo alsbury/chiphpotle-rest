@@ -19,7 +19,7 @@ class ResolvedSubject
 
     protected ?PartialCaveatInfo $partialCaveatInfo;
 
-    public function getSubjectObjectId(): string
+    public function getSubjectObjectId(): string|null
     {
         return $this->subjectObjectId;
     }
@@ -41,7 +41,7 @@ class ResolvedSubject
         return $this;
     }
 
-    public function getPartialCaveatInfo(): PartialCaveatInfo
+    public function getPartialCaveatInfo(): ?PartialCaveatInfo
     {
         return $this->partialCaveatInfo;
     }

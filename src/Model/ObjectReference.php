@@ -7,11 +7,11 @@ namespace Chiphpotle\Rest\Model;
  */
 class ObjectReference
 {
-    protected ?string $objectType;
+    protected string $objectType;
 
     protected ?string $objectId;
 
-    public function __construct(?string $objectType = null, ?string $objectId = null)
+    public function __construct(string $objectType = null, ?string $objectId = null)
     {
         $this->objectType = $objectType;
         $this->objectId = $objectId;
@@ -54,7 +54,10 @@ class ObjectReference
         return $this->getObjectType() . ($this->getObjectId() ? ':' . $this->getObjectId() : '');
     }
 
-    public function toArray()
+    /**
+     * @return string[]
+     */
+    public function toArray(): array
     {
         return [$this->getObjectType(), $this->getObjectId()];
     }

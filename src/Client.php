@@ -196,7 +196,7 @@ class Client extends Runtime\Client\Client
         return $this->executeEndpoint(new SchemaServiceWriteSchema($request), $fetch);
     }
 
-    public static function create($baseUrl, $apiKey, $additionalNormalizers = [])
+    public static function create($baseUrl, $apiKey, $additionalNormalizers = []): static
     {
         $httpClient = new \GuzzleHttp\Client([
             'base_uri' => $baseUrl,
