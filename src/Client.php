@@ -38,7 +38,6 @@ use Chiphpotle\Rest\Model\WriteRelationshipsResponse;
 use Chiphpotle\Rest\Model\WriteSchemaRequest;
 use Chiphpotle\Rest\Normalizer\JaneObjectNormalizer;
 use Http\Discovery\Psr17FactoryDiscovery;
-use Psr\Http\Message\ResponseInterface;
 use stdClass;
 use Symfony\Component\Serializer\Encoder\JsonDecode;
 use Symfony\Component\Serializer\Encoder\JsonEncode;
@@ -120,7 +119,7 @@ final class Client extends Runtime\Client\Client
      * kind for which the subject has the specified permission or the relation in
      * which the subject exists, streaming back the IDs of those subjects.
      */
-    public function permissionsServiceLookupSubjects(LookupSubjectsRequest $request): ResponseInterface|PermissionsSubjectsPostResponse200|null
+    public function permissionsServiceLookupSubjects(LookupSubjectsRequest $request): PermissionsSubjectsPostResponse200
     {
         return $this->executeEndpoint(new PermissionsServiceLookupSubjects($request));
     }
@@ -141,7 +140,7 @@ final class Client extends Runtime\Client\Client
      * @param ReadRelationshipsRequest $request ReadRelationshipsRequest specifies one or more filters used to read matching
      * relationships within the system.
      */
-    public function permissionsServiceReadRelationships(ReadRelationshipsRequest $request): RelationshipsReadPostResponse200|ResponseInterface|array|null
+    public function permissionsServiceReadRelationships(ReadRelationshipsRequest $request): RelationshipsReadPostResponse200|array
     {
         return $this->executeEndpoint(new PermissionsServiceReadRelationships($request));
     }
@@ -152,9 +151,9 @@ final class Client extends Runtime\Client\Client
      * is included, all of the specified preconditions must also be satisfied before
      * the write will be committed.
      *
-     * @return null|WriteRelationshipsResponse|ResponseInterface
+     * @return WriteRelationshipsResponse
      */
-    public function permissionsServiceWriteRelationships(WriteRelationshipsRequest $request): ResponseInterface|WriteRelationshipsResponse|null
+    public function permissionsServiceWriteRelationships(WriteRelationshipsRequest $request): WriteRelationshipsResponse
     {
         return $this->executeEndpoint(new PermissionsServiceWriteRelationships($request));
     }
@@ -165,9 +164,9 @@ final class Client extends Runtime\Client\Client
      * - NOT_FOUND: no schema has been defined
      *
      *
-     * @return null|ReadSchemaResponse|ResponseInterface
+     * @return ReadSchemaResponse
      */
-    public function schemaServiceReadSchema(string $fetch = self::FETCH_OBJECT): ReadSchemaResponse
+    public function schemaServiceReadSchema(): ReadSchemaResponse
     {
         return $this->executeEndpoint(new SchemaServiceReadSchema());
     }
@@ -176,9 +175,9 @@ final class Client extends Runtime\Client\Client
      * @param WriteSchemaRequest $request WriteSchemaRequest is the required data used to "upsert" the Schema of a
      * Permissions System.
      *
-     * @return ResponseInterface|stdClass|null
+     * @return stdClass
      */
-    public function schemaServiceWriteSchema(WriteSchemaRequest $request): ResponseInterface|stdClass|null
+    public function schemaServiceWriteSchema(WriteSchemaRequest $request): stdClass
     {
         return $this->executeEndpoint(new SchemaServiceWriteSchema($request));
     }
