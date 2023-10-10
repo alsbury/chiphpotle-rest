@@ -5,7 +5,7 @@
  * @link https://github.com/FriendsOfPHP/PHP-CS-Fixer/blob/HEAD/doc/config.rst
  */
 $finder = PhpCsFixer\Finder::create()
-    ->in([__DIR__ . '/generated', __DIR__ . '/src', __DIR__. '/test']);
+    ->in([__DIR__ . '/src', __DIR__. '/test']);
 
 $config = new PhpCsFixer\Config();
 return $config->setRules([
