@@ -5,7 +5,7 @@ namespace Chiphpotle\Rest\Model;
 /**
  * ResolvedSubject is a single subject resolved within LookupSubjects.
  */
-class ResolvedSubject
+final class ResolvedSubject
 {
     /**
     * subject_object_id is the Object ID of the subject found. May be a `*` if

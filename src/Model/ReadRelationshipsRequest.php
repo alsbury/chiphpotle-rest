@@ -6,7 +6,7 @@ namespace Chiphpotle\Rest\Model;
  * Specifies one or more filters used to read matching
  * relationships within the system.
  */
-class ReadRelationshipsRequest
+final class ReadRelationshipsRequest
 {
 
     protected ?Consistency $consistency = null;

@@ -2,7 +2,7 @@
 
 namespace Chiphpotle\Rest\Model;
 
-class PermissionsResourcesPostResponse200
+final class PermissionsResourcesPostResponse200
 {
     protected LookupResourcesResponse $result;
 

@@ -2,7 +2,7 @@
 
 namespace Chiphpotle\Rest\Model;
 
-class CheckPermissionRequest
+final class CheckPermissionRequest
 {
 
     protected ?Consistency $consistency = null;

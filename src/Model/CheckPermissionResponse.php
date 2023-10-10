@@ -2,7 +2,7 @@
 
 namespace Chiphpotle\Rest\Model;
 
-class CheckPermissionResponse
+final class CheckPermissionResponse
 {
     /**
      * ZedToken is used to provide causality metadata between Write and Check

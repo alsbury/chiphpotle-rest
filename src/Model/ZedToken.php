@@ -6,7 +6,7 @@ namespace Chiphpotle\Rest\Model;
  * ZedToken is used to provide causality metadata between Write and Check
  * requests.
  */
-class ZedToken
+final class ZedToken
 {
     protected string $token;
 

@@ -6,7 +6,7 @@ namespace Chiphpotle\Rest\Model;
  * Cursor is used to provide resumption of listing between calls to APIs
  * such as LookupResources.
  */
-class Cursor
+final class Cursor
 {
     protected string $token;
 

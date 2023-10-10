@@ -2,7 +2,7 @@
 
 namespace Chiphpotle\Rest\Model;
 
-class BulkExportRelationshipsRequest
+final class BulkExportRelationshipsRequest
 {
     protected ?Consistency $consistency;
 

@@ -2,7 +2,7 @@
 
 namespace Chiphpotle\Rest\Model;
 
-class BulkCheckPermissionPair
+final class BulkCheckPermissionPair
 {
     protected BulkCheckPermissionRequestItem $request;
 

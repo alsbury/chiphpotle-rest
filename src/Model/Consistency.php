@@ -7,7 +7,7 @@ namespace Chiphpotle\Rest\Model;
  * By defining a consistency requirement, and a token at which those
  * requirements should be applied, where applicable.
  */
-class Consistency
+final class Consistency
 {
     /**
      * minimize_latency indicates that the latency for the call should be

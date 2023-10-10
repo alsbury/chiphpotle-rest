@@ -2,7 +2,7 @@
 
 namespace Chiphpotle\Rest\Model;
 
-class WatchPostResponse200
+final class WatchPostResponse200
 {
     protected WatchResponse $result;
 

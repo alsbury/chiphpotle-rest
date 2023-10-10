@@ -2,7 +2,7 @@
 
 namespace Chiphpotle\Rest\Model;
 
-class LookupSubjectsRequest
+final class LookupSubjectsRequest
 {
     protected ?Consistency $consistency;
 

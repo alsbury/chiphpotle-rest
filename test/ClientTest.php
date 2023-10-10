@@ -33,7 +33,7 @@ use Chiphpotle\Rest\Model\WriteSchemaRequest;
 use Chiphpotle\Rest\Test\Fixtures\SchemaFixtures;
 use PHPUnit\Framework\TestCase;
 
-class ClientTest extends TestCase
+final class ClientTest extends TestCase
 {
     public static function setUpBeforeClass(): void
     {

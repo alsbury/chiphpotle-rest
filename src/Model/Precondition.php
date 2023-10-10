@@ -2,7 +2,7 @@
 
 namespace Chiphpotle\Rest\Model;
 
-class Precondition
+final class Precondition
 {
     protected string $operation = 'OPERATION_UNSPECIFIED';
 

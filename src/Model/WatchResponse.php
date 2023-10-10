@@ -9,7 +9,7 @@ namespace Chiphpotle\Rest\Model;
  * encoded in the watch response. The client can use the snapshot to resume
  * watching where the previous watch response left off.
  */
-class WatchResponse
+final class WatchResponse
 {
     /**
      * @var RelationshipUpdate[]

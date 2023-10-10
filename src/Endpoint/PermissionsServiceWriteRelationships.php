@@ -11,7 +11,7 @@ use Chiphpotle\Rest\Runtime\Client\EndpointTrait;
 use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 
-class PermissionsServiceWriteRelationships extends BaseEndpoint implements ClientEndpoint
+final class PermissionsServiceWriteRelationships extends BaseEndpoint implements ClientEndpoint
 {
     use EndpointTrait;
 

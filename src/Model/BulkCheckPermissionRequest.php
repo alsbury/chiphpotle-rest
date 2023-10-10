@@ -2,7 +2,7 @@
 
 namespace Chiphpotle\Rest\Model;
 
-class BulkCheckPermissionRequest
+final class BulkCheckPermissionRequest
 {
     protected ?Consistency $consistency;
 

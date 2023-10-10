@@ -6,7 +6,7 @@ namespace Chiphpotle\Rest\Model;
  * LookupSubjectsResponse contains a single matching subject object ID for the
  * requested subject object type on the permission or relation.
  */
-class LookupSubjectsResponse
+final class LookupSubjectsResponse
 {
     protected ZedToken $lookedUpAt;
 

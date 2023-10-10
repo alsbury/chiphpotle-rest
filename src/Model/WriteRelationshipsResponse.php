@@ -2,7 +2,7 @@
 
 namespace Chiphpotle\Rest\Model;
 
-class WriteRelationshipsResponse
+final class WriteRelationshipsResponse
 {
     /**
      * ZedToken is used to provide causality metadata between Write and Check

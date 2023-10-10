@@ -7,7 +7,7 @@ namespace Chiphpotle\Rest\Model;
  * form the data for the graph over which all permissions questions are
  * answered.
  */
-class Relationship
+final class Relationship
 {
     protected ObjectReference $resource;
 

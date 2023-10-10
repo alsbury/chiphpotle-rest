@@ -2,7 +2,7 @@
 
 namespace Chiphpotle\Rest\Test\Fixtures;
 
-class SchemaFixtures
+final class SchemaFixtures
 {
     public const SAMPLE_SCHEMA = <<<SCHEMA
 definition user {}

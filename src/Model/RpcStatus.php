@@ -8,7 +8,7 @@ namespace Chiphpotle\Rest\Model;
  * used by [gRPC](https://github.com/grpc). Each `Status` message contains
  * three pieces of data: error code, error message, and error details.
  */
-class RpcStatus
+final class RpcStatus
 {
     protected ?int $code = null;
 

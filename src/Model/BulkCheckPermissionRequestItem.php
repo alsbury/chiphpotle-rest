@@ -2,7 +2,7 @@
 
 namespace Chiphpotle\Rest\Model;
 
-class BulkCheckPermissionRequestItem
+final class BulkCheckPermissionRequestItem
 {
     protected ObjectReference $resource;
 

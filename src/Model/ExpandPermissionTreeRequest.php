@@ -2,7 +2,7 @@
 
 namespace Chiphpotle\Rest\Model;
 
-class ExpandPermissionTreeRequest
+final class ExpandPermissionTreeRequest
 {
     /**
      * Consistency will define how a request is handled by the backend.

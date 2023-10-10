@@ -2,7 +2,7 @@
 
 namespace Chiphpotle\Rest\Model;
 
-class DirectSubjectSet
+final class DirectSubjectSet
 {
     /**
      * @var SubjectReference[]

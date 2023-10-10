@@ -11,7 +11,7 @@ use Psr\Http\Message\ResponseInterface;
 use stdClass;
 use Symfony\Component\Serializer\SerializerInterface;
 
-class SchemaServiceWriteSchema extends BaseEndpoint implements ClientEndpoint
+final class SchemaServiceWriteSchema extends BaseEndpoint implements ClientEndpoint
 {
     use EndpointTrait;
 

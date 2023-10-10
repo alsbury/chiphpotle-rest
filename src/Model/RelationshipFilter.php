@@ -9,7 +9,7 @@ namespace Chiphpotle\Rest\Model;
  * resource_type is required. All other fields are optional and if left
  * unspecified will not filter relationships.
  */
-class RelationshipFilter
+final class RelationshipFilter
 {
     protected ?string $resourceType;
 

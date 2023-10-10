@@ -2,7 +2,7 @@
 
 namespace Chiphpotle\Rest\Model;
 
-class BulkCheckPermissionResponse
+final class BulkCheckPermissionResponse
 {
     protected ZedToken $checkedAt;
 

@@ -2,7 +2,7 @@
 
 namespace Chiphpotle\Rest\Model;
 
-class ReadSchemaResponse
+final class ReadSchemaResponse
 {
     protected string $schemaText;
 

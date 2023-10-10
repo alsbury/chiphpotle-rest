@@ -5,8 +5,9 @@ namespace Chiphpotle\Rest\Test\Model;
 use Chiphpotle\Rest\Model\CheckPermissionRequest;
 use Chiphpotle\Rest\Model\ObjectReference;
 use Chiphpotle\Rest\Model\SubjectReference;
+use PHPUnit\Framework\TestCase;
 
-class CheckPermissionRequestTest extends \PHPUnit\Framework\TestCase
+final class CheckPermissionRequestTest extends TestCase
 {
     public function test_to_string_method()
     {

@@ -2,7 +2,7 @@
 
 namespace Chiphpotle\Rest\Model;
 
-class ProtobufAny extends \ArrayObject
+final class ProtobufAny extends \ArrayObject
 {
     protected string $type;
 

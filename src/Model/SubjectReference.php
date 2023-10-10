@@ -2,7 +2,7 @@
 
 namespace Chiphpotle\Rest\Model;
 
-class SubjectReference
+final class SubjectReference
 {
     /**
      * ObjectReference is used to refer to a specific object in the system.

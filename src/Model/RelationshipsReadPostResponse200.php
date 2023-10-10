@@ -2,7 +2,7 @@
 
 namespace Chiphpotle\Rest\Model;
 
-class RelationshipsReadPostResponse200
+final class RelationshipsReadPostResponse200
 {
     /**
      * @var ReadRelationshipsResponse[]

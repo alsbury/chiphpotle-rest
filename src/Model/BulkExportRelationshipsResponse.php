@@ -8,7 +8,7 @@ namespace Chiphpotle\Rest\Model;
  * server will continue to stream back relationship groups as quickly as it can
  * until all relationships have been transmitted back.
  */
-class BulkExportRelationshipsResponse
+final class BulkExportRelationshipsResponse
 {
     protected Cursor $afterResultCursor;
 

@@ -4,7 +4,7 @@ namespace Chiphpotle\Rest\Model;
 
 use Chiphpotle\Rest\Enum\RelationshipUpdateOperation;
 
-class RelationshipUpdate
+final class RelationshipUpdate
 {
     protected ?string $operation = "OPERATION_UNSPECIFIED";
 

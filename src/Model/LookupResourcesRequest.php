@@ -7,7 +7,7 @@ namespace Chiphpotle\Rest\Model;
  * kind on which the subject has the specified permission or the relation in
  * which the subject exists, streaming back the IDs of those resources.
  */
-class LookupResourcesRequest
+final class LookupResourcesRequest
 {
     protected ?Consistency $consistency;
 

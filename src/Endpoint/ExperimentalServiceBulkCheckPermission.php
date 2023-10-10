@@ -11,7 +11,7 @@ use Chiphpotle\Rest\Runtime\Client\EndpointTrait;
 use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 
-class ExperimentalServiceBulkCheckPermission extends BaseEndpoint implements Endpoint
+final class ExperimentalServiceBulkCheckPermission extends BaseEndpoint implements Endpoint
 {
     use EndpointTrait;
 

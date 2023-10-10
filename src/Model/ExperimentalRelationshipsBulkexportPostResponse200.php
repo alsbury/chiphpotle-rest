@@ -2,7 +2,7 @@
 
 namespace Chiphpotle\Rest\Model;
 
-class ExperimentalRelationshipsBulkexportPostResponse200
+final class ExperimentalRelationshipsBulkexportPostResponse200
 {
     protected BulkExportRelationshipsResponse $result;
 

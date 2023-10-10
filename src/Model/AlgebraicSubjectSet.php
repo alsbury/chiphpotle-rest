@@ -2,7 +2,7 @@
 
 namespace Chiphpotle\Rest\Model;
 
-class AlgebraicSubjectSet
+final class AlgebraicSubjectSet
 {
     protected string $operation = 'OPERATION_UNSPECIFIED';
 

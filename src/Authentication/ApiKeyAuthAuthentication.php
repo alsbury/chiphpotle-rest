@@ -5,7 +5,7 @@ namespace Chiphpotle\Rest\Authentication;
 use Jane\Component\OpenApiRuntime\Client\AuthenticationPlugin;
 use Psr\Http\Message\RequestInterface;
 
-class ApiKeyAuthAuthentication implements AuthenticationPlugin
+final class ApiKeyAuthAuthentication implements AuthenticationPlugin
 {
     private string $apiKey;
 

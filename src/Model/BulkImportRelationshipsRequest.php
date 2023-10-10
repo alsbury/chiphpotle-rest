@@ -2,7 +2,7 @@
 
 namespace Chiphpotle\Rest\Model;
 
-class BulkImportRelationshipsRequest
+final class BulkImportRelationshipsRequest
 {
     /**
      * @var Relationship[]

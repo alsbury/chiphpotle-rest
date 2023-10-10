@@ -7,7 +7,7 @@ namespace Chiphpotle\Rest\Model;
  * watching mutations, and an optional start snapshot for when to start
  * watching.
  */
-class WatchRequest
+final class WatchRequest
 {
     /**
      * @var string[]

@@ -2,7 +2,7 @@
 
 namespace Chiphpotle\Rest\Model;
 
-class BulkImportRelationshipsResponse
+final class BulkImportRelationshipsResponse
 {
     protected string $numLoaded;
 

@@ -2,7 +2,7 @@
 
 namespace Chiphpotle\Rest\Model;
 
-class DeleteRelationshipsRequest
+final class DeleteRelationshipsRequest
 {
     /**
      * RelationshipFilter is a collection of filters which when applied to a

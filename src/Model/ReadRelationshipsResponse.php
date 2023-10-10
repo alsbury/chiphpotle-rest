@@ -7,7 +7,7 @@ namespace Chiphpotle\Rest\Model;
  * specified relationship filter(s). An instance of this response message will
  * be streamed to the client for each relationship found.
  */
-class ReadRelationshipsResponse
+final class ReadRelationshipsResponse
 {
     protected ZedToken $readAt;
 

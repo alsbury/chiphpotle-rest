@@ -2,7 +2,7 @@
 
 namespace Chiphpotle\Rest\Model;
 
-class ExpandPermissionTreeResponse
+final class ExpandPermissionTreeResponse
 {
     /**
      * ZedToken is used to provide causality metadata between Write and Check

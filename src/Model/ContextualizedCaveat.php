@@ -7,7 +7,7 @@ namespace Chiphpotle\Rest\Model;
  * The context consists of key-value pairs that will be injected at evaluation time.
  * The keys must match the arguments defined on the caveat in the schema.
  */
-class ContextualizedCaveat
+final class ContextualizedCaveat
 {
     protected string $caveatName;
 

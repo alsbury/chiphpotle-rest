@@ -5,7 +5,7 @@ namespace Chiphpotle\Rest\Model;
 /**
  * ObjectReference is used to refer to a specific object in the system.
  */
-class ObjectReference
+final class ObjectReference
 {
     protected string $objectType;
 

@@ -2,7 +2,7 @@
 
 namespace Chiphpotle\Rest\Model;
 
-class PartialCaveatInfo
+final class PartialCaveatInfo
 {
     /**
      * @var string[]

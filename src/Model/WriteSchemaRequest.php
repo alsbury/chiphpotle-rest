@@ -6,7 +6,7 @@ namespace Chiphpotle\Rest\Model;
  * WriteSchemaRequest is the required data used to "upsert" the Schema of a
  * Permissions System.
  */
-class WriteSchemaRequest
+final class WriteSchemaRequest
 {
     /**
      * The Schema containing one or more Object Definitions that will be written

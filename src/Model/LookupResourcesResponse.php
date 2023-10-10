@@ -6,7 +6,7 @@ namespace Chiphpotle\Rest\Model;
  * LookupResourcesResponse contains a single matching resource object ID for the
  * requested object type, permission, and subject.
  */
-class LookupResourcesResponse
+final class LookupResourcesResponse
 {
     protected ZedToken $lookedUpAt;
 

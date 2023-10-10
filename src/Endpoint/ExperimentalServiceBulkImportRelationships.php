@@ -11,7 +11,7 @@ use Chiphpotle\Rest\Runtime\Client\EndpointTrait;
 use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 
-class ExperimentalServiceBulkImportRelationships extends BaseEndpoint implements Endpoint
+final class ExperimentalServiceBulkImportRelationships extends BaseEndpoint implements Endpoint
 {
     use EndpointTrait;
 

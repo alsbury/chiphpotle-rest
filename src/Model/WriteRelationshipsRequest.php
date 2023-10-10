@@ -8,7 +8,7 @@ namespace Chiphpotle\Rest\Model;
  * is included, all of the specified preconditions must also be satisfied before
  * the write will be committed.
  */
-class WriteRelationshipsRequest
+final class WriteRelationshipsRequest
 {
     /**
      * @var ?RelationshipUpdate[]

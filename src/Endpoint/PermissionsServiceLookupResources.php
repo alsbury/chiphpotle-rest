@@ -11,7 +11,7 @@ use Chiphpotle\Rest\Runtime\Client\EndpointTrait;
 use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 
-class PermissionsServiceLookupResources extends BaseEndpoint implements ClientEndpoint
+final class PermissionsServiceLookupResources extends BaseEndpoint implements ClientEndpoint
 {
     use EndpointTrait;
 

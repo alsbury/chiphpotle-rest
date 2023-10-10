@@ -2,7 +2,7 @@
 
 namespace Chiphpotle\Rest\Model;
 
-class PermissionRelationshipTree
+final class PermissionRelationshipTree
 {
     /**
     * AlgebraicSubjectSet is a subject set which is computed based on applying the
