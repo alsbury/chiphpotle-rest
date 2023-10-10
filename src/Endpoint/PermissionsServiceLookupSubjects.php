@@ -50,9 +50,9 @@ class PermissionsServiceLookupSubjects extends BaseEndpoint implements ClientEnd
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
         if (200 === $status) {
-            return $serializer->deserialize($body, 'Chiphpotle\\Rest\\Model\\PermissionsSubjectsPostResponse200', 'json');
+            return $serializer->deserialize($body, PermissionsSubjectsPostResponse200::class, 'json');
         }
-        return $serializer->deserialize($body, 'Chiphpotle\\Rest\\Model\\RpcStatus', 'json');
+        return $serializer->deserialize($body, RpcStatus::class, 'json');
     }
 
     public function getAuthenticationScopes(): array

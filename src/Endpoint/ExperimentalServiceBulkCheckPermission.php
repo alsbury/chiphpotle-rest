@@ -45,9 +45,9 @@ class ExperimentalServiceBulkCheckPermission extends BaseEndpoint implements End
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
         if (200 === $status) {
-            return $serializer->deserialize($body, 'Chiphpotle\\Rest\\Model\\BulkCheckPermissionResponse', 'json');
+            return $serializer->deserialize($body, BulkCheckPermissionResponse::class, 'json');
         }
-        return $serializer->deserialize($body, 'Chiphpotle\\Rest\\Model\\RpcStatus', 'json');
+        return $serializer->deserialize($body, RpcStatus::class, 'json');
     }
 
     public function getAuthenticationScopes(): array

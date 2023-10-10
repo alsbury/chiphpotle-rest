@@ -49,9 +49,9 @@ class SchemaServiceReadSchema extends BaseEndpoint implements ClientEndpoint
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
         if (200 === $status) {
-            return $serializer->deserialize($body, 'Chiphpotle\\Rest\\Model\\ReadSchemaResponse', 'json');
+            return $serializer->deserialize($body, ReadSchemaResponse::class, 'json');
         }
-        return $serializer->deserialize($body, 'Chiphpotle\\Rest\\Model\\RpcStatus', 'json');
+        return $serializer->deserialize($body, RpcStatus::class, 'json');
     }
 
     public function getAuthenticationScopes(): array

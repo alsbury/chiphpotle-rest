@@ -4,9 +4,11 @@ namespace Chiphpotle\Rest\Endpoint;
 
 use Chiphpotle\Rest\Model\BulkImportRelationshipsRequest;
 use Chiphpotle\Rest\Model\BulkImportRelationshipsResponse;
+use Chiphpotle\Rest\Model\RpcStatus;
 use Chiphpotle\Rest\Runtime\Client\BaseEndpoint;
 use Chiphpotle\Rest\Runtime\Client\Endpoint;
 use Chiphpotle\Rest\Runtime\Client\EndpointTrait;
+use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 
 class ExperimentalServiceBulkImportRelationships extends BaseEndpoint implements Endpoint
@@ -47,20 +49,15 @@ class ExperimentalServiceBulkImportRelationships extends BaseEndpoint implements
         return ['Accept' => ['application/json']];
     }
 
-    /**
-     * {@inheritdoc}
-     *
-     *
-     * @return null|BulkImportRelationshipsResponse|\Chiphpotle\Rest\Model\RpcStatus
-     */
-    protected function transformResponseBody(\Psr\Http\Message\ResponseInterface $response, SerializerInterface $serializer, ?string $contentType = null)
+
+    protected function transformResponseBody(ResponseInterface $response, SerializerInterface $serializer, ?string $contentType = null): BulkImportRelationshipsResponse|RpcStatus
     {
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
         if (200 === $status) {
-            return $serializer->deserialize($body, 'Chiphpotle\\Rest\\Model\\BulkImportRelationshipsResponse', 'json');
+            return $serializer->deserialize($body, BulkImportRelationshipsResponse::class, 'json');
         }
-        return $serializer->deserialize($body, 'Chiphpotle\\Rest\\Model\\RpcStatus', 'json');
+        return $serializer->deserialize($body, RpcStatus::class, 'json');
     }
 
     public function getAuthenticationScopes(): array

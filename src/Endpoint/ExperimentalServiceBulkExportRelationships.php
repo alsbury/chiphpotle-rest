@@ -49,9 +49,9 @@ class ExperimentalServiceBulkExportRelationships extends BaseEndpoint implements
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
         if (200 === $status) {
-            return $serializer->deserialize($body, 'Chiphpotle\\Rest\\Model\\ExperimentalRelationshipsBulkexportPostResponse200', 'json');
+            return $serializer->deserialize($body, ExperimentalRelationshipsBulkexportPostResponse200::class, 'json');
         }
-        return $serializer->deserialize($body, 'Chiphpotle\\Rest\\Model\\RpcStatus', 'json');
+        return $serializer->deserialize($body, RpcStatus::class, 'json');
     }
 
     public function getAuthenticationScopes(): array

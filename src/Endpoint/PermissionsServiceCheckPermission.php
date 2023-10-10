@@ -49,9 +49,9 @@ class PermissionsServiceCheckPermission extends BaseEndpoint implements ClientEn
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
         if (200 === $status) {
-            return $serializer->deserialize($body, 'Chiphpotle\\Rest\\Model\\CheckPermissionResponse', 'json');
+            return $serializer->deserialize($body, CheckPermissionResponse::class, 'json');
         }
-        return $serializer->deserialize($body, 'Chiphpotle\\Rest\\Model\\RpcStatus', 'json');
+        return $serializer->deserialize($body, RpcStatus::class, 'json');
     }
 
     public function getAuthenticationScopes(): array

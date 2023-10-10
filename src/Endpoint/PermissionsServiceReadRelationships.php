@@ -50,9 +50,9 @@ class PermissionsServiceReadRelationships extends BaseEndpoint implements Client
              */
             $parts = explode("\n", trim($body));
             $data = '[' . implode(',', $parts) . ']';
-            return $serializer->deserialize($data, 'Chiphpotle\\Rest\\Model\\RelationshipsReadPostResponse200', 'json');
+            return $serializer->deserialize($data, RelationshipsReadPostResponse200::class, 'json');
         }
-        return $serializer->deserialize($body, 'Chiphpotle\\Rest\\Model\\RpcStatus', 'json');
+        return $serializer->deserialize($body, RpcStatus::class, 'json');
     }
 
     public function getAuthenticationScopes(): array

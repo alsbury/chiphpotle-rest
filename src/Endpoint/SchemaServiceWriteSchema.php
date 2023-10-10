@@ -47,7 +47,7 @@ class SchemaServiceWriteSchema extends BaseEndpoint implements ClientEndpoint
         if (200 === $status) {
             return json_decode($body);
         }
-        return $serializer->deserialize($body, 'Chiphpotle\\Rest\\Model\\RpcStatus', 'json');
+        return $serializer->deserialize($body, RpcStatus::class, 'json');
     }
 
     public function getAuthenticationScopes(): array
