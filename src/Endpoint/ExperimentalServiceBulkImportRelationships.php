@@ -4,7 +4,6 @@ namespace Chiphpotle\Rest\Endpoint;
 
 use Chiphpotle\Rest\Model\BulkImportRelationshipsRequest;
 use Chiphpotle\Rest\Model\BulkImportRelationshipsResponse;
-use Chiphpotle\Rest\Model\RpcStatus;
 use Chiphpotle\Rest\Runtime\Client\BaseEndpoint;
 use Chiphpotle\Rest\Runtime\Client\Endpoint;
 use Chiphpotle\Rest\Runtime\Client\EndpointTrait;
@@ -50,14 +49,14 @@ final class ExperimentalServiceBulkImportRelationships extends BaseEndpoint impl
     }
 
 
-    protected function transformResponseBody(ResponseInterface $response, SerializerInterface $serializer, ?string $contentType = null): BulkImportRelationshipsResponse|RpcStatus
+    protected function transformResponseBody(ResponseInterface $response, SerializerInterface $serializer, ?string $contentType = null): BulkImportRelationshipsResponse
     {
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
         if (200 === $status) {
             return $serializer->deserialize($body, BulkImportRelationshipsResponse::class, 'json');
         }
-        return $serializer->deserialize($body, RpcStatus::class, 'json');
+        $this->throwRpcException($body, $serializer);
     }
 
     public function getAuthenticationScopes(): array

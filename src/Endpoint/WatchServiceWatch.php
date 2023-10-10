@@ -2,7 +2,6 @@
 
 namespace Chiphpotle\Rest\Endpoint;
 
-use Chiphpotle\Rest\Model\RpcStatus;
 use Chiphpotle\Rest\Model\WatchPostResponse200;
 use Chiphpotle\Rest\Model\WatchRequest;
 use Chiphpotle\Rest\Runtime\Client\BaseEndpoint;
@@ -40,14 +39,14 @@ final class WatchServiceWatch extends BaseEndpoint implements Endpoint
         return ['Accept' => ['application/json']];
     }
 
-    protected function transformResponseBody(ResponseInterface $response, SerializerInterface $serializer, ?string $contentType = null): WatchPostResponse200|RpcStatus|null
+    protected function transformResponseBody(ResponseInterface $response, SerializerInterface $serializer, ?string $contentType = null): WatchPostResponse200
     {
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
         if (200 === $status) {
             return $serializer->deserialize($body, WatchPostResponse200::class, 'json');
         }
-        return $serializer->deserialize($body, RpcStatus::class, 'json');
+        $this->throwRpcException($body, $serializer);
     }
 
     public function getAuthenticationScopes(): array

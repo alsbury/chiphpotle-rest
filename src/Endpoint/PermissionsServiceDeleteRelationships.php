@@ -2,7 +2,6 @@
 
 namespace Chiphpotle\Rest\Endpoint;
 
-use Chiphpotle\Rest\Model\RpcStatus;
 use Chiphpotle\Rest\Model\DeleteRelationshipsRequest;
 use Chiphpotle\Rest\Model\DeleteRelationshipsResponse;
 use Chiphpotle\Rest\Runtime\Client\BaseEndpoint;
@@ -47,14 +46,14 @@ final class PermissionsServiceDeleteRelationships extends BaseEndpoint implement
         return ['Accept' => ['application/json']];
     }
 
-    protected function transformResponseBody(ResponseInterface $response, SerializerInterface $serializer, ?string $contentType = null): RpcStatus|DeleteRelationshipsResponse|null
+    protected function transformResponseBody(ResponseInterface $response, SerializerInterface $serializer, ?string $contentType = null): DeleteRelationshipsResponse
     {
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
         if (200 === $status) {
             return $serializer->deserialize($body, DeleteRelationshipsResponse::class, 'json');
         }
-        return $serializer->deserialize($body, RpcStatus::class, 'json');
+        $this->throwRpcException($body, $serializer);
     }
 
     public function getAuthenticationScopes(): array

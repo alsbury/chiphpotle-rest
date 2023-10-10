@@ -3,7 +3,6 @@
 namespace Chiphpotle\Rest\Endpoint;
 
 use Chiphpotle\Rest\Model\ReadSchemaResponse;
-use Chiphpotle\Rest\Model\RpcStatus;
 use Chiphpotle\Rest\Runtime\Client\BaseEndpoint;
 use Chiphpotle\Rest\Runtime\Client\Endpoint as ClientEndpoint;
 use Chiphpotle\Rest\Runtime\Client\EndpointTrait;
@@ -44,14 +43,14 @@ final class SchemaServiceReadSchema extends BaseEndpoint implements ClientEndpoi
         return ['Accept' => ['application/json']];
     }
 
-    protected function transformResponseBody(ResponseInterface $response, SerializerInterface $serializer, ?string $contentType = null): ReadSchemaResponse|RpcStatus|null
+    protected function transformResponseBody(ResponseInterface $response, SerializerInterface $serializer, ?string $contentType = null): ReadSchemaResponse
     {
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
         if (200 === $status) {
             return $serializer->deserialize($body, ReadSchemaResponse::class, 'json');
         }
-        return $serializer->deserialize($body, RpcStatus::class, 'json');
+        $this->throwRpcException($body, $serializer);
     }
 
     public function getAuthenticationScopes(): array

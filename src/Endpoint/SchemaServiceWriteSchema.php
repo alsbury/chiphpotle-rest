@@ -2,7 +2,6 @@
 
 namespace Chiphpotle\Rest\Endpoint;
 
-use Chiphpotle\Rest\Model\RpcStatus;
 use Chiphpotle\Rest\Model\WriteSchemaRequest;
 use Chiphpotle\Rest\Runtime\Client\BaseEndpoint;
 use Chiphpotle\Rest\Runtime\Client\Endpoint as ClientEndpoint;
@@ -40,14 +39,14 @@ final class SchemaServiceWriteSchema extends BaseEndpoint implements ClientEndpo
         return ['Accept' => ['application/json']];
     }
 
-    protected function transformResponseBody(ResponseInterface $response, SerializerInterface $serializer, ?string $contentType = null): bool|RpcStatus|stdClass
+    protected function transformResponseBody(ResponseInterface $response, SerializerInterface $serializer, ?string $contentType = null): stdClass
     {
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
         if (200 === $status) {
             return json_decode($body);
         }
-        return $serializer->deserialize($body, RpcStatus::class, 'json');
+        $this->throwRpcException($body, $serializer);
     }
 
     public function getAuthenticationScopes(): array

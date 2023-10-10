@@ -2,7 +2,6 @@
 
 namespace Chiphpotle\Rest\Endpoint;
 
-use Chiphpotle\Rest\Model\RpcStatus;
 use Chiphpotle\Rest\Model\ExpandPermissionTreeRequest;
 use Chiphpotle\Rest\Model\ExpandPermissionTreeResponse;
 use Chiphpotle\Rest\Runtime\Client\BaseEndpoint;
@@ -49,14 +48,14 @@ final class PermissionsServiceExpandPermissionTree extends BaseEndpoint implemen
         return ['Accept' => ['application/json']];
     }
 
-    protected function transformResponseBody(ResponseInterface $response, SerializerInterface $serializer, ?string $contentType = null): RpcStatus|ExpandPermissionTreeResponse|null
+    protected function transformResponseBody(ResponseInterface $response, SerializerInterface $serializer, ?string $contentType = null): ExpandPermissionTreeResponse
     {
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
         if (200 === $status) {
             return $serializer->deserialize($body, ExpandPermissionTreeResponse::class, 'json');
         }
-        return $serializer->deserialize($body, RpcStatus::class, 'json');
+        $this->throwRpcException($body, $serializer);
     }
 
     public function getAuthenticationScopes(): array

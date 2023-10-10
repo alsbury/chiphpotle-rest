@@ -2,7 +2,6 @@
 
 namespace Chiphpotle\Rest\Endpoint;
 
-use Chiphpotle\Rest\Model\RpcStatus;
 use Chiphpotle\Rest\Model\WriteRelationshipsRequest;
 use Chiphpotle\Rest\Model\WriteRelationshipsResponse;
 use Chiphpotle\Rest\Runtime\Client\BaseEndpoint;
@@ -40,14 +39,14 @@ final class PermissionsServiceWriteRelationships extends BaseEndpoint implements
         return ['Accept' => ['application/json']];
     }
 
-    protected function transformResponseBody(ResponseInterface $response, SerializerInterface $serializer, ?string $contentType = null): RpcStatus|WriteRelationshipsResponse|null
+    protected function transformResponseBody(ResponseInterface $response, SerializerInterface $serializer, ?string $contentType = null): WriteRelationshipsResponse
     {
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
         if (200 === $status) {
             return $serializer->deserialize($body, WriteRelationshipsResponse::class, 'json');
         }
-        return $serializer->deserialize($body, RpcStatus::class, 'json');
+        $this->throwRpcException($body, $serializer);
     }
 
     public function getAuthenticationScopes(): array

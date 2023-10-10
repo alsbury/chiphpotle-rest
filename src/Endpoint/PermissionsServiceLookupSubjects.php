@@ -4,7 +4,6 @@ namespace Chiphpotle\Rest\Endpoint;
 
 use Chiphpotle\Rest\Model\LookupSubjectsRequest;
 use Chiphpotle\Rest\Model\PermissionsSubjectsPostResponse200;
-use Chiphpotle\Rest\Model\RpcStatus;
 use Chiphpotle\Rest\Runtime\Client\BaseEndpoint;
 use Chiphpotle\Rest\Runtime\Client\Endpoint as ClientEndpoint;
 use Chiphpotle\Rest\Runtime\Client\EndpointTrait;
@@ -45,14 +44,14 @@ final class PermissionsServiceLookupSubjects extends BaseEndpoint implements Cli
         return ['Accept' => ['application/json']];
     }
 
-    protected function transformResponseBody(ResponseInterface $response, SerializerInterface $serializer, ?string $contentType = null): PermissionsSubjectsPostResponse200|RpcStatus|null
+    protected function transformResponseBody(ResponseInterface $response, SerializerInterface $serializer, ?string $contentType = null): PermissionsSubjectsPostResponse200
     {
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
         if (200 === $status) {
             return $serializer->deserialize($body, PermissionsSubjectsPostResponse200::class, 'json');
         }
-        return $serializer->deserialize($body, RpcStatus::class, 'json');
+        $this->throwRpcException($body, $serializer);
     }
 
     public function getAuthenticationScopes(): array

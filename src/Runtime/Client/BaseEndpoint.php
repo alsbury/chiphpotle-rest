@@ -2,6 +2,7 @@
 
 namespace Chiphpotle\Rest\Runtime\Client;
 
+use Chiphpotle\Rest\Model\RpcStatus;
 use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Serializer\SerializerInterface;
@@ -56,5 +57,11 @@ abstract class BaseEndpoint implements Endpoint
     protected function getSerializedBody(SerializerInterface $serializer): array
     {
         return [['Content-Type' => ['application/json']], $serializer->serialize($this->body, 'json')];
+    }
+
+    protected function throwRpcException(string $body, SerializerInterface $serializer): void
+    {
+        $rpcResponse = $serializer->deserialize($body, RpcStatus::class, 'json');
+        throw new RpcException($rpcResponse);
     }
 }

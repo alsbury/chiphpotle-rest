@@ -2,7 +2,6 @@
 
 namespace Chiphpotle\Rest\Endpoint;
 
-use Chiphpotle\Rest\Model\RpcStatus;
 use Chiphpotle\Rest\Model\ReadRelationshipsRequest;
 use Chiphpotle\Rest\Model\RelationshipsReadPostResponse200;
 use Chiphpotle\Rest\Runtime\Client\BaseEndpoint;
@@ -40,7 +39,7 @@ final class PermissionsServiceReadRelationships extends BaseEndpoint implements 
         return ['Accept' => ['application/json']];
     }
 
-    protected function transformResponseBody(ResponseInterface $response, SerializerInterface $serializer, ?string $contentType = null): RpcStatus|RelationshipsReadPostResponse200|array|null
+    protected function transformResponseBody(ResponseInterface $response, SerializerInterface $serializer, ?string $contentType = null): RelationshipsReadPostResponse200
     {
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
@@ -52,7 +51,7 @@ final class PermissionsServiceReadRelationships extends BaseEndpoint implements 
             $data = '[' . implode(',', $parts) . ']';
             return $serializer->deserialize($data, RelationshipsReadPostResponse200::class, 'json');
         }
-        return $serializer->deserialize($body, RpcStatus::class, 'json');
+        $this->throwRpcException($body, $serializer);
     }
 
     public function getAuthenticationScopes(): array
