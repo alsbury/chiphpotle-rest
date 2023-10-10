@@ -30,6 +30,7 @@ use Chiphpotle\Rest\Model\SubjectReference;
 use Chiphpotle\Rest\Model\WriteRelationshipsRequest;
 use Chiphpotle\Rest\Model\WriteRelationshipsResponse;
 use Chiphpotle\Rest\Model\WriteSchemaRequest;
+use Chiphpotle\Rest\Runtime\Client\RpcException;
 use Chiphpotle\Rest\Test\Fixtures\SchemaFixtures;
 use PHPUnit\Framework\TestCase;
 
@@ -120,7 +121,6 @@ final class ClientTest extends TestCase
             "view",
             SubjectReference::create("user", "bob")
         );
-        /** @var CheckPermissionResponse $response */
         $response = $this->getApiClient()->permissionsServiceCheckPermission(
             $request
         );
@@ -137,7 +137,6 @@ final class ClientTest extends TestCase
             "write",
             SubjectReference::create("user", "alice")
         );
-        /** @var CheckPermissionResponse $response */
         $response = $this->getApiClient()->permissionsServiceCheckPermission(
             $request
         );
@@ -158,7 +157,6 @@ final class ClientTest extends TestCase
             SubjectReference::create("user", "anon"),
             ['status' => 'published']
         );
-        /** @var CheckPermissionResponse $response */
         $response = $this->getApiClient()->permissionsServiceCheckPermission(
             $request
         );
@@ -180,7 +178,6 @@ final class ClientTest extends TestCase
             SubjectReference::create("user", "anon2"),
             ['status' => 'draft']
         );
-        /** @var CheckPermissionResponse $response */
         $response = $this->getApiClient()->permissionsServiceCheckPermission(
             $request
         );
@@ -203,12 +200,13 @@ final class ClientTest extends TestCase
             ]
         );
 
-        $response = $this->getApiClient()->experimentalServiceBulkCheckPermission(
-            $request
-        );
-
-        if ($response instanceof RpcStatus) {
-            $this->markTestSkipped('Currently running version of spicedb does not support the experimental bulk permission check api');
+        try {
+            $response = $this->getApiClient()->experimentalServiceBulkCheckPermission($request);
+        } catch (RpcException $e) {
+            if ($e->getMessage() == 'Not Found') {
+                $this->markTestSkipped('Currently running version of spicedb does not support the experimental bulk permission check api');
+            }
+            throw $e;
         }
 
         $this->assertInstanceOf(BulkCheckPermissionResponse::class, $response);
@@ -227,10 +225,14 @@ final class ClientTest extends TestCase
             new Relationship(ObjectReference::create('document', 'blogpost1'), 'writer', SubjectReference::create('user', 'mary')),
             new Relationship(ObjectReference::create('document', 'blogpost2'), 'writer', SubjectReference::create('user', 'mary'))
         ]);
-        $response = $this->getApiClient()->experimentalServiceBulkImportRelationships($request);
 
-        if ($response instanceof RpcStatus) {
-            $this->markTestSkipped('Currently running version of spicedb does not support the experimental bulk relationship import api');
+        try {
+            $response = $this->getApiClient()->experimentalServiceBulkImportRelationships($request);
+        } catch (RpcException $e) {
+            if ($e->getMessage() == 'Not Found') {
+                $this->markTestSkipped('Currently running version of spicedb does not support the experimental bulk relationship import api');
+            }
+            throw $e;
         }
 
         $this->assertInstanceOf(BulkImportRelationshipsResponse::class, $response);
@@ -242,10 +244,14 @@ final class ClientTest extends TestCase
         $this->writeRelationship('document', 'topsecret1', 'writer', 'user', 'joe');
 
         $request = new BulkExportRelationshipsRequest();
-        $response = $this->getApiClient()->experimentalServiceBulkExportRelationships($request);
 
-        if ($response instanceof RpcStatus) {
-            $this->markTestSkipped('Currently running version of spicedb does not support the experimental bulk relationship export api');
+        try {
+            $response = $this->getApiClient()->experimentalServiceBulkExportRelationships($request);
+        } catch (RpcException $e) {
+            if ($e->getMessage() == 'Not Found') {
+                $this->markTestSkipped('Currently running version of spicedb does not support the experimental bulk relationship export api');
+            }
+            throw $e;
         }
 
         $this->assertInstanceOf(ExperimentalRelationshipsBulkexportPostResponse200::class, $response);
@@ -258,14 +264,10 @@ final class ClientTest extends TestCase
             ObjectReference::create("document", "topsecret1"),
             "view"
         );
-        /** @var CheckPermissionResponse $response */
         $response = $this->getApiClient()->permissionsServiceExpandPermissionTree(
             $request
         );
-        $this->assertEquals(
-            ExpandPermissionTreeResponse::class,
-            get_class($response)
-        );
+        $this->assertInstanceOf(ExpandPermissionTreeResponse::class, $response);
     }
 
     private function writeRelationship(string $objectType, string $objectId, string $relation, string $subjectType, string $subjectId, ?ContextualizedCaveat $caveat = null): WriteRelationshipsResponse
