@@ -6,7 +6,6 @@ use Chiphpotle\Rest\Model\AlgebraicSubjectSet;
 use Chiphpotle\Rest\Model\DirectSubjectSet;
 use Chiphpotle\Rest\Model\ObjectReference;
 use Chiphpotle\Rest\Model\PermissionRelationshipTree;
-use Jane\Component\JsonSchemaRuntime\Reference;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -32,14 +31,8 @@ final class PermissionRelationshipTreeNormalizer implements DenormalizerInterfac
         return is_object($data) && get_class($data) === PermissionRelationshipTree::class;
     }
 
-    public function denormalize(mixed $data, string $type, string $format = null, array $context = []): PermissionRelationshipTree|Reference
+    public function denormalize(mixed $data, string $type, string $format = null, array $context = []): PermissionRelationshipTree
     {
-        if (isset($data['$ref'])) {
-            return new Reference($data['$ref'], $context['document-origin']);
-        }
-        if (isset($data['$recursiveRef'])) {
-            return new Reference($data['$recursiveRef'], $context['document-origin']);
-        }
         $object = new PermissionRelationshipTree();
         if (null === $data || false === is_array($data)) {
             return $object;

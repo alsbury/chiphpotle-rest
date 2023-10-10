@@ -6,7 +6,6 @@ use Chiphpotle\Rest\Model\ContextualizedCaveat;
 use Chiphpotle\Rest\Model\ObjectReference;
 use Chiphpotle\Rest\Model\Relationship;
 use Chiphpotle\Rest\Model\SubjectReference;
-use Jane\Component\JsonSchemaRuntime\Reference;
 use Symfony\Component\Serializer\Exception\InvalidArgumentException;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -30,14 +29,8 @@ final class RelationshipNormalizer implements DenormalizerInterface, NormalizerI
         return is_object($data) && get_class($data) === Relationship::class;
     }
 
-    public function denormalize(mixed $data, string $type, string $format = null, array $context = []): Relationship|Reference
+    public function denormalize(mixed $data, string $type, string $format = null, array $context = []): Relationship
     {
-        if (isset($data['$ref'])) {
-            return new Reference($data['$ref'], $context['document-origin']);
-        }
-        if (isset($data['$recursiveRef'])) {
-            return new Reference($data['$recursiveRef'], $context['document-origin']);
-        }
 
         $missing = array_filter(['resource', 'relation', 'subject'], fn (string $field) => empty($data[$field]));
         if (!empty($missing)) {

@@ -4,7 +4,6 @@ namespace Chiphpotle\Rest\Normalizer;
 
 use Chiphpotle\Rest\Model\WatchRequest;
 use Chiphpotle\Rest\Model\ZedToken;
-use Jane\Component\JsonSchemaRuntime\Reference;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -27,14 +26,8 @@ final class WatchRequestNormalizer implements DenormalizerInterface, NormalizerI
         return is_object($data) && get_class($data) === WatchRequest::class;
     }
 
-    public function denormalize(mixed $data, string $type, string $format = null, array $context = []): WatchRequest|Reference
+    public function denormalize(mixed $data, string $type, string $format = null, array $context = []): WatchRequest
     {
-        if (isset($data['$ref'])) {
-            return new Reference($data['$ref'], $context['document-origin']);
-        }
-        if (isset($data['$recursiveRef'])) {
-            return new Reference($data['$recursiveRef'], $context['document-origin']);
-        }
         $object = new WatchRequest();
         if (null === $data || false === \is_array($data)) {
             return $object;

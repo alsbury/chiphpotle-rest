@@ -3,7 +3,6 @@
 namespace Chiphpotle\Rest\Normalizer;
 
 use Chiphpotle\Rest\Model\BulkImportRelationshipsResponse;
-use Jane\Component\JsonSchemaRuntime\Reference;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -26,14 +25,8 @@ final class BulkImportRelationshipsResponseNormalizer implements DenormalizerInt
         return is_object($data) && get_class($data) === BulkImportRelationshipsResponse::class;
     }
 
-    public function denormalize(mixed $data, string $type, string $format = null, array $context = []): BulkImportRelationshipsResponse|Reference
+    public function denormalize(mixed $data, string $type, string $format = null, array $context = []): BulkImportRelationshipsResponse
     {
-        if (isset($data['$ref'])) {
-            return new Reference($data['$ref'], $context['document-origin']);
-        }
-        if (isset($data['$recursiveRef'])) {
-            return new Reference($data['$recursiveRef'], $context['document-origin']);
-        }
         $object = new BulkImportRelationshipsResponse();
         if (null === $data || false === \is_array($data)) {
             return $object;

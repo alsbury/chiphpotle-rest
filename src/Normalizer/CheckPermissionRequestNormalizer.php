@@ -6,7 +6,6 @@ use Chiphpotle\Rest\Model\CheckPermissionRequest;
 use Chiphpotle\Rest\Model\Consistency;
 use Chiphpotle\Rest\Model\ObjectReference;
 use Chiphpotle\Rest\Model\SubjectReference;
-use Jane\Component\JsonSchemaRuntime\Reference;
 use Symfony\Component\Serializer\Exception\InvalidArgumentException;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -32,14 +31,8 @@ final class CheckPermissionRequestNormalizer implements DenormalizerInterface, N
         return is_object($data) && get_class($data) === CheckPermissionRequest::class;
     }
 
-    public function denormalize(mixed $data, string $type, string $format = null, array $context = []): CheckPermissionRequest|Reference
+    public function denormalize(mixed $data, string $type, string $format = null, array $context = []): CheckPermissionRequest
     {
-        if (isset($data['$ref'])) {
-            return new Reference($data['$ref'], $context['document-origin']);
-        }
-        if (isset($data['$recursiveRef'])) {
-            return new Reference($data['$recursiveRef'], $context['document-origin']);
-        }
 
         $missing = array_filter(['resource', 'permission', 'subject'], fn (string $field) => empty($data[$field]));
         if (!empty($missing)) {

@@ -5,7 +5,6 @@ namespace Chiphpotle\Rest\Normalizer;
 use Chiphpotle\Rest\Model\ReadRelationshipsResponse;
 use Chiphpotle\Rest\Model\Relationship;
 use Chiphpotle\Rest\Model\ZedToken;
-use Jane\Component\JsonSchemaRuntime\Reference;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -31,14 +30,8 @@ final class ReadRelationshipsResponseNormalizer implements DenormalizerInterface
         return is_object($data) && get_class($data) === ReadRelationshipsResponse::class;
     }
 
-    public function denormalize(mixed $data, string $type, string $format = null, array $context = []): ReadRelationshipsResponse|Reference
+    public function denormalize(mixed $data, string $type, string $format = null, array $context = []): ReadRelationshipsResponse
     {
-        if (isset($data['$ref'])) {
-            return new Reference($data['$ref'], $context['document-origin']);
-        }
-        if (isset($data['$recursiveRef'])) {
-            return new Reference($data['$recursiveRef'], $context['document-origin']);
-        }
         $object = new ReadRelationshipsResponse();
         if (null === $data || false === is_array($data)) {
             return $object;

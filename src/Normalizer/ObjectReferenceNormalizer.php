@@ -3,7 +3,6 @@
 namespace Chiphpotle\Rest\Normalizer;
 
 use Chiphpotle\Rest\Model\ObjectReference;
-use Jane\Component\JsonSchemaRuntime\Reference;
 use Symfony\Component\Serializer\Exception\InvalidArgumentException;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -29,14 +28,8 @@ final class ObjectReferenceNormalizer implements DenormalizerInterface, Normaliz
         return is_object($data) && get_class($data) === ObjectReference::class;
     }
 
-    public function denormalize(mixed $data, string $type, string $format = null, array $context = []): ObjectReference|Reference
+    public function denormalize(mixed $data, string $type, string $format = null, array $context = []): ObjectReference
     {
-        if (isset($data['$ref'])) {
-            return new Reference($data['$ref'], $context['document-origin']);
-        }
-        if (isset($data['$recursiveRef'])) {
-            return new Reference($data['$recursiveRef'], $context['document-origin']);
-        }
 
         if (empty($data['objectType'])) {
             throw new InvalidArgumentException('Missing required objectType');

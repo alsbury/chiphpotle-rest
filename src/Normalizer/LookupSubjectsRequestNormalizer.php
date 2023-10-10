@@ -6,7 +6,6 @@ use Chiphpotle\Rest\Model\Consistency;
 use Chiphpotle\Rest\Model\LookupSubjectsRequest;
 use ArrayObject;
 use Chiphpotle\Rest\Model\ObjectReference;
-use Jane\Component\JsonSchemaRuntime\Reference;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -32,14 +31,8 @@ final class LookupSubjectsRequestNormalizer implements DenormalizerInterface, No
         return is_object($data) && get_class($data) === LookupSubjectsRequest::class;
     }
 
-    public function denormalize(mixed $data, string $type, string $format = null, array $context = []): LookupSubjectsRequest|Reference
+    public function denormalize(mixed $data, string $type, string $format = null, array $context = []): LookupSubjectsRequest
     {
-        if (isset($data['$ref'])) {
-            return new Reference($data['$ref'], $context['document-origin']);
-        }
-        if (isset($data['$recursiveRef'])) {
-            return new Reference($data['$recursiveRef'], $context['document-origin']);
-        }
         $object = new LookupSubjectsRequest();
         if (null === $data || false === is_array($data)) {
             return $object;

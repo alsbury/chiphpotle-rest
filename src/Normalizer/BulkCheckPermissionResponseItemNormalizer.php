@@ -4,7 +4,6 @@ namespace Chiphpotle\Rest\Normalizer;
 
 use Chiphpotle\Rest\Model\BulkCheckPermissionResponseItem;
 use Chiphpotle\Rest\Model\PartialCaveatInfo;
-use Jane\Component\JsonSchemaRuntime\Reference;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -28,14 +27,8 @@ final class BulkCheckPermissionResponseItemNormalizer implements DenormalizerInt
     }
 
 
-    public function denormalize(mixed $data, string $type, string $format = null, array $context = []): BulkCheckPermissionResponseItem|Reference
+    public function denormalize(mixed $data, string $type, string $format = null, array $context = []): BulkCheckPermissionResponseItem
     {
-        if (isset($data['$ref'])) {
-            return new Reference($data['$ref'], $context['document-origin']);
-        }
-        if (isset($data['$recursiveRef'])) {
-            return new Reference($data['$recursiveRef'], $context['document-origin']);
-        }
         $object = new BulkCheckPermissionResponseItem();
         if (null === $data || false === \is_array($data)) {
             return $object;

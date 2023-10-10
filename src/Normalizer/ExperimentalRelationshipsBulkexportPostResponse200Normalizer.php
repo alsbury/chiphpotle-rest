@@ -5,7 +5,6 @@ namespace Chiphpotle\Rest\Normalizer;
 use Chiphpotle\Rest\Model\BulkExportRelationshipsResponse;
 use Chiphpotle\Rest\Model\ExperimentalRelationshipsBulkexportPostResponse200;
 use Chiphpotle\Rest\Model\RpcStatus;
-use Jane\Component\JsonSchemaRuntime\Reference;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -28,14 +27,8 @@ final class ExperimentalRelationshipsBulkexportPostResponse200Normalizer impleme
         return is_object($data) && get_class($data) === ExperimentalRelationshipsBulkexportPostResponse200::class;
     }
 
-    public function denormalize(mixed $data, string $type, string $format = null, array $context = []): ExperimentalRelationshipsBulkexportPostResponse200|Reference
+    public function denormalize(mixed $data, string $type, string $format = null, array $context = []): ExperimentalRelationshipsBulkexportPostResponse200
     {
-        if (isset($data['$ref'])) {
-            return new Reference($data['$ref'], $context['document-origin']);
-        }
-        if (isset($data['$recursiveRef'])) {
-            return new Reference($data['$recursiveRef'], $context['document-origin']);
-        }
         $object = new ExperimentalRelationshipsBulkexportPostResponse200();
         if (null === $data || false === \is_array($data)) {
             return $object;

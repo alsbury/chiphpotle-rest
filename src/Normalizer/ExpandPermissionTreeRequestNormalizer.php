@@ -5,7 +5,6 @@ namespace Chiphpotle\Rest\Normalizer;
 use Chiphpotle\Rest\Model\Consistency;
 use Chiphpotle\Rest\Model\ExpandPermissionTreeRequest;
 use Chiphpotle\Rest\Model\ObjectReference;
-use Jane\Component\JsonSchemaRuntime\Reference;
 use Symfony\Component\Serializer\Exception\InvalidArgumentException;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -31,14 +30,8 @@ final class ExpandPermissionTreeRequestNormalizer implements DenormalizerInterfa
         return is_object($data) && get_class($data) === ExpandPermissionTreeRequest::class;
     }
 
-    public function denormalize(mixed $data, string $type, string $format = null, array $context = []): ExpandPermissionTreeRequest|Reference
+    public function denormalize(mixed $data, string $type, string $format = null, array $context = []): ExpandPermissionTreeRequest
     {
-        if (isset($data['$ref'])) {
-            return new Reference($data['$ref'], $context['document-origin']);
-        }
-        if (isset($data['$recursiveRef'])) {
-            return new Reference($data['$recursiveRef'], $context['document-origin']);
-        }
 
         if (empty($data['resource'])) {
             throw new InvalidArgumentException('Missing required resource');

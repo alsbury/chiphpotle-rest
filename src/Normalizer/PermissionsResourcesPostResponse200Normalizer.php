@@ -5,7 +5,6 @@ namespace Chiphpotle\Rest\Normalizer;
 use Chiphpotle\Rest\Model\LookupResourcesResponse;
 use Chiphpotle\Rest\Model\PermissionsResourcesPostResponse200;
 use Chiphpotle\Rest\Model\RpcStatus;
-use Jane\Component\JsonSchemaRuntime\Reference;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -31,14 +30,8 @@ final class PermissionsResourcesPostResponse200Normalizer implements Denormalize
         return is_object($data) && get_class($data) === PermissionsResourcesPostResponse200::class;
     }
 
-    public function denormalize(mixed $data, string $type, string $format = null, array $context = []): PermissionsResourcesPostResponse200|Reference
+    public function denormalize(mixed $data, string $type, string $format = null, array $context = []): PermissionsResourcesPostResponse200
     {
-        if (isset($data['$ref'])) {
-            return new Reference($data['$ref'], $context['document-origin']);
-        }
-        if (isset($data['$recursiveRef'])) {
-            return new Reference($data['$recursiveRef'], $context['document-origin']);
-        }
         $object = new PermissionsResourcesPostResponse200();
         if (null === $data || false === is_array($data)) {
             return $object;

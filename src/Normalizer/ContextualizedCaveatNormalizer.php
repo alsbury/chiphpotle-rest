@@ -3,7 +3,6 @@
 namespace Chiphpotle\Rest\Normalizer;
 
 use Chiphpotle\Rest\Model\ContextualizedCaveat;
-use Jane\Component\JsonSchemaRuntime\Reference;
 use Symfony\Component\Serializer\Exception\InvalidArgumentException;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -27,14 +26,8 @@ final class ContextualizedCaveatNormalizer implements DenormalizerInterface, Nor
         return is_object($data) && get_class($data) === ContextualizedCaveat::class;
     }
 
-    public function denormalize(mixed $data, string $type, string $format = null, array $context = []): ContextualizedCaveat|Reference
+    public function denormalize(mixed $data, string $type, string $format = null, array $context = []): ContextualizedCaveat
     {
-        if (isset($data['$ref'])) {
-            return new Reference($data['$ref'], $context['document-origin']);
-        }
-        if (isset($data['$recursiveRef'])) {
-            return new Reference($data['$recursiveRef'], $context['document-origin']);
-        }
 
         if (empty($data['caveatName'])) {
             throw new InvalidArgumentException('Missing required caveatName');

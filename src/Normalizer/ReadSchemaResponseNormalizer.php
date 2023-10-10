@@ -4,7 +4,6 @@ namespace Chiphpotle\Rest\Normalizer;
 
 use ArrayObject;
 use Chiphpotle\Rest\Model\ReadSchemaResponse;
-use Jane\Component\JsonSchemaRuntime\Reference;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -30,14 +29,8 @@ final class ReadSchemaResponseNormalizer implements DenormalizerInterface, Norma
         return is_object($data) && get_class($data) === ReadSchemaResponse::class;
     }
 
-    public function denormalize(mixed $data, string $type, string $format = null, array $context = []): ReadSchemaResponse|Reference
+    public function denormalize(mixed $data, string $type, string $format = null, array $context = []): ReadSchemaResponse
     {
-        if (isset($data['$ref'])) {
-            return new Reference($data['$ref'], $context['document-origin']);
-        }
-        if (isset($data['$recursiveRef'])) {
-            return new Reference($data['$recursiveRef'], $context['document-origin']);
-        }
         $object = new ReadSchemaResponse();
         if (null === $data || false === is_array($data)) {
             return $object;

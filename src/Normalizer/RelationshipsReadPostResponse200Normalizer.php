@@ -6,7 +6,6 @@ use ArrayObject;
 use Chiphpotle\Rest\Model\ReadRelationshipsResponse;
 use Chiphpotle\Rest\Model\RelationshipsReadPostResponse200;
 use Chiphpotle\Rest\Model\RpcStatus;
-use Jane\Component\JsonSchemaRuntime\Reference;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -32,14 +31,8 @@ final class RelationshipsReadPostResponse200Normalizer implements DenormalizerIn
         return is_object($data) && get_class($data) === RelationshipsReadPostResponse200::class;
     }
 
-    public function denormalize(mixed $data, string $type, string $format = null, array $context = []): RelationshipsReadPostResponse200|Reference
+    public function denormalize(mixed $data, string $type, string $format = null, array $context = []): RelationshipsReadPostResponse200
     {
-        if (isset($data['$ref'])) {
-            return new Reference($data['$ref'], $context['document-origin']);
-        }
-        if (isset($data['$recursiveRef'])) {
-            return new Reference($data['$recursiveRef'], $context['document-origin']);
-        }
         $object = new RelationshipsReadPostResponse200();
         if (null === $data || false === is_array($data)) {
             return $object;

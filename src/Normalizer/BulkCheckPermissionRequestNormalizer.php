@@ -5,7 +5,6 @@ namespace Chiphpotle\Rest\Normalizer;
 use Chiphpotle\Rest\Model\BulkCheckPermissionRequest;
 use Chiphpotle\Rest\Model\BulkCheckPermissionRequestItem;
 use Chiphpotle\Rest\Model\Consistency;
-use Jane\Component\JsonSchemaRuntime\Reference;
 use Symfony\Component\Serializer\Exception\InvalidArgumentException;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -30,14 +29,8 @@ final class BulkCheckPermissionRequestNormalizer implements DenormalizerInterfac
         return is_object($data) && get_class($data) === BulkCheckPermissionRequest::class;
     }
 
-    public function denormalize(mixed $data, string $type, string $format = null, array $context = []): BulkCheckPermissionRequest|Reference
+    public function denormalize(mixed $data, string $type, string $format = null, array $context = []): BulkCheckPermissionRequest
     {
-        if (isset($data['$ref'])) {
-            return new Reference($data['$ref'], $context['document-origin']);
-        }
-        if (isset($data['$recursiveRef'])) {
-            return new Reference($data['$recursiveRef'], $context['document-origin']);
-        }
 
         if (\array_key_exists('items', $data)) {
             $items = [];

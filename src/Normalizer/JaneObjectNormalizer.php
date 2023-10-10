@@ -4,8 +4,6 @@ namespace Chiphpotle\Rest\Normalizer;
 
 use Chiphpotle\Rest\Model;
 use Chiphpotle\Rest\Normalizer;
-use Chiphpotle\Rest\Runtime\Normalizer\ReferenceNormalizer;
-use Jane\Component\JsonSchemaRuntime\Reference;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -70,7 +68,6 @@ final class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInt
         Model\PermissionsSubjectsPostResponse200::class => Normalizer\PermissionsSubjectsPostResponse200Normalizer::class,
         Model\RelationshipsReadPostResponse200::class => Normalizer\RelationshipsReadPostResponse200Normalizer::class,
         Model\WatchPostResponse200::class => Normalizer\WatchPostResponse200Normalizer::class,
-        Reference::class => ReferenceNormalizer::class
     ];
 
     protected array $normalizersCache = [];

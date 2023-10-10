@@ -5,7 +5,6 @@ namespace Chiphpotle\Rest\Normalizer;
 use ArrayObject;
 use Chiphpotle\Rest\Model\AlgebraicSubjectSet;
 use Chiphpotle\Rest\Model\PermissionRelationshipTree;
-use Jane\Component\JsonSchemaRuntime\Reference;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -31,14 +30,8 @@ final class AlgebraicSubjectSetNormalizer implements DenormalizerInterface, Norm
         return is_object($data) && get_class($data) === AlgebraicSubjectSet::class;
     }
 
-    public function denormalize(mixed $data, string $type, string $format = null, array $context = []): AlgebraicSubjectSet|Reference
+    public function denormalize(mixed $data, string $type, string $format = null, array $context = []): AlgebraicSubjectSet
     {
-        if (isset($data['$ref'])) {
-            return new Reference($data['$ref'], $context['document-origin']);
-        }
-        if (isset($data['$recursiveRef'])) {
-            return new Reference($data['$recursiveRef'], $context['document-origin']);
-        }
         $object = new AlgebraicSubjectSet();
         if (null === $data || false === is_array($data)) {
             return $object;

@@ -4,7 +4,6 @@ namespace Chiphpotle\Rest\Normalizer;
 
 use Chiphpotle\Rest\Model\LookupSubjectsResponse;
 use Chiphpotle\Rest\Model\ZedToken;
-use Jane\Component\JsonSchemaRuntime\Reference;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -27,14 +26,8 @@ final class LookupSubjectsResponseNormalizer implements DenormalizerInterface, N
         return is_object($data) && get_class($data) === LookupSubjectsResponse::class;
     }
 
-    public function denormalize(mixed $data, string $type, string $format = null, array $context = []): LookupSubjectsResponse|Reference
+    public function denormalize(mixed $data, string $type, string $format = null, array $context = []): LookupSubjectsResponse
     {
-        if (isset($data['$ref'])) {
-            return new Reference($data['$ref'], $context['document-origin']);
-        }
-        if (isset($data['$recursiveRef'])) {
-            return new Reference($data['$recursiveRef'], $context['document-origin']);
-        }
         $object = new LookupSubjectsResponse();
         if (null === $data || false === \is_array($data)) {
             return $object;
