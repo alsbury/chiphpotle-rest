@@ -2,7 +2,6 @@
 
 namespace Chiphpotle\Rest\Runtime\Client;
 
-use Http\Message\MultipartStream\MultipartStreamBuilder;
 use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Serializer\SerializerInterface;
@@ -12,8 +11,6 @@ abstract class BaseEndpoint implements Endpoint
     protected array $queryParameters = [];
 
     protected array $headerParameters = [];
-
-    protected array $formParameters = [];
 
     protected mixed $body;
 
@@ -52,28 +49,6 @@ abstract class BaseEndpoint implements Endpoint
     }
 
     protected function getHeadersOptionsResolver(): OptionsResolver
-    {
-        return new OptionsResolver();
-    }
-
-    // ----------------------------------------------------------------------------------------------------
-    // Used for OpenApi2 compatibility
-    protected function getFormBody(): array
-    {
-        return [['Content-Type' => ['application/x-www-form-urlencoded']], http_build_query($this->getFormOptionsResolver()->resolve($this->formParameters))];
-    }
-
-    protected function getMultipartBody($streamFactory = null): array
-    {
-        $bodyBuilder = new MultipartStreamBuilder($streamFactory);
-        $formParameters = $this->getFormOptionsResolver()->resolve($this->formParameters);
-        foreach ($formParameters as $key => $value) {
-            $bodyBuilder->addResource($key, $value);
-        }
-        return [['Content-Type' => ['multipart/form-data; boundary="' . ($bodyBuilder->getBoundary() . '"')]], $bodyBuilder->build()];
-    }
-
-    protected function getFormOptionsResolver(): OptionsResolver
     {
         return new OptionsResolver();
     }
