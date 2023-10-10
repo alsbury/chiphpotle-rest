@@ -38,7 +38,7 @@ class CheckPermissionResponse
         return $this;
     }
 
-    public function getPartialCaveatInfo(): PartialCaveatInfo
+    public function getPartialCaveatInfo(): ?PartialCaveatInfo
     {
         return $this->partialCaveatInfo;
     }

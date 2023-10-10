@@ -23,11 +23,13 @@ class CheckPermissionRequest
         ObjectReference  $resource,
         string           $permission,
         SubjectReference $subject,
+        mixed            $context = null,
         ?Consistency     $consistency = null,
     ) {
         $this->subject = $subject;
         $this->permission = $permission;
         $this->resource = $resource;
+        $this->context = $context;
         $this->consistency = $consistency;
     }
 

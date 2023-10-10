@@ -53,7 +53,7 @@ class CheckPermissionResponseNormalizer implements DenormalizerInterface, Normal
         return $object;
     }
 
-    public function normalize($object, $format = null, array $context = []): float|int|bool|ArrayObject|array|string|null
+    public function normalize($object, $format = null, array $context = []): array
     {
         $data = [];
         if (null !== $object->getCheckedAt()) {
@@ -61,6 +61,9 @@ class CheckPermissionResponseNormalizer implements DenormalizerInterface, Normal
         }
         if (null !== $object->getPermissionship()) {
             $data['permissionship'] = $object->getPermissionship();
+        }
+        if (null !== $object->getPartialCaveatInfo()) {
+            $data['partialCaveatInfo'] = $this->normalizer->normalize($object->getPartialCaveatInfo(), 'json', $context);
         }
         return $data;
     }

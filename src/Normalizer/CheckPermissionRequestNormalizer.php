@@ -2,10 +2,10 @@
 
 namespace Chiphpotle\Rest\Normalizer;
 
-use ArrayObject;
 use Chiphpotle\Rest\Model\CheckPermissionRequest;
 use Chiphpotle\Rest\Runtime\Normalizer\CheckArray;
 use Jane\Component\JsonSchemaRuntime\Reference;
+use Symfony\Component\Serializer\Exception\InvalidArgumentException;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -14,7 +14,6 @@ use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 use function array_key_exists;
-use function is_array;
 
 class CheckPermissionRequestNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
 {
@@ -40,26 +39,27 @@ class CheckPermissionRequestNormalizer implements DenormalizerInterface, Normali
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new CheckPermissionRequest();
-        if (null === $data || false === is_array($data)) {
-            return $object;
+
+        $missing = array_map(fn (string $field) => empty($data[$field]), ['resource', 'permission', 'subject']);
+        if (!empty($missing)) {
+            throw new InvalidArgumentException('Missing required '.implode(', ', $missing));
         }
+
+        $resource = $this->denormalizer->denormalize($data['resource'], 'Chiphpotle\\Rest\\Model\\ObjectReference', 'json', $context);
+        $permission = $data['permission'];
+        $subject = $this->denormalizer->denormalize($data['subject'], 'Chiphpotle\\Rest\\Model\\SubjectReference', 'json', $context);
+
+        $object = new CheckPermissionRequest($resource, $permission, $subject);
         if (array_key_exists('consistency', $data)) {
             $object->setConsistency($this->denormalizer->denormalize($data['consistency'], 'Chiphpotle\\Rest\\Model\\Consistency', 'json', $context));
         }
-        if (array_key_exists('resource', $data)) {
-            $object->setResource($this->denormalizer->denormalize($data['resource'], 'Chiphpotle\\Rest\\Model\\ObjectReference', 'json', $context));
-        }
-        if (array_key_exists('permission', $data)) {
-            $object->setPermission($data['permission']);
-        }
-        if (array_key_exists('subject', $data)) {
-            $object->setSubject($this->denormalizer->denormalize($data['subject'], 'Chiphpotle\\Rest\\Model\\SubjectReference', 'json', $context));
+        if (array_key_exists('context', $data)) {
+            $object->setContext($data['context']);
         }
         return $object;
     }
 
-    public function normalize($object, $format = null, array $context = []): float|int|bool|ArrayObject|array|string|null
+    public function normalize($object, $format = null, array $context = []): array
     {
         $data = [];
         if (null !== $object->getConsistency()) {
@@ -73,6 +73,9 @@ class CheckPermissionRequestNormalizer implements DenormalizerInterface, Normali
         }
         if (null !== $object->getSubject()) {
             $data['subject'] = $this->normalizer->normalize($object->getSubject(), 'json', $context);
+        }
+        if (null !== $object->getContext()) {
+            $data['context'] = $object->getContext();
         }
         return $data;
     }

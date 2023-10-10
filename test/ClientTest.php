@@ -9,12 +9,12 @@ use Chiphpotle\Rest\Model\BulkCheckPermissionRequest;
 use Chiphpotle\Rest\Model\BulkCheckPermissionRequestItem;
 use Chiphpotle\Rest\Model\BulkCheckPermissionResponse;
 use Chiphpotle\Rest\Model\BulkExportRelationshipsRequest;
-use Chiphpotle\Rest\Model\BulkExportRelationshipsResponse;
 use Chiphpotle\Rest\Model\BulkImportRelationshipsRequest;
 use Chiphpotle\Rest\Model\BulkImportRelationshipsResponse;
 use Chiphpotle\Rest\Model\CheckPermissionRequest;
 use Chiphpotle\Rest\Model\CheckPermissionResponse;
 use Chiphpotle\Rest\Model\Consistency;
+use Chiphpotle\Rest\Model\ContextualizedCaveat;
 use Chiphpotle\Rest\Model\ExpandPermissionTreeRequest;
 use Chiphpotle\Rest\Model\ExpandPermissionTreeResponse;
 use Chiphpotle\Rest\Model\ExperimentalRelationshipsBulkexportPostResponse200;
@@ -50,6 +50,7 @@ class ClientTest extends TestCase
             ->getSchemaText();
         $this->assertStringContainsString('definition user', $schemaText);
         $this->assertStringContainsString('definition document', $schemaText);
+        $this->assertStringContainsString('caveat published', $schemaText);
         $this->assertStringContainsString('relation viewer', $schemaText);
         $this->assertStringContainsString('relation writer', $schemaText);
         $this->assertStringContainsString('permission write', $schemaText);
@@ -125,6 +126,67 @@ class ClientTest extends TestCase
         );
         $this->assertEquals(
             CheckPermissionResponsePermissionship::HAS_PERMISSION,
+            $response->getPermissionship()
+        );
+    }
+
+    public function testPermissionCheckInvalid()
+    {
+        $request = new CheckPermissionRequest(
+            ObjectReference::create("document", "topsecret1"),
+            "write",
+            SubjectReference::create("user", "alice")
+        );
+        /** @var CheckPermissionResponse $response */
+        $response = $this->getApiClient()->permissionsServiceCheckPermission(
+            $request
+        );
+        $this->assertEquals(
+            CheckPermissionResponsePermissionship::NO_PERMISSION,
+            $response->getPermissionship()
+        );
+    }
+
+    public function testPermissionCheckValidWithCaveat()
+    {
+        $caveat = new ContextualizedCaveat('published');
+        $this->writeRelationship('document', 'published_doc', 'viewer', 'user', 'anon', $caveat);
+
+        $request = new CheckPermissionRequest(
+            ObjectReference::create("document", "published_doc"),
+            "view",
+            SubjectReference::create("user", "anon"),
+            ['status' => 'published']
+        );
+        /** @var CheckPermissionResponse $response */
+        $response = $this->getApiClient()->permissionsServiceCheckPermission(
+            $request
+        );
+        $this->assertInstanceOf(CheckPermissionResponse::class, $response);
+        $this->assertEquals(
+            CheckPermissionResponsePermissionship::HAS_PERMISSION,
+            $response->getPermissionship()
+        );
+    }
+
+    public function testPermissionCheckInvalidWithCaveat()
+    {
+        $caveat = new ContextualizedCaveat('published', ['status' => 'draft']);
+        $this->writeRelationship('document', 'draft_doc', 'viewer', 'user', 'anon2', $caveat);
+
+        $request = new CheckPermissionRequest(
+            ObjectReference::create("document", "draft_doc"),
+            "view",
+            SubjectReference::create("user", "anon2"),
+            ['status' => 'draft']
+        );
+        /** @var CheckPermissionResponse $response */
+        $response = $this->getApiClient()->permissionsServiceCheckPermission(
+            $request
+        );
+        $this->assertInstanceOf(CheckPermissionResponse::class, $response);
+        $this->assertEquals(
+            CheckPermissionResponsePermissionship::NO_PERMISSION,
             $response->getPermissionship()
         );
     }
@@ -206,29 +268,13 @@ class ClientTest extends TestCase
         );
     }
 
-    public function testPermissionCheckInvalid()
-    {
-        $request = new CheckPermissionRequest(
-            ObjectReference::create("document", "topsecret1"),
-            "write",
-            SubjectReference::create("user", "alice")
-        );
-        /** @var CheckPermissionResponse $response */
-        $response = $this->getApiClient()->permissionsServiceCheckPermission(
-            $request
-        );
-        $this->assertEquals(
-            CheckPermissionResponsePermissionship::NO_PERMISSION,
-            $response->getPermissionship()
-        );
-    }
-
-    private function writeRelationship(string $objectType, string $objectId, string $relation, string $subjectType, string $subjectId): WriteRelationshipsResponse
+    private function writeRelationship(string $objectType, string $objectId, string $relation, string $subjectType, string $subjectId, ?ContextualizedCaveat $caveat = null): WriteRelationshipsResponse
     {
         $relationship = new Relationship(
             ObjectReference::create($objectType, $objectId),
             $relation,
-            SubjectReference::create($subjectType, $subjectId)
+            SubjectReference::create($subjectType, $subjectId),
+            $caveat
         );
         $update = new RelationshipUpdate(
             RelationshipUpdateOperation::TOUCH,

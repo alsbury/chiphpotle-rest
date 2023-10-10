@@ -56,7 +56,7 @@ class RelationshipNormalizer implements DenormalizerInterface, NormalizerInterfa
         return $object;
     }
 
-    public function normalize($object, $format = null, array $context = []): float|int|bool|ArrayObject|array|string|null
+    public function normalize(mixed $object, string $format = null, array $context = []): array
     {
         $data = [];
         if (null !== $object->getResource()) {
@@ -67,6 +67,9 @@ class RelationshipNormalizer implements DenormalizerInterface, NormalizerInterfa
         }
         if (null !== $object->getSubject()) {
             $data['subject'] = $this->normalizer->normalize($object->getSubject(), 'json', $context);
+        }
+        if (null !== $object->getOptionalCaveat()) {
+            $data['optionalCaveat'] = $this->normalizer->normalize($object->getOptionalCaveat(), 'json', $context);
         }
         return $data;
     }

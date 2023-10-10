@@ -67,7 +67,7 @@ class Relationship
         return $this;
     }
 
-    public function getOptionalCaveat(): ContextualizedCaveat
+    public function getOptionalCaveat(): ?ContextualizedCaveat
     {
         return $this->optionalCaveat;
     }

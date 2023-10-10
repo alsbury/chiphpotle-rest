@@ -13,6 +13,12 @@ class ContextualizedCaveat
 
     protected mixed $context;
 
+    public function __construct(string $caveatName, mixed $context = null)
+    {
+        $this->caveatName = $caveatName;
+        $this->context = $context;
+    }
+
     public function getCaveatName(): string
     {
         return $this->caveatName;
