@@ -171,7 +171,7 @@ class ClientTest extends TestCase
 
     public function testPermissionCheckInvalidWithCaveat()
     {
-        $caveat = new ContextualizedCaveat('published', ['status' => 'draft']);
+        $caveat = new ContextualizedCaveat('published');
         $this->writeRelationship('document', 'draft_doc', 'viewer', 'user', 'anon2', $caveat);
 
         $request = new CheckPermissionRequest(
