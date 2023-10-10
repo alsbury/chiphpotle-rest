@@ -5,7 +5,6 @@ namespace Chiphpotle\Rest\Normalizer;
 use ArrayObject;
 use Chiphpotle\Rest\Model\DirectSubjectSet;
 use Chiphpotle\Rest\Model\SubjectReference;
-use Chiphpotle\Rest\Runtime\Normalizer\CheckArray;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -21,7 +20,6 @@ final class DirectSubjectSetNormalizer implements DenormalizerInterface, Normali
 {
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
-    use CheckArray;
 
     public function supportsDenormalization($data, $type, $format = null): bool
     {

@@ -6,7 +6,6 @@ use ArrayObject;
 use Chiphpotle\Rest\Model\ProtobufAny;
 use Chiphpotle\Rest\Model\RpcStatus;
 use Jane\Component\JsonSchemaRuntime\Reference;
-use Chiphpotle\Rest\Runtime\Normalizer\CheckArray;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -21,7 +20,6 @@ final class RpcStatusNormalizer implements DenormalizerInterface, NormalizerInte
 {
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
-    use CheckArray;
 
     public function supportsDenormalization($data, $type, $format = null): bool
     {

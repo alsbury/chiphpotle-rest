@@ -6,7 +6,6 @@ use Chiphpotle\Rest\Model\Precondition;
 use Chiphpotle\Rest\Model\RelationshipUpdate;
 use Chiphpotle\Rest\Model\WriteRelationshipsRequest;
 use Jane\Component\JsonSchemaRuntime\Reference;
-use Chiphpotle\Rest\Runtime\Normalizer\CheckArray;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -21,7 +20,6 @@ final class WriteRelationshipsRequestNormalizer implements DenormalizerInterface
 {
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
-    use CheckArray;
 
     public function supportsDenormalization($data, $type, $format = null): bool
     {

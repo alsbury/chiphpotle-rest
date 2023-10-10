@@ -6,7 +6,6 @@ use ArrayObject;
 use Chiphpotle\Rest\Model\DeleteRelationshipsRequest;
 use Chiphpotle\Rest\Model\Precondition;
 use Chiphpotle\Rest\Model\RelationshipFilter;
-use Chiphpotle\Rest\Runtime\Normalizer\CheckArray;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -22,7 +21,6 @@ final class DeleteRelationshipsRequestNormalizer implements DenormalizerInterfac
 {
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
-    use CheckArray;
 
     public function supportsDenormalization($data, $type, $format = null): bool
     {

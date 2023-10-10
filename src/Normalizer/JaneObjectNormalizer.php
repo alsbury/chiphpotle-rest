@@ -2,7 +2,6 @@
 
 namespace Chiphpotle\Rest\Normalizer;
 
-use Chiphpotle\Rest\Runtime\Normalizer\CheckArray;
 use Chiphpotle\Rest\Model;
 use Chiphpotle\Rest\Normalizer;
 use Chiphpotle\Rest\Runtime\Normalizer\ReferenceNormalizer;
@@ -18,7 +17,6 @@ final class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInt
 {
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
-    use CheckArray;
 
     protected array $normalizers = [
         Model\SubjectFilterRelationFilter::class => Normalizer\SubjectFilterRelationFilterNormalizer::class,

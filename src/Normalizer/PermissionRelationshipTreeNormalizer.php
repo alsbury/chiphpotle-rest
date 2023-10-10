@@ -6,7 +6,6 @@ use Chiphpotle\Rest\Model\AlgebraicSubjectSet;
 use Chiphpotle\Rest\Model\DirectSubjectSet;
 use Chiphpotle\Rest\Model\ObjectReference;
 use Chiphpotle\Rest\Model\PermissionRelationshipTree;
-use Chiphpotle\Rest\Runtime\Normalizer\CheckArray;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -22,7 +21,6 @@ final class PermissionRelationshipTreeNormalizer implements DenormalizerInterfac
 {
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
-    use CheckArray;
 
     public function supportsDenormalization($data, $type, $format = null): bool
     {

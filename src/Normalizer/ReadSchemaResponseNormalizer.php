@@ -5,7 +5,6 @@ namespace Chiphpotle\Rest\Normalizer;
 use ArrayObject;
 use Chiphpotle\Rest\Model\ReadSchemaResponse;
 use Jane\Component\JsonSchemaRuntime\Reference;
-use Chiphpotle\Rest\Runtime\Normalizer\CheckArray;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -20,7 +19,6 @@ final class ReadSchemaResponseNormalizer implements DenormalizerInterface, Norma
 {
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
-    use CheckArray;
 
     public function supportsDenormalization($data, $type, $format = null): bool
     {

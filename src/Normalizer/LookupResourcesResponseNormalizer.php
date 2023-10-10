@@ -5,7 +5,6 @@ namespace Chiphpotle\Rest\Normalizer;
 use ArrayObject;
 use Chiphpotle\Rest\Model\LookupResourcesResponse;
 use Chiphpotle\Rest\Model\ZedToken;
-use Chiphpotle\Rest\Runtime\Normalizer\CheckArray;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -21,7 +20,6 @@ final class LookupResourcesResponseNormalizer implements DenormalizerInterface, 
 {
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
-    use CheckArray;
 
     public function supportsDenormalization($data, $type, $format = null): bool
     {

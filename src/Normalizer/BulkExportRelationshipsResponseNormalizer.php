@@ -6,8 +6,6 @@ use Chiphpotle\Rest\Model\BulkExportRelationshipsResponse;
 use Chiphpotle\Rest\Model\Cursor;
 use Chiphpotle\Rest\Model\Relationship;
 use Jane\Component\JsonSchemaRuntime\Reference;
-use Chiphpotle\Rest\Runtime\Normalizer\CheckArray;
-use Chiphpotle\Rest\Runtime\Normalizer\ValidatorTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -19,8 +17,6 @@ final class BulkExportRelationshipsResponseNormalizer implements DenormalizerInt
 {
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
-    use CheckArray;
-    use ValidatorTrait;
 
     public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
