@@ -5,6 +5,7 @@ namespace Chiphpotle\Rest\Normalizer;
 use Chiphpotle\Rest\Model\BulkCheckPermissionRequestItem;
 use Chiphpotle\Rest\Model\ObjectReference;
 use Chiphpotle\Rest\Model\SubjectReference;
+use Chiphpotle\Rest\Runtime\Normalizer\RequiredDataValidator;
 use Symfony\Component\Serializer\Exception\InvalidArgumentException;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -17,6 +18,7 @@ final class BulkCheckPermissionRequestItemNormalizer implements DenormalizerInte
 {
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
+    use RequiredDataValidator;
 
     public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
@@ -30,28 +32,11 @@ final class BulkCheckPermissionRequestItemNormalizer implements DenormalizerInte
 
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): BulkCheckPermissionRequestItem
     {
+        $this->checkRequired($data, ['resource', 'permission', 'subject']);
 
-        $missing = [];
-        $resource = null;
-        $permission = null;
-        $subject = null;
-        if (\array_key_exists('resource', $data)) {
-            $resource = $this->denormalizer->denormalize($data['resource'], ObjectReference::class, 'json', $context);
-        } else {
-            $missing[] = 'resource';
-        }
-
-        if (\array_key_exists('permission', $data)) {
-            $permission = $data['permission'];
-        } else {
-            $missing[] = 'permission';
-        }
-
-        if (\array_key_exists('subject', $data)) {
-            $subject = $this->denormalizer->denormalize($data['subject'], SubjectReference::class, 'json', $context);
-        } else {
-            $missing[] = 'subject';
-        }
+        $resource = $this->denormalizer->denormalize($data['resource'], ObjectReference::class, 'json', $context);
+        $permission = $data['permission'];
+        $subject = $this->denormalizer->denormalize($data['subject'], SubjectReference::class, 'json', $context);
 
         if (!empty($missing)) {
             throw new InvalidArgumentException('Missing ' . implode(', ', $missing));

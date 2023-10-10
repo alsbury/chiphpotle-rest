@@ -3,7 +3,7 @@
 namespace Chiphpotle\Rest\Normalizer;
 
 use Chiphpotle\Rest\Model\WriteSchemaRequest;
-use Symfony\Component\Serializer\Exception\InvalidArgumentException;
+use Chiphpotle\Rest\Runtime\Normalizer\ValidationException;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -28,9 +28,8 @@ final class WriteSchemaRequestNormalizer implements DenormalizerInterface, Norma
 
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): WriteSchemaRequest
     {
-
         if (empty($data['schema'])) {
-            throw new InvalidArgumentException('Missing required schema');
+            throw new ValidationException('Missing required schema');
         }
 
         return new WriteSchemaRequest($data['schema']);

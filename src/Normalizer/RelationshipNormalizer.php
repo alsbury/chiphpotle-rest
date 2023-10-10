@@ -6,6 +6,7 @@ use Chiphpotle\Rest\Model\ContextualizedCaveat;
 use Chiphpotle\Rest\Model\ObjectReference;
 use Chiphpotle\Rest\Model\Relationship;
 use Chiphpotle\Rest\Model\SubjectReference;
+use Chiphpotle\Rest\Runtime\Normalizer\RequiredDataValidator;
 use Symfony\Component\Serializer\Exception\InvalidArgumentException;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -18,6 +19,7 @@ final class RelationshipNormalizer implements DenormalizerInterface, NormalizerI
 {
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
+    use RequiredDataValidator;
 
     public function supportsDenormalization($data, $type, $format = null): bool
     {
@@ -31,11 +33,7 @@ final class RelationshipNormalizer implements DenormalizerInterface, NormalizerI
 
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): Relationship
     {
-
-        $missing = array_filter(['resource', 'relation', 'subject'], fn (string $field) => empty($data[$field]));
-        if (!empty($missing)) {
-            throw new InvalidArgumentException('Missing required '.implode(', ', $missing));
-        }
+        $this->checkRequired($data, ['resource', 'relation', 'subject']);
 
         $resource = $this->denormalizer->denormalize($data['resource'], ObjectReference::class, 'json', $context);
         $relation = $data['relation'];

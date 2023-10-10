@@ -6,7 +6,7 @@ use Chiphpotle\Rest\Model\CheckPermissionRequest;
 use Chiphpotle\Rest\Model\Consistency;
 use Chiphpotle\Rest\Model\ObjectReference;
 use Chiphpotle\Rest\Model\SubjectReference;
-use Symfony\Component\Serializer\Exception\InvalidArgumentException;
+use Chiphpotle\Rest\Runtime\Normalizer\RequiredDataValidator;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -20,6 +20,7 @@ final class CheckPermissionRequestNormalizer implements DenormalizerInterface, N
 {
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
+    use RequiredDataValidator;
 
     public function supportsDenormalization($data, $type, $format = null): bool
     {
@@ -33,11 +34,7 @@ final class CheckPermissionRequestNormalizer implements DenormalizerInterface, N
 
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): CheckPermissionRequest
     {
-
-        $missing = array_filter(['resource', 'permission', 'subject'], fn (string $field) => empty($data[$field]));
-        if (!empty($missing)) {
-            throw new InvalidArgumentException('Missing required '.implode(', ', $missing));
-        }
+        $this->checkRequired($data, ['resource', 'permission', 'subject']);
 
         $resource = $this->denormalizer->denormalize($data['resource'], ObjectReference::class, 'json', $context);
         $permission = $data['permission'];

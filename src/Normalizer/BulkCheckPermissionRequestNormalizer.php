@@ -5,6 +5,7 @@ namespace Chiphpotle\Rest\Normalizer;
 use Chiphpotle\Rest\Model\BulkCheckPermissionRequest;
 use Chiphpotle\Rest\Model\BulkCheckPermissionRequestItem;
 use Chiphpotle\Rest\Model\Consistency;
+use Chiphpotle\Rest\Runtime\Normalizer\RequiredDataValidator;
 use Symfony\Component\Serializer\Exception\InvalidArgumentException;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -17,6 +18,7 @@ final class BulkCheckPermissionRequestNormalizer implements DenormalizerInterfac
 {
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
+    use RequiredDataValidator;
 
 
     public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
@@ -31,20 +33,14 @@ final class BulkCheckPermissionRequestNormalizer implements DenormalizerInterfac
 
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): BulkCheckPermissionRequest
     {
-
-        if (\array_key_exists('items', $data)) {
-            $items = [];
-            foreach ($data['items'] as $value) {
-                $items[] = $this->denormalizer->denormalize($value, BulkCheckPermissionRequestItem::class, 'json', $context);
-            }
-        } else {
-            throw new InvalidArgumentException('Missing items data');
+        $this->checkRequired($data, ['items']);
+        $items = [];
+        foreach ($data['items'] as $value) {
+            $items[] = $this->denormalizer->denormalize($value, BulkCheckPermissionRequestItem::class, 'json', $context);
         }
 
         $object = new BulkCheckPermissionRequest($items);
-        if (null === $data || false === \is_array($data)) {
-            return $object;
-        }
+
         if (\array_key_exists('consistency', $data)) {
             $object->setConsistency($this->denormalizer->denormalize($data['consistency'], Consistency::class, 'json', $context));
         }

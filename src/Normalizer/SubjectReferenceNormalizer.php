@@ -4,7 +4,7 @@ namespace Chiphpotle\Rest\Normalizer;
 
 use Chiphpotle\Rest\Model\ObjectReference;
 use Chiphpotle\Rest\Model\SubjectReference;
-use Symfony\Component\Serializer\Exception\InvalidArgumentException;
+use Chiphpotle\Rest\Runtime\Normalizer\ValidationException;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -29,9 +29,8 @@ final class SubjectReferenceNormalizer implements DenormalizerInterface, Normali
 
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): SubjectReference
     {
-
         if (empty($data['object'])) {
-            throw new InvalidArgumentException('Missing required object');
+            throw new ValidationException('Missing required object');
         }
 
         $object = $this->denormalizer->denormalize($data['object'], ObjectReference::class, 'json', $context);

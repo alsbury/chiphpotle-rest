@@ -6,22 +6,11 @@ use Chiphpotle\Rest\Enum\RelationshipUpdateOperation;
 
 final class RelationshipUpdate
 {
-    protected ?string $operation = "OPERATION_UNSPECIFIED";
+    protected string $operation = "OPERATION_UNSPECIFIED";
+    protected Relationship $relationship;
 
-    /**
-     * Relationship specifies how a resource relates to a subject. Relationships
-     * form the data for the graph over which all permissions questions are
-     * answered.
-     */
-    protected ?Relationship $relationship;
-
-    /**
-     * @throws \Exception
-     */
-    public function __construct(
-        ?string $operation = null,
-        ?Relationship $relationship = null
-    ) {
+    public function __construct(string $operation, Relationship $relationship)
+    {
         if (
             !in_array(
                 $operation,

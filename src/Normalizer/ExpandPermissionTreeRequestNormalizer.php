@@ -5,6 +5,7 @@ namespace Chiphpotle\Rest\Normalizer;
 use Chiphpotle\Rest\Model\Consistency;
 use Chiphpotle\Rest\Model\ExpandPermissionTreeRequest;
 use Chiphpotle\Rest\Model\ObjectReference;
+use Chiphpotle\Rest\Runtime\Normalizer\RequiredDataValidator;
 use Symfony\Component\Serializer\Exception\InvalidArgumentException;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -19,6 +20,7 @@ final class ExpandPermissionTreeRequestNormalizer implements DenormalizerInterfa
 {
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
+    use RequiredDataValidator;
 
     public function supportsDenormalization($data, $type, $format = null): bool
     {
@@ -32,14 +34,7 @@ final class ExpandPermissionTreeRequestNormalizer implements DenormalizerInterfa
 
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): ExpandPermissionTreeRequest
     {
-
-        if (empty($data['resource'])) {
-            throw new InvalidArgumentException('Missing required resource');
-        }
-
-        if (empty($data['permission'])) {
-            throw new InvalidArgumentException('Missing required permission');
-        }
+        $this->checkRequired($data, ['resource', 'permission']);
 
         $resource = $this->denormalizer->denormalize($data['resource'], ObjectReference::class, 'json', $context);
         $permission = $data['permission'];

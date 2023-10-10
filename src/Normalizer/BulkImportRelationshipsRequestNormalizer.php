@@ -4,7 +4,7 @@ namespace Chiphpotle\Rest\Normalizer;
 
 use Chiphpotle\Rest\Model\BulkImportRelationshipsRequest;
 use Chiphpotle\Rest\Model\Relationship;
-use Symfony\Component\Serializer\Exception\InvalidArgumentException;
+use Chiphpotle\Rest\Runtime\Normalizer\ValidationException;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -31,7 +31,7 @@ final class BulkImportRelationshipsRequestNormalizer implements DenormalizerInte
     {
 
         if (empty($data['relationships'])) {
-            throw new InvalidArgumentException('Missing required relationships');
+            throw new ValidationException('Missing required relationships');
         }
 
         $relationships = [];

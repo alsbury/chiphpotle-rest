@@ -3,7 +3,7 @@
 namespace Chiphpotle\Rest\Normalizer;
 
 use Chiphpotle\Rest\Model\ObjectReference;
-use Symfony\Component\Serializer\Exception\InvalidArgumentException;
+use Chiphpotle\Rest\Runtime\Normalizer\ValidationException;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -32,7 +32,7 @@ final class ObjectReferenceNormalizer implements DenormalizerInterface, Normaliz
     {
 
         if (empty($data['objectType'])) {
-            throw new InvalidArgumentException('Missing required objectType');
+            throw new ValidationException('Missing required objectType');
         }
 
         $object = new ObjectReference($data['objectType']);

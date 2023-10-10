@@ -3,7 +3,7 @@
 namespace Chiphpotle\Rest\Normalizer;
 
 use Chiphpotle\Rest\Model\ContextualizedCaveat;
-use Symfony\Component\Serializer\Exception\InvalidArgumentException;
+use Chiphpotle\Rest\Runtime\Normalizer\ValidationException;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -28,9 +28,8 @@ final class ContextualizedCaveatNormalizer implements DenormalizerInterface, Nor
 
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): ContextualizedCaveat
     {
-
         if (empty($data['caveatName'])) {
-            throw new InvalidArgumentException('Missing required caveatName');
+            throw new ValidationException('Missing required caveatName');
         }
 
         $object = new ContextualizedCaveat($data['caveatName']);

@@ -31,10 +31,9 @@ final class RelationshipUpdateNormalizer implements DenormalizerInterface, Norma
 
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): RelationshipUpdate
     {
+
+
         $object = new RelationshipUpdate();
-        if (null === $data || false === is_array($data)) {
-            return $object;
-        }
         if (array_key_exists('operation', $data)) {
             $object->setOperation($data['operation']);
         }
