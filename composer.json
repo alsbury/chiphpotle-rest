@@ -30,7 +30,8 @@
         "phpunit/phpunit": "^8.0 || ^9.0",
         "jane-php/open-api-2": "^7.3",
         "vlucas/phpdotenv": "^5.5",
-        "friendsofphp/php-cs-fixer": "^3.34"
+        "friendsofphp/php-cs-fixer": "^3.34",
+        "vimeo/psalm": "^5.15"
     },
     "autoload": {
         "psr-4": {
