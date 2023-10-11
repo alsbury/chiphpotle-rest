@@ -77,7 +77,7 @@ final class Client extends Runtime\Client\Client
     /**
      * Issues a check on whether a subject has a permission or is a member of a relation, on a specific resource.
      */
-    public function permissionsServiceCheckPermission(CheckPermissionRequest $request): CheckPermissionResponse
+    public function checkPermission(CheckPermissionRequest $request): CheckPermissionResponse
     {
         return $this->executeEndpoint(new PermissionsServiceCheckPermission($request));
     }
@@ -87,7 +87,7 @@ final class Client extends Runtime\Client\Client
      * subjects with a permission, along with the relationships that grant said
      * access.
      */
-    public function permissionsServiceExpandPermissionTree(ExpandPermissionTreeRequest $request): ExpandPermissionTreeResponse
+    public function expandPermissionTree(ExpandPermissionTreeRequest $request): ExpandPermissionTreeResponse
     {
         return $this->executeEndpoint(new PermissionsServiceExpandPermissionTree($request));
     }
@@ -97,7 +97,7 @@ final class Client extends Runtime\Client\Client
      * kind on which the subject has the specified permission or the relation in
      * which the subject exists, streaming back the IDs of those resources.
      */
-    public function permissionsServiceLookupResources(LookupResourcesRequest $request): PermissionsResourcesPostResponse200
+    public function lookupResources(LookupResourcesRequest $request): PermissionsResourcesPostResponse200
     {
         return $this->executeEndpoint(new PermissionsServiceLookupResources($request));
     }
@@ -107,7 +107,7 @@ final class Client extends Runtime\Client\Client
      * kind for which the subject has the specified permission or the relation in
      * which the subject exists, streaming back the IDs of those subjects.
      */
-    public function permissionsServiceLookupSubjects(LookupSubjectsRequest $request): PermissionsSubjectsPostResponse200
+    public function lookupSubjects(LookupSubjectsRequest $request): PermissionsSubjectsPostResponse200
     {
         return $this->executeEndpoint(new PermissionsServiceLookupSubjects($request));
     }
@@ -118,7 +118,7 @@ final class Client extends Runtime\Client\Client
      * specified preconditions must also be satisfied before the delete will be
      * executed.
      */
-    public function permissionsServiceDeleteRelationships(DeleteRelationshipsRequest $request): DeleteRelationshipsResponse
+    public function deleteRelationships(DeleteRelationshipsRequest $request): DeleteRelationshipsResponse
     {
         return $this->executeEndpoint(new PermissionsServiceDeleteRelationships($request));
     }
@@ -126,7 +126,7 @@ final class Client extends Runtime\Client\Client
     /**
      * Returns relationships within the system specified one or more filters
      */
-    public function permissionsServiceReadRelationships(ReadRelationshipsRequest $request): RelationshipsReadPostResponse200|array
+    public function readRelationships(ReadRelationshipsRequest $request): RelationshipsReadPostResponse200|array
     {
         return $this->executeEndpoint(new PermissionsServiceReadRelationships($request));
     }
@@ -136,7 +136,7 @@ final class Client extends Runtime\Client\Client
      * If the optional_preconditions parameter is included, all of the specified preconditions must also be satisfied before
      * the write will be committed.
      */
-    public function permissionsServiceWriteRelationships(WriteRelationshipsRequest $request): WriteRelationshipsResponse
+    public function writeRelationships(WriteRelationshipsRequest $request): WriteRelationshipsResponse
     {
         return $this->executeEndpoint(new PermissionsServiceWriteRelationships($request));
     }
@@ -148,7 +148,7 @@ final class Client extends Runtime\Client\Client
      * - INVALID_ARGUMENT: a provided value has failed to semantically validate
      * - NOT_FOUND: no schema has been defined
      */
-    public function schemaServiceReadSchema(): ReadSchemaResponse
+    public function readSchema(): ReadSchemaResponse
     {
         return $this->executeEndpoint(new SchemaServiceReadSchema());
     }
@@ -156,7 +156,7 @@ final class Client extends Runtime\Client\Client
     /**
      * Upserts the Schema
      */
-    public function schemaServiceWriteSchema(WriteSchemaRequest $request): WriteSchemaResponse
+    public function writeSchema(WriteSchemaRequest $request): WriteSchemaResponse
     {
         return $this->executeEndpoint(new SchemaServiceWriteSchema($request));
     }

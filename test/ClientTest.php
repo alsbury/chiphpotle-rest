@@ -39,7 +39,7 @@ final class ClientTest extends TestCase
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        self::getApiClient()->schemaServiceWriteSchema(
+        self::getApiClient()->writeSchema(
             new WriteSchemaRequest(SchemaFixtures::SAMPLE_SCHEMA)
         );
     }
@@ -47,7 +47,7 @@ final class ClientTest extends TestCase
     public function testSchemaRead()
     {
         $schemaText = $this->getApiClient()
-            ->schemaServiceReadSchema()
+            ->readSchema()
             ->getSchemaText();
         $this->assertStringContainsString('definition user', $schemaText);
         $this->assertStringContainsString('definition document', $schemaText);
@@ -70,7 +70,7 @@ final class ClientTest extends TestCase
         $request = (new ReadRelationshipsRequest())
             ->setConsistency(Consistency::minimizeLatency())
             ->setRelationshipFilter($filter);
-        $response = $this->getApiClient()->permissionsServiceReadRelationships(
+        $response = $this->getApiClient()->readRelationships(
             $request
         );
         $this->assertInstanceOf(RelationshipsReadPostResponse200::class, $response);
@@ -88,7 +88,7 @@ final class ClientTest extends TestCase
             $relationship
         );
         $request = new WriteRelationshipsRequest([$update]);
-        $response = $this->getApiClient()->permissionsServiceWriteRelationships(
+        $response = $this->getApiClient()->writeRelationships(
             $request
         );
         $this->assertNotEmpty($response->getWrittenAt()->getToken());
@@ -104,7 +104,7 @@ final class ClientTest extends TestCase
             ->setPermission("view")
             ->setSubject(SubjectReference::create("user", "alice"))
             ->setConsistency(Consistency::minimizeLatency());
-        $response = $this->getApiClient()->permissionsServiceLookupResources(
+        $response = $this->getApiClient()->lookupResources(
             $request
         );
         $this->assertEquals(
@@ -122,7 +122,7 @@ final class ClientTest extends TestCase
             'view',
             'user'
         );
-        $response = $this->getApiClient()->permissionsServiceLookupSubjects(
+        $response = $this->getApiClient()->lookupSubjects(
             $request
         );
         $this->assertEquals(
@@ -139,7 +139,7 @@ final class ClientTest extends TestCase
             "view",
             SubjectReference::create("user", "bob")
         );
-        $response = $this->getApiClient()->permissionsServiceCheckPermission(
+        $response = $this->getApiClient()->checkPermission(
             $request
         );
         $this->assertEquals(
@@ -155,7 +155,7 @@ final class ClientTest extends TestCase
             "write",
             SubjectReference::create("user", "alice")
         );
-        $response = $this->getApiClient()->permissionsServiceCheckPermission(
+        $response = $this->getApiClient()->checkPermission(
             $request
         );
         $this->assertEquals(
@@ -175,7 +175,7 @@ final class ClientTest extends TestCase
             SubjectReference::create("user", "anon"),
             ['status' => 'published']
         );
-        $response = $this->getApiClient()->permissionsServiceCheckPermission(
+        $response = $this->getApiClient()->checkPermission(
             $request
         );
         $this->assertInstanceOf(CheckPermissionResponse::class, $response);
@@ -196,7 +196,7 @@ final class ClientTest extends TestCase
             SubjectReference::create("user", "anon2"),
             ['status' => 'draft']
         );
-        $response = $this->getApiClient()->permissionsServiceCheckPermission(
+        $response = $this->getApiClient()->checkPermission(
             $request
         );
         $this->assertInstanceOf(CheckPermissionResponse::class, $response);
@@ -282,7 +282,7 @@ final class ClientTest extends TestCase
             ObjectReference::create("document", "topsecret1"),
             "view"
         );
-        $response = $this->getApiClient()->permissionsServiceExpandPermissionTree(
+        $response = $this->getApiClient()->expandPermissionTree(
             $request
         );
         $this->assertInstanceOf(ExpandPermissionTreeResponse::class, $response);
@@ -301,7 +301,7 @@ final class ClientTest extends TestCase
             $relationship
         );
         $request = new WriteRelationshipsRequest([$update]);
-        return $this->getApiClient()->permissionsServiceWriteRelationships(
+        return $this->getApiClient()->writeRelationships(
             $request
         );
     }
