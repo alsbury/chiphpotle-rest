@@ -2,10 +2,12 @@
 
 ## v0.5.0
 
-Major new release up to date with SpiceDB 1.25+
+Major new release up to date with SpiceDB 1.25+. Except for the experimental APIs, things should be stable going
+forward.
 
 * Adds [Caveat](https://authzed.com/docs/reference/caveats) support
 * Improved Types and PHPDoc
+* Shortened client method and enum names 
 * Unit tests for all current APIs
 * Throw RpcErrors instead of returning RpcStatus objects when SpiceDB returns an error.
 * Throw ValidationExceptions when required parameters are not passed
