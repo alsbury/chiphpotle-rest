@@ -31,7 +31,9 @@ $request = new CheckPermissionRequest(
 );
 try {
     $response = $apiClient->checkPermission($request);
-    $response->getPermissionship() == 
+    if ($response->getPermissionship() == Permissionship::HAS_PERMISSION) {
+        echo 'You may Pass!'
+    }
 } catch (Exception $e) {
     echo 'Exception when calling PermissionsServiceApi->permissionsServiceCheckPermission: ', $e->getMessage(), PHP_EOL;
 }
