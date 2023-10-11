@@ -4,9 +4,6 @@ namespace Chiphpotle\Rest\Model;
 
 final class SubjectReference
 {
-    /**
-     * ObjectReference is used to refer to a specific object in the system.
-     */
     protected ObjectReference $object;
 
     protected ?string $optionalRelation = null;
