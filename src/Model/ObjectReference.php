@@ -22,11 +22,6 @@ final class ObjectReference
         return new self($objectType, $objectId);
     }
 
-    public static function createFromArray(array $data): self
-    {
-        return new self($data[0], $data[1]);
-    }
-
     public function getObjectType(): string
     {
         return $this->objectType;
@@ -52,13 +47,5 @@ final class ObjectReference
     public function __toString(): string
     {
         return $this->getObjectType() . ($this->getObjectId() ? ':' . $this->getObjectId() : '');
-    }
-
-    /**
-     * @return string[]
-     */
-    public function toArray(): array
-    {
-        return [$this->getObjectType(), $this->getObjectId()];
     }
 }

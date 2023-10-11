@@ -19,16 +19,11 @@ final class SubjectReference
     }
 
     /**
-     * Create method will simplify the
+     * Create method will simplify creation
      */
     public static function create(?string $objectType, ?string $objectId = null, ?string $optionalRelation = null): self
     {
         return new self(new ObjectReference($objectType, $objectId), $optionalRelation);
-    }
-
-    public static function createFromArray(array $data): self
-    {
-        return new self(new ObjectReference($data[0], $data[1]), $data[2] ?? null);
     }
 
     public function getObject(): ObjectReference|null
@@ -56,17 +51,5 @@ final class SubjectReference
     public function __toString(): string
     {
         return $this->getObject() . ($this->getOptionalRelation() ? '#'. $this->getOptionalRelation() : '');
-    }
-
-    /**
-     * @return (null|string)[]
-     */
-    public function toArray(): array
-    {
-        $arr = [$this->getObject()->getObjectType(), $this->getObject()->getObjectId()];
-        if ($this->getOptionalRelation()) {
-            $arr[2] = $this->getOptionalRelation();
-        }
-        return $arr;
     }
 }
