@@ -31,10 +31,17 @@ $request = new CheckPermissionRequest(
 );
 try {
     $response = $apiClient->checkPermission($request);
+    $response->getPermissionship() == 
 } catch (Exception $e) {
     echo 'Exception when calling PermissionsServiceApi->permissionsServiceCheckPermission: ', $e->getMessage(), PHP_EOL;
 }
 ```
+
+## Experimental APIs
+
+Included in the client are three experimental APIs. Though SpiceDB advertised these APIs im 1.25 and earlier,
+they did not work in the http gateway. This had been fixed, but has yet to be released, thus you must run a [nightly build](https://github.com/authzed/spicedb/pkgs/container/spicedb-git)
+or compile your own binary until the next release for these APIs to work. These experimental APIs may have breaking changes in later versions.
 
 ## Tests
 
