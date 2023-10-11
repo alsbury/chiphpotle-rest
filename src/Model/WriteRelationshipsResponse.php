@@ -4,12 +4,6 @@ namespace Chiphpotle\Rest\Model;
 
 final class WriteRelationshipsResponse
 {
-    /**
-     * ZedToken is used to provide causality metadata between Write and Check
-     * requests.
-     *
-     * See the authzed.api.v1.Consistency message for more information.
-     */
     protected ZedToken $writtenAt;
 
     public function getWrittenAt(): ZedToken

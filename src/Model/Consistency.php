@@ -15,20 +15,8 @@ final class Consistency
      */
     protected ?bool $minimizeLatency;
 
-    /**
-     * ZedToken is used to provide causality metadata between Write and Check
-     * requests.
-     *
-     * See the authzed.api.v1.Consistency message for more information.
-     */
     protected ?ZedToken $atLeastAsFresh;
 
-    /**
-     * ZedToken is used to provide causality metadata between Write and Check
-     * requests.
-     *
-     * See the authzed.api.v1.Consistency message for more information.
-     */
     protected ?ZedToken $atExactSnapshot;
 
     /**

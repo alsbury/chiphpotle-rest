@@ -2,20 +2,12 @@
 
 namespace Chiphpotle\Rest\Model;
 
+/**
+ * PermissionRelationshipTree is used for representing a tree of a resource and
+ * its permission relationships with other objects.
+ */
 final class PermissionRelationshipTree
 {
-    /**
-    * AlgebraicSubjectSet is a subject set which is computed based on applying the
-    * specified operation to the operands according to the algebra of sets.
-    *
-    * UNION is a logical set containing the subject members from all operands.
-    *
-    * INTERSECTION is a logical set containing only the subject members which are
-    * present in all operands.
-    *
-    * EXCLUSION is a logical set containing only the subject members which are
-    * present in the first operand, and none of the other operands.
-    */
     protected AlgebraicSubjectSet $intermediate;
 
     /**

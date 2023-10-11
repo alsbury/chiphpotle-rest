@@ -4,12 +4,6 @@ namespace Chiphpotle\Rest\Model;
 
 final class CheckPermissionResponse
 {
-    /**
-     * ZedToken is used to provide causality metadata between Write and Check
-     * requests.
-     *
-     * See the authzed.api.v1.Consistency message for more information.
-     */
     protected ZedToken $checkedAt;
 
     protected string $permissionship = 'PERMISSIONSHIP_UNSPECIFIED';
