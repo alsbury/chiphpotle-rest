@@ -19,13 +19,13 @@ use Chiphpotle\Rest\Model\ExpandPermissionTreeRequest;
 use Chiphpotle\Rest\Model\ExpandPermissionTreeResponse;
 use Chiphpotle\Rest\Model\ExperimentalRelationshipsBulkexportPostResponse200;
 use Chiphpotle\Rest\Model\LookupResourcesRequest;
+use Chiphpotle\Rest\Model\LookupSubjectsRequest;
 use Chiphpotle\Rest\Model\ObjectReference;
 use Chiphpotle\Rest\Model\ReadRelationshipsRequest;
 use Chiphpotle\Rest\Model\Relationship;
 use Chiphpotle\Rest\Model\RelationshipFilter;
 use Chiphpotle\Rest\Model\RelationshipsReadPostResponse200;
 use Chiphpotle\Rest\Model\RelationshipUpdate;
-use Chiphpotle\Rest\Model\RpcStatus;
 use Chiphpotle\Rest\Model\SubjectReference;
 use Chiphpotle\Rest\Model\WriteRelationshipsRequest;
 use Chiphpotle\Rest\Model\WriteRelationshipsResponse;
@@ -110,6 +110,24 @@ final class ClientTest extends TestCase
         $this->assertEquals(
             "topsecret1",
             $response->getResult()->getResourceObjectId()
+        );
+    }
+
+    public function testLookupSubjects()
+    {
+        $this->writeRelationship('document', 'topsecret7', 'viewer', 'user', 'alice');
+
+        $request = new LookupSubjectsRequest(
+            ObjectReference::create('document', 'topsecret7'),
+            'view',
+            'user'
+        );
+        $response = $this->getApiClient()->permissionsServiceLookupSubjects(
+            $request
+        );
+        $this->assertEquals(
+            "alice",
+            $response->getResult()->getSubjectObjectId()
         );
     }
 

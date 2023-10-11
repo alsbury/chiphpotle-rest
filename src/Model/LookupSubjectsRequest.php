@@ -6,19 +6,19 @@ final class LookupSubjectsRequest
 {
     protected ?Consistency $consistency;
 
-    protected ?ObjectReference $resource;
+    protected ObjectReference $resource;
 
     /**
      * permission is the name of the permission (or relation) for which to find
      * the subjects.
      */
-    protected ?string $permission;
+    protected string $permission;
 
     /**
      * subject_object_type is the type of subject object for which the IDs will
      * be returned.
      */
-    protected ?string $subjectObjectType;
+    protected string $subjectObjectType;
 
     /**
      * optional_subject_relation is the optional relation for the subject.
@@ -26,10 +26,10 @@ final class LookupSubjectsRequest
     protected ?string $optionalSubjectRelation;
 
     public function __construct(
-        ObjectReference $resource = null,
-        string          $permission = null,
-        string          $subjectObjectType = null,
-        string          $optionalSubjectRelation = null,
+        ObjectReference $resource,
+        string          $permission,
+        string          $subjectObjectType,
+        ?string         $optionalSubjectRelation = null,
         ?Consistency    $consistency = null
     ) {
         $this->resource = $resource;
@@ -50,29 +50,29 @@ final class LookupSubjectsRequest
         return $this;
     }
 
-    public function getResource(): ?ObjectReference
+    public function getResource(): ObjectReference
     {
         return $this->resource;
     }
 
-    public function setResource(?ObjectReference $resource): self
+    public function setResource(ObjectReference $resource): self
     {
         $this->resource = $resource;
         return $this;
     }
 
-    public function getPermission(): ?string
+    public function getPermission(): string
     {
         return $this->permission;
     }
 
-    public function setPermission(?string $permission): self
+    public function setPermission(string $permission): self
     {
         $this->permission = $permission;
         return $this;
     }
 
-    public function getSubjectObjectType(): ?string
+    public function getSubjectObjectType(): string
     {
         return $this->subjectObjectType;
     }
