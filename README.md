@@ -2,8 +2,6 @@
 
 ## PHP REST API Client for SpiceDB
 
-This project is a work in progress it will likely change. **NOT production ready**.
-
 For more information, please visit [https://github.com/authzed/api](https://github.com/authzed/api).
 
 ## Requirements
@@ -32,7 +30,7 @@ $request = new CheckPermissionRequest(
     ObjectReference::create('document', 'topsecret1'),
 );
 try {
-    $response = $apiClient->permissionsServiceCheckPermission($request);
+    $response = $apiClient->checkPermission($request);
 } catch (Exception $e) {
     echo 'Exception when calling PermissionsServiceApi->permissionsServiceCheckPermission: ', $e->getMessage(), PHP_EOL;
 }

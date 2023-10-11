@@ -1,6 +1,6 @@
 # Change Log
 
-## v0.9.0
+## v0.5.0
 
 Major new release up to date with SpiceDB 1.25+
 
