@@ -15,6 +15,8 @@ use Chiphpotle\Rest\Model\CheckPermissionRequest;
 use Chiphpotle\Rest\Model\CheckPermissionResponse;
 use Chiphpotle\Rest\Model\Consistency;
 use Chiphpotle\Rest\Model\ContextualizedCaveat;
+use Chiphpotle\Rest\Model\DeleteRelationshipsRequest;
+use Chiphpotle\Rest\Model\DeleteRelationshipsResponse;
 use Chiphpotle\Rest\Model\ExpandPermissionTreeRequest;
 use Chiphpotle\Rest\Model\ExpandPermissionTreeResponse;
 use Chiphpotle\Rest\Model\ExperimentalRelationshipsBulkexportPostResponse200;
@@ -92,6 +94,18 @@ final class ClientTest extends TestCase
             $request
         );
         $this->assertNotEmpty($response->getWrittenAt()->getToken());
+    }
+
+    public function testDeleteRelationships()
+    {
+        $this->writeRelationship('document', 'topsecret6', 'viewer', 'user', 'john');
+        $this->writeRelationship('document', 'topsecret6', 'viewer', 'user', 'tom');
+
+        $request = new DeleteRelationshipsRequest(new RelationshipFilter('document', 'topsecret6', 'viewer'));
+
+        $response = $this->getApiClient()->deleteRelationships($request);
+
+        $this->assertInstanceOf(DeleteRelationshipsResponse::class, $response);
     }
 
     public function testLookupResources()

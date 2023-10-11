@@ -2,10 +2,10 @@
 
 namespace Chiphpotle\Rest\Normalizer;
 
-use ArrayObject;
 use Chiphpotle\Rest\Model\DeleteRelationshipsRequest;
 use Chiphpotle\Rest\Model\Precondition;
 use Chiphpotle\Rest\Model\RelationshipFilter;
+use Chiphpotle\Rest\Runtime\Normalizer\RequiredDataValidator;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -14,12 +14,12 @@ use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 use function array_key_exists;
-use function is_array;
 
 final class DeleteRelationshipsRequestNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
 {
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
+    use RequiredDataValidator;
 
     public function supportsDenormalization($data, $type, $format = null): bool
     {
@@ -33,13 +33,10 @@ final class DeleteRelationshipsRequestNormalizer implements DenormalizerInterfac
 
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): DeleteRelationshipsRequest
     {
-        $object = new DeleteRelationshipsRequest();
-        if (null === $data || false === is_array($data)) {
-            return $object;
-        }
-        if (array_key_exists('relationshipFilter', $data)) {
-            $object->setRelationshipFilter($this->denormalizer->denormalize($data['relationshipFilter'], RelationshipFilter::class, 'json', $context));
-        }
+        $this->checkRequired($data, ['relationshipFilter']);
+        $filter = $this->denormalizer->denormalize($data['relationshipFilter'], RelationshipFilter::class, 'json', $context);
+        $object = new DeleteRelationshipsRequest($filter);
+
         if (array_key_exists('optionalPreconditions', $data)) {
             $values = [];
             foreach ($data['optionalPreconditions'] as $value) {
@@ -50,7 +47,7 @@ final class DeleteRelationshipsRequestNormalizer implements DenormalizerInterfac
         return $object;
     }
 
-    public function normalize($object, $format = null, array $context = []): float|int|bool|ArrayObject|array|string|null
+    public function normalize($object, $format = null, array $context = []): array
     {
         $data = [];
         if (null !== $object->getRelationshipFilter()) {

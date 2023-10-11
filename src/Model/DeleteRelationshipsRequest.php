@@ -18,6 +18,16 @@ final class DeleteRelationshipsRequest
      */
     protected array $optionalPreconditions;
 
+    /**
+     * @param RelationshipFilter $relationshipFilter
+     * @param array $optionalPreconditions
+     */
+    public function __construct(RelationshipFilter $relationshipFilter, array $optionalPreconditions = [])
+    {
+        $this->relationshipFilter = $relationshipFilter;
+        $this->optionalPreconditions = $optionalPreconditions;
+    }
+
     public function getRelationshipFilter(): RelationshipFilter
     {
         return $this->relationshipFilter;
