@@ -2,7 +2,7 @@
 
 namespace Chiphpotle\Rest\Enum;
 
-final class RelationshipUpdateOperation
+final class Operation
 {
     public const UNSPECIFIED = 'OPERATION_UNSPECIFIED';
 

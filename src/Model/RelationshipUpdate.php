@@ -2,7 +2,7 @@
 
 namespace Chiphpotle\Rest\Model;
 
-use Chiphpotle\Rest\Enum\RelationshipUpdateOperation;
+use Chiphpotle\Rest\Enum\Operation;
 
 final class RelationshipUpdate
 {
@@ -14,7 +14,7 @@ final class RelationshipUpdate
         if (
             !in_array(
                 $operation,
-                RelationshipUpdateOperation::getAllowableEnumValues()
+                Operation::getAllowableEnumValues()
             )
         ) {
             throw new \Exception("Invalid relationship update operation type");

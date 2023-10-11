@@ -3,8 +3,8 @@
 namespace Chiphpotle\Rest\Test;
 
 use Chiphpotle\Rest\Client;
-use Chiphpotle\Rest\Enum\RelationshipUpdateOperation;
-use Chiphpotle\Rest\Enum\CheckPermissionResponsePermissionship;
+use Chiphpotle\Rest\Enum\Operation;
+use Chiphpotle\Rest\Enum\Permissionship;
 use Chiphpotle\Rest\Model\BulkCheckPermissionRequest;
 use Chiphpotle\Rest\Model\BulkCheckPermissionRequestItem;
 use Chiphpotle\Rest\Model\BulkCheckPermissionResponse;
@@ -86,7 +86,7 @@ final class ClientTest extends TestCase
             SubjectReference::create("user", "jimmy")
         );
         $update = new RelationshipUpdate(
-            RelationshipUpdateOperation::DELETE,
+            Operation::DELETE,
             $relationship
         );
         $request = new WriteRelationshipsRequest([$update]);
@@ -157,7 +157,7 @@ final class ClientTest extends TestCase
             $request
         );
         $this->assertEquals(
-            CheckPermissionResponsePermissionship::HAS_PERMISSION,
+            Permissionship::HAS_PERMISSION,
             $response->getPermissionship()
         );
     }
@@ -173,7 +173,7 @@ final class ClientTest extends TestCase
             $request
         );
         $this->assertEquals(
-            CheckPermissionResponsePermissionship::NO_PERMISSION,
+            Permissionship::NO_PERMISSION,
             $response->getPermissionship()
         );
     }
@@ -194,7 +194,7 @@ final class ClientTest extends TestCase
         );
         $this->assertInstanceOf(CheckPermissionResponse::class, $response);
         $this->assertEquals(
-            CheckPermissionResponsePermissionship::HAS_PERMISSION,
+            Permissionship::HAS_PERMISSION,
             $response->getPermissionship()
         );
     }
@@ -215,7 +215,7 @@ final class ClientTest extends TestCase
         );
         $this->assertInstanceOf(CheckPermissionResponse::class, $response);
         $this->assertEquals(
-            CheckPermissionResponsePermissionship::NO_PERMISSION,
+            Permissionship::NO_PERMISSION,
             $response->getPermissionship()
         );
     }
@@ -246,7 +246,7 @@ final class ClientTest extends TestCase
         $this->assertCount(3, $pairs);
 
         foreach ($pairs as $i => $pair) {
-            $expected = $pair->getRequest()->getResource()->getObjectId() == 'topsecret2' ? CheckPermissionResponsePermissionship::NO_PERMISSION : CheckPermissionResponsePermissionship::HAS_PERMISSION;
+            $expected = $pair->getRequest()->getResource()->getObjectId() == 'topsecret2' ? Permissionship::NO_PERMISSION : Permissionship::HAS_PERMISSION;
             $this->assertEquals($expected, $pair->getItem()->getPermissionship(), 'Incorrect permission for pair #'.$i);
         }
     }
@@ -311,7 +311,7 @@ final class ClientTest extends TestCase
             $caveat
         );
         $update = new RelationshipUpdate(
-            RelationshipUpdateOperation::TOUCH,
+            Operation::TOUCH,
             $relationship
         );
         $request = new WriteRelationshipsRequest([$update]);

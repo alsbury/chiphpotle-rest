@@ -2,11 +2,11 @@
 
 namespace Chiphpotle\Rest\Model;
 
-use Chiphpotle\Rest\Enum\CheckPermissionResponsePermissionship;
+use Chiphpotle\Rest\Enum\Permissionship;
 
 final class BulkCheckPermissionResponseItem
 {
-    protected string $permissionship = CheckPermissionResponsePermissionship::UNSPECIFIED;
+    protected string $permissionship = Permissionship::UNSPECIFIED;
 
     protected PartialCaveatInfo $partialCaveatInfo;
 
