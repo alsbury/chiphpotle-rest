@@ -2,6 +2,8 @@
 
 namespace Chiphpotle\Rest\Model;
 
+use Chiphpotle\Rest\Enum\LookupPermissionship;
+
 /**
  * ResolvedSubject is a single subject resolved within LookupSubjects.
  */
@@ -15,7 +17,7 @@ final class ResolvedSubject
     */
     protected ?string $subjectObjectId;
 
-    protected string $permissionship = 'LOOKUP_PERMISSIONSHIP_UNSPECIFIED';
+    protected string $permissionship = LookupPermissionship::UNSPECIFIED;
 
     protected ?PartialCaveatInfo $partialCaveatInfo;
 
@@ -37,6 +39,7 @@ final class ResolvedSubject
 
     public function setPermissionship(string $permissionship): self
     {
+        LookupPermissionship::validate($permissionship);
         $this->permissionship = $permissionship;
         return $this;
     }

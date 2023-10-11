@@ -2,7 +2,7 @@
 
 namespace Chiphpotle\Rest\Enum;
 
-final class Operation
+final class UpdateOperation extends BaseEnum
 {
     public const UNSPECIFIED = 'OPERATION_UNSPECIFIED';
 
@@ -12,13 +12,9 @@ final class Operation
 
     public const DELETE = 'OPERATION_DELETE';
 
-    /**
-     * @return string[]
-     */
-    public static function getAllowableEnumValues(): array
+    public static function allowableValues(): array
     {
         return [
-            self::UNSPECIFIED,
             self::CREATE,
             self::TOUCH,
             self::DELETE

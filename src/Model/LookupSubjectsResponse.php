@@ -2,6 +2,8 @@
 
 namespace Chiphpotle\Rest\Model;
 
+use Chiphpotle\Rest\Enum\LookupPermissionship;
+
 /**
  * LookupSubjectsResponse contains a single matching subject object ID for the
  * requested subject object type on the permission or relation.
@@ -18,7 +20,7 @@ final class LookupSubjectsResponse
 
     protected array $excludedSubjectIds;
 
-    protected string $permissionship = 'LOOKUP_PERMISSIONSHIP_UNSPECIFIED';
+    protected string $permissionship = LookupPermissionship::UNSPECIFIED;
 
     protected ?PartialCaveatInfo $partialCaveatInfo;
 
@@ -83,6 +85,7 @@ final class LookupSubjectsResponse
 
     public function setPermissionship(string $permissionship): self
     {
+        LookupPermissionship::validate($permissionship);
         $this->permissionship = $permissionship;
         return $this;
     }

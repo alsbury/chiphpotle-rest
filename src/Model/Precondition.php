@@ -2,9 +2,18 @@
 
 namespace Chiphpotle\Rest\Model;
 
+use Chiphpotle\Rest\Enum\PreconditionOperation;
+
+/**
+ * Precondition specifies how and the existence or absence of certain relationships as expressed through the
+ * accompanying filter should affect whether or not the operation proceeds.
+ *
+ * MUST_NOT_MATCH will fail the parent request if any relationships match the relationships filter.
+ * MUST_MATCH will fail the parent request if there are no relationships that match the filter.
+ */
 final class Precondition
 {
-    protected string $operation = 'OPERATION_UNSPECIFIED';
+    protected string $operation = PreconditionOperation::UNSPECIFIED;
 
     protected RelationshipFilter $filter;
 
@@ -15,6 +24,7 @@ final class Precondition
 
     public function setOperation(string $operation): self
     {
+        PreconditionOperation::validate($operation);
         $this->operation = $operation;
         return $this;
     }

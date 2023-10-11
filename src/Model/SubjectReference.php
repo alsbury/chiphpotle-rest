@@ -12,10 +12,6 @@ final class SubjectReference
 
     protected ?string $optionalRelation = null;
 
-    /**
-     * @param ObjectReference|null $object
-     * @param string|null $optionalRelation
-     */
     public function __construct(ObjectReference $object = null, ?string $optionalRelation = null)
     {
         $this->object = $object;

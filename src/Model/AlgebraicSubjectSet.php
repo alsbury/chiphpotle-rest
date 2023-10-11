@@ -2,6 +2,8 @@
 
 namespace Chiphpotle\Rest\Model;
 
+use Chiphpotle\Rest\Enum\AlgebraicOperation;
+
 /**
  * AlgebraicSubjectSet is a subject set which is computed based on applying the
  * specified operation to the operands according to the algebra of sets.
@@ -16,7 +18,7 @@ namespace Chiphpotle\Rest\Model;
  */
 final class AlgebraicSubjectSet
 {
-    protected string $operation = 'OPERATION_UNSPECIFIED';
+    protected string $operation = AlgebraicOperation::UNSPECIFIED;
 
     /**
      * @var PermissionRelationshipTree[]
@@ -30,6 +32,7 @@ final class AlgebraicSubjectSet
 
     public function setOperation(string $operation): self
     {
+        AlgebraicOperation::validate($operation);
         $this->operation = $operation;
         return $this;
     }

@@ -3,7 +3,7 @@
 namespace Chiphpotle\Rest\Test;
 
 use Chiphpotle\Rest\Client;
-use Chiphpotle\Rest\Enum\Operation;
+use Chiphpotle\Rest\Enum\UpdateOperation;
 use Chiphpotle\Rest\Enum\Permissionship;
 use Chiphpotle\Rest\Model\BulkCheckPermissionRequest;
 use Chiphpotle\Rest\Model\BulkCheckPermissionRequestItem;
@@ -86,7 +86,7 @@ final class ClientTest extends TestCase
             SubjectReference::create("user", "jimmy")
         );
         $update = new RelationshipUpdate(
-            Operation::DELETE,
+            UpdateOperation::DELETE,
             $relationship
         );
         $request = new WriteRelationshipsRequest([$update]);
@@ -311,7 +311,7 @@ final class ClientTest extends TestCase
             $caveat
         );
         $update = new RelationshipUpdate(
-            Operation::TOUCH,
+            UpdateOperation::TOUCH,
             $relationship
         );
         $request = new WriteRelationshipsRequest([$update]);

@@ -2,7 +2,11 @@
 
 namespace Chiphpotle\Rest\Enum;
 
-final class Permissionship
+/**
+ * Permissionship communicates whether or not the subject has the requested permission or has a relationship with the
+ * given resource, over the given relation.
+ */
+final class Permissionship extends BaseEnum
 {
     public const UNSPECIFIED = 'PERMISSIONSHIP_UNSPECIFIED';
 
@@ -10,15 +14,14 @@ final class Permissionship
 
     public const HAS_PERMISSION = 'PERMISSIONSHIP_HAS_PERMISSION';
 
-    /**
-     * @return string[]
-     */
-    public static function getAllowableEnumValues(): array
+    public const CONDITIONAL_PERMISSION = 'PERMISSIONSHIP_CONDITIONAL_PERMISSION';
+
+    public static function allowableValues(): array
     {
         return [
-            self::UNSPECIFIED,
             self::NO_PERMISSION,
-            self::HAS_PERMISSION
+            self::HAS_PERMISSION,
+            self::CONDITIONAL_PERMISSION
         ];
     }
 }

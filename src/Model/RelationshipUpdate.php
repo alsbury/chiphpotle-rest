@@ -2,44 +2,38 @@
 
 namespace Chiphpotle\Rest\Model;
 
-use Chiphpotle\Rest\Enum\Operation;
+use Chiphpotle\Rest\Enum\UpdateOperation;
 
 final class RelationshipUpdate
 {
-    protected string $operation = "OPERATION_UNSPECIFIED";
+    protected string $operation = UpdateOperation::UNSPECIFIED;
     protected Relationship $relationship;
 
     public function __construct(string $operation, Relationship $relationship)
     {
-        if (
-            !in_array(
-                $operation,
-                Operation::getAllowableEnumValues()
-            )
-        ) {
-            throw new \Exception("Invalid relationship update operation type");
-        }
+        UpdateOperation::validate($operation);
         $this->operation = $operation;
         $this->relationship = $relationship;
     }
 
-    public function getOperation(): ?string
+    public function getOperation(): string
     {
         return $this->operation;
     }
 
-    public function setOperation(?string $operation): self
+    public function setOperation(string $operation): self
     {
+        UpdateOperation::validate($operation);
         $this->operation = $operation;
         return $this;
     }
 
-    public function getRelationship(): ?Relationship
+    public function getRelationship(): Relationship
     {
         return $this->relationship;
     }
 
-    public function setRelationship(?Relationship $relationship): self
+    public function setRelationship(Relationship $relationship): self
     {
         $this->relationship = $relationship;
         return $this;
