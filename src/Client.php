@@ -43,7 +43,6 @@ use stdClass;
 use Symfony\Component\Serializer\Encoder\JsonDecode;
 use Symfony\Component\Serializer\Encoder\JsonEncode;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Normalizer\ArrayDenormalizer;
 use Symfony\Component\Serializer\Serializer;
 
 final class Client extends Runtime\Client\Client
@@ -193,7 +192,7 @@ final class Client extends Runtime\Client\Client
         ]);
         $requestFactory = Psr17FactoryDiscovery::findRequestFactory();
         $streamFactory = Psr17FactoryDiscovery::findStreamFactory();
-        $normalizers = [new ArrayDenormalizer(), new JaneObjectNormalizer()];
+        $normalizers = [new JaneObjectNormalizer()];
         if (count($additionalNormalizers) > 0) {
             $normalizers = array_merge($normalizers, $additionalNormalizers);
         }
