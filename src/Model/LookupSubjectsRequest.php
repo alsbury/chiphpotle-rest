@@ -2,6 +2,11 @@
 
 namespace Chiphpotle\Rest\Model;
 
+/**
+ * LookupSubjectsRequest performs a lookup of all subjects of a particular
+ *  kind for which the subject has the specified permission or the relation in
+ *  which the subject exists, streaming back the IDs of those subjects.
+ */
 final class LookupSubjectsRequest
 {
     protected ?Consistency $consistency;

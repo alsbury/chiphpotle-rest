@@ -2,18 +2,19 @@
 
 namespace Chiphpotle\Rest\Model;
 
+/**
+ * ExpandPermissionTreeRequest returns a tree representing the expansion of all
+ *  relationships found accessible from a permission or relation on a particular
+ *  resource.
+ *
+ *  ExpandPermissionTreeRequest is typically used to determine the full set of
+ *  subjects with a permission, along with the relationships that grant said
+ *  access.
+ */
 final class ExpandPermissionTreeRequest
 {
-    /**
-     * Consistency will define how a request is handled by the backend.
-     * By defining a consistency requirement, and a token at which those
-     * requirements should be applied, where applicable.
-     */
     protected ?Consistency $consistency;
 
-    /**
-     * ObjectReference is used to refer to a specific object in the system.
-     */
     protected ObjectReference $resource;
 
     /**

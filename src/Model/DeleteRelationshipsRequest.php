@@ -2,15 +2,15 @@
 
 namespace Chiphpotle\Rest\Model;
 
+/**
+ * DeleteRelationshipsRequest $request DeleteRelationshipsRequest specifies which Relationships should be deleted,
+ *  requesting the delete of *ALL* relationships that match the specified
+ *  filters. If the optional_preconditions parameter is included, all of the
+ *  specified preconditions must also be satisfied before the delete will be
+ *  executed.
+ */
 final class DeleteRelationshipsRequest
 {
-    /**
-     * RelationshipFilter is a collection of filters which when applied to a
-     * relationship will return relationships that have exactly matching fields.
-     *
-     * resource_type is required. All other fields are optional and if left
-     * unspecified will not filter relationships.
-     */
     protected RelationshipFilter $relationshipFilter;
 
     /**
@@ -18,25 +18,11 @@ final class DeleteRelationshipsRequest
      */
     protected array $optionalPreconditions;
 
-    /**
-     * RelationshipFilter is a collection of filters which when applied to a
-     * relationship will return relationships that have exactly matching fields.
-     *
-     * resource_type is required. All other fields are optional and if left
-     * unspecified will not filter relationships.
-     */
     public function getRelationshipFilter(): RelationshipFilter
     {
         return $this->relationshipFilter;
     }
 
-    /**
-     * RelationshipFilter is a collection of filters which when applied to a
-     * relationship will return relationships that have exactly matching fields.
-     *
-     * resource_type is required. All other fields are optional and if left
-     * unspecified will not filter relationships.
-     */
     public function setRelationshipFilter(RelationshipFilter $relationshipFilter): self
     {
         $this->relationshipFilter = $relationshipFilter;
