@@ -2,6 +2,10 @@
 
 namespace Chiphpotle\Rest\Model;
 
+/**
+ * SubjectReference is used for referring to the subject portion of a Relationship. The relation component is optional
+ * and is used for defining a sub-relation on the subject, e.g. group:123#members
+ */
 final class SubjectReference
 {
     protected ObjectReference $object;
