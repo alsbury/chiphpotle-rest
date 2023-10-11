@@ -47,34 +47,6 @@ use Symfony\Component\Serializer\Serializer;
 final class Client extends Runtime\Client\Client
 {
     /**
-     * EXPERIMENTAL
-     * Executes a list of permission checks in one request
-     */
-    public function experimentalServiceBulkCheckPermission(BulkCheckPermissionRequest $body): BulkCheckPermissionResponse
-    {
-        return $this->executeEndpoint(new ExperimentalServiceBulkCheckPermission($body));
-    }
-
-    /**
-     * EXPERIMENTAL
-     * Bulk exports relationships in chunks.
-     */
-    public function experimentalServiceBulkExportRelationships(BulkExportRelationshipsRequest $body): ExperimentalRelationshipsBulkexportPostResponse200
-    {
-        return $this->executeEndpoint(new ExperimentalServiceBulkExportRelationships($body));
-    }
-
-    /**
-     * EXPERIMENTAL
-     * https://github.com/authzed/spicedb/issues/1303
-     * Imports a list of relationships.
-     */
-    public function experimentalServiceBulkImportRelationships(BulkImportRelationshipsRequest $body): BulkImportRelationshipsResponse
-    {
-        return $this->executeEndpoint(new ExperimentalServiceBulkImportRelationships($body));
-    }
-
-    /**
      * Issues a check on whether a subject has a permission or is a member of a relation, on a specific resource.
      */
     public function checkPermission(CheckPermissionRequest $request): CheckPermissionResponse
@@ -160,6 +132,35 @@ final class Client extends Runtime\Client\Client
     {
         return $this->executeEndpoint(new SchemaServiceWriteSchema($request));
     }
+
+    /**
+     * EXPERIMENTAL
+     * Executes a list of permission checks in one request
+     */
+    public function experimentalServiceBulkCheckPermission(BulkCheckPermissionRequest $body): BulkCheckPermissionResponse
+    {
+        return $this->executeEndpoint(new ExperimentalServiceBulkCheckPermission($body));
+    }
+
+    /**
+     * EXPERIMENTAL
+     * Bulk exports relationships in chunks.
+     */
+    public function experimentalServiceBulkExportRelationships(BulkExportRelationshipsRequest $body): ExperimentalRelationshipsBulkexportPostResponse200
+    {
+        return $this->executeEndpoint(new ExperimentalServiceBulkExportRelationships($body));
+    }
+
+    /**
+     * EXPERIMENTAL
+     * https://github.com/authzed/spicedb/issues/1303
+     * Imports a list of relationships.
+     */
+    public function experimentalServiceBulkImportRelationships(BulkImportRelationshipsRequest $body): BulkImportRelationshipsResponse
+    {
+        return $this->executeEndpoint(new ExperimentalServiceBulkImportRelationships($body));
+    }
+
 
     public static function create($baseUrl, $apiKey, $additionalNormalizers = []): Client
     {
