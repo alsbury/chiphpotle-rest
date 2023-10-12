@@ -49,7 +49,7 @@ final class PermissionsServiceLookupSubjects extends BaseEndpoint implements Cli
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
         if (200 === $status) {
-            return $serializer->deserialize($body, PermissionsSubjectsPostResponse200::class, 'json');
+            return $serializer->deserialize($body, PermissionsSubjectsPostResponse200::class, 'jsonl');
         }
         $this->throwRpcException($body, $serializer);
     }

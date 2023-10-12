@@ -6,6 +6,7 @@ use Chiphpotle\Rest\Model\LookupSubjectsResponse;
 use Chiphpotle\Rest\Model\PermissionsSubjectsPostResponse200;
 use ArrayObject;
 use Chiphpotle\Rest\Model\RpcStatus;
+use Chiphpotle\Rest\Runtime\Client\RpcException;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -34,16 +35,18 @@ final class PermissionsSubjectsPostResponse200Normalizer implements Denormalizer
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): PermissionsSubjectsPostResponse200
     {
         $object = new PermissionsSubjectsPostResponse200();
-        if (null === $data || false === is_array($data)) {
-            return $object;
+
+        $results = [];
+        foreach ($data as $resultData) {
+            if (array_key_exists('result', $resultData)) {
+                $results[] = $this->denormalizer->denormalize($resultData['result'], LookupSubjectsResponse::class, 'json', $context);
+            } elseif (array_key_exists('error', $resultData)) {
+                $rpcStatus = $this->denormalizer->denormalize($resultData['error'], RpcStatus::class, 'json', $context);
+                throw new RpcException($rpcStatus);
+            }
         }
-        if (array_key_exists('result', $data)) {
-            $object->setResult($this->denormalizer->denormalize($data['result'], LookupSubjectsResponse::class, 'json', $context));
-        }
-        if (array_key_exists('error', $data)) {
-            $object->setError($this->denormalizer->denormalize($data['error'], RpcStatus::class, 'json', $context));
-        }
-        return $object;
+
+        return $object->setResults($results);
     }
 
     public function normalize($object, $format = null, array $context = []): array

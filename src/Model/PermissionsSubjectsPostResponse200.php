@@ -4,16 +4,26 @@ namespace Chiphpotle\Rest\Model;
 
 final class PermissionsSubjectsPostResponse200
 {
-    protected LookupSubjectsResponse $result;
+    /**
+     * @var LookupSubjectsResponse[]
+     */
+    protected array $result;
 
     protected RpcStatus $error;
 
-    public function getResult(): LookupSubjectsResponse
+    /**
+     * @return LookupSubjectsResponse[]
+     */
+    public function getResults(): array
     {
         return $this->result;
     }
 
-    public function setResult(LookupSubjectsResponse $result): self
+    /**
+     * @param LookupSubjectsResponse[] $result
+     * @return $this
+     */
+    public function setResults(array $result): self
     {
         $this->result = $result;
         return $this;

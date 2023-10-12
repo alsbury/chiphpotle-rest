@@ -38,6 +38,7 @@ use Chiphpotle\Rest\Model\WriteRelationshipsResponse;
 use Chiphpotle\Rest\Model\WriteSchemaRequest;
 use Chiphpotle\Rest\Model\WriteSchemaResponse;
 use Chiphpotle\Rest\Normalizer\JaneObjectNormalizer;
+use Chiphpotle\Rest\Runtime\Client\JsonLinesDecoder;
 use Http\Discovery\Psr17FactoryDiscovery;
 use Symfony\Component\Serializer\Encoder\JsonDecode;
 use Symfony\Component\Serializer\Encoder\JsonEncode;
@@ -176,7 +177,8 @@ final class Client extends Runtime\Client\Client
         if (count($additionalNormalizers) > 0) {
             $normalizers = array_merge($normalizers, $additionalNormalizers);
         }
-        $serializer = new Serializer($normalizers, [new JsonEncoder(new JsonEncode(), new JsonDecode(['json_decode_associative' => true]))]);
+        $jsonDecoder = new JsonDecode(['json_decode_associative' => true]);
+        $serializer = new Serializer($normalizers, [new JsonEncoder(new JsonEncode(), $jsonDecoder), new JsonLinesDecoder($jsonDecoder)]);
         return new self($httpClient, $requestFactory, $serializer, $streamFactory);
     }
 }

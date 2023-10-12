@@ -23,6 +23,8 @@ use Chiphpotle\Rest\Model\ExperimentalRelationshipsBulkexportPostResponse200;
 use Chiphpotle\Rest\Model\LookupResourcesRequest;
 use Chiphpotle\Rest\Model\LookupSubjectsRequest;
 use Chiphpotle\Rest\Model\ObjectReference;
+use Chiphpotle\Rest\Model\PermissionsResourcesPostResponse200;
+use Chiphpotle\Rest\Model\PermissionsSubjectsPostResponse200;
 use Chiphpotle\Rest\Model\ReadRelationshipsRequest;
 use Chiphpotle\Rest\Model\Relationship;
 use Chiphpotle\Rest\Model\RelationshipFilter;
@@ -110,48 +112,60 @@ final class ClientTest extends TestCase
 
     public function testLookupResources()
     {
-        $this->writeRelationship('document', 'topsecret1', 'viewer', 'user', 'alice');
+        $this->writeRelationship('document', 'topsecret1', 'viewer', 'user', 'lookup_resource_test');
+        $writeResults = $this->writeRelationship('document', 'topsecret2', 'viewer', 'user', 'lookup_resource_test');
 
         $request = new LookupResourcesRequest();
         $request
             ->setResourceObjectType("document")
             ->setPermission("view")
-            ->setSubject(SubjectReference::create("user", "alice"))
-            ->setConsistency(Consistency::minimizeLatency());
+            ->setSubject(SubjectReference::create("user", "lookup_resource_test"))
+            ->setConsistency(Consistency::atLeastAsFresh($writeResults->getWrittenAt()));
+
         $response = $this->getApiClient()->lookupResources(
             $request
         );
-        $this->assertEquals(
-            "topsecret1",
-            $response->getResult()->getResourceObjectId()
-        );
+
+        $this->assertInstanceOf(PermissionsResourcesPostResponse200::class, $response);
+        $results = $response->getResults();
+        $this->assertCount(2, $results);
+
+        foreach ($results as $result) {
+            $this->assertTrue(in_array($result->getResourceObjectId(), ['topsecret1', 'topsecret2']));
+        }
     }
 
     public function testLookupSubjects()
     {
-        $this->writeRelationship('document', 'topsecret7', 'viewer', 'user', 'alice');
+        $this->writeRelationship('document', 'lookup_subject_test', 'viewer', 'user', 'alice');
+        $this->writeRelationship('document', 'lookup_subject_test', 'viewer', 'user', 'mary');
 
         $request = new LookupSubjectsRequest(
-            ObjectReference::create('document', 'topsecret7'),
+            ObjectReference::create('document', 'lookup_subject_test'),
             'view',
             'user'
         );
         $response = $this->getApiClient()->lookupSubjects(
             $request
         );
-        $this->assertEquals(
-            "alice",
-            $response->getResult()->getSubjectObjectId()
-        );
+
+        $this->assertInstanceOf(PermissionsSubjectsPostResponse200::class, $response);
+        $results = $response->getResults();
+        $this->assertCount(2, $results);
+
+        foreach ($results as $result) {
+            $this->assertTrue(in_array($result->getSubjectObjectId(), ['alice', 'mary']));
+        }
     }
 
     public function testPermissionCheckValid()
     {
-        $this->writeRelationship('document', 'topsecret1', 'viewer', 'user', 'bob');
+        $writeResponse = $this->writeRelationship('document', 'topsecret1', 'viewer', 'user', 'bob');
         $request = new CheckPermissionRequest(
             ObjectReference::create("document", "topsecret1"),
             "view",
-            SubjectReference::create("user", "bob")
+            SubjectReference::create("user", "bob"),
+            Consistency::atLeastAsFresh($writeResponse->getWrittenAt())
         );
         $response = $this->getApiClient()->checkPermission(
             $request

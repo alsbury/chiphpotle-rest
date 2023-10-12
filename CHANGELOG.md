@@ -1,5 +1,10 @@
 # Change Log
 
+## v0.5.1
+
+Fix handling for streamed LookupResources and LookupSubjects responses that are in [JSON lines](https://jsonlines.org/) 
+format rather than valid JSON.
+
 ## v0.5.0
 
 Major new release up to date with SpiceDB 1.25+. Except for the experimental APIs, things should be stable going

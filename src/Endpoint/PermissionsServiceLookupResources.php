@@ -49,7 +49,7 @@ final class PermissionsServiceLookupResources extends BaseEndpoint implements Cl
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
         if (200 === $status) {
-            return $serializer->deserialize($body, PermissionsResourcesPostResponse200::class, 'json');
+            return $serializer->deserialize($body, PermissionsResourcesPostResponse200::class, 'jsonl');
         }
         $this->throwRpcException($body, $serializer);
     }
