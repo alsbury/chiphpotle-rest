@@ -9,17 +9,11 @@ use Chiphpotle\Rest\Model\RpcStatus;
  */
 final class RpcException extends \RuntimeException
 {
-    private array $details;
-
     public function __construct(RpcStatus $rpcStatus)
     {
-        parent::__construct($rpcStatus->getMessage(), $rpcStatus->getCode());
-        $this->details = $rpcStatus->getDetails();
-    }
-
-    public function __toString(): string
-    {
-        $detailStr = !empty($this->details) ? ":\n" . json_encode($this->details, JSON_PRETTY_PRINT) : '';
-        return "Rpc Error $this->code $this->message $detailStr";
+        $details = $rpcStatus->getDetails();
+        $detailStr = !empty($details) ? ' details: ' . json_encode($details, JSON_PRETTY_PRINT) : '';
+        $message = "Rpc Error {$rpcStatus->getCode()} {$rpcStatus->getMessage()}$detailStr";
+        parent::__construct($message, $rpcStatus->getCode());
     }
 }
