@@ -1,5 +1,9 @@
 # Change Log
 
+## v0.5.2
+
+Don't overwrite __toString method of RpcException to avoid suppressing the stacktrace.
+
 ## v0.5.1
 
 Fix handling for streamed LookupResources and LookupSubjects responses that are in [JSON lines](https://jsonlines.org/) 
