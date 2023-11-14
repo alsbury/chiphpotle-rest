@@ -12,7 +12,7 @@ final class RpcException extends \RuntimeException
     public function __construct(RpcStatus $rpcStatus)
     {
         $details = $rpcStatus->getDetails();
-        $detailStr = !empty($details) ? ' details: ' . json_encode($details, JSON_PRETTY_PRINT) : '';
+        $detailStr = $details === [] ? '' : ' details: ' . json_encode($details, JSON_PRETTY_PRINT);
         $message = "Rpc Error {$rpcStatus->getCode()} {$rpcStatus->getMessage()}$detailStr";
         parent::__construct($message, $rpcStatus->getCode());
     }

@@ -37,8 +37,6 @@ final class WriteSchemaRequestNormalizer implements DenormalizerInterface, Norma
 
     public function normalize($object, $format = null, array $context = []): array
     {
-        $data = [];
-        $data['schema'] = $object->getSchema();
-        return $data;
+        return ['schema' => $object->getSchema()];
     }
 }

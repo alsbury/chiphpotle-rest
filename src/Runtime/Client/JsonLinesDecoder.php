@@ -21,7 +21,7 @@ final class JsonLinesDecoder implements DecoderInterface
     {
         $decodedData = [];
         foreach (explode("\n", $data) as $line) {
-            if (!empty($line)) {
+            if ($line !== '') {
                 $decodedData[] = $this->jsonDecoder->decode($line, $format, $context);
             }
         }

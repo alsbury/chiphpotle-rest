@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 final class CheckPermissionRequestTest extends TestCase
 {
-    public function test_to_string_method()
+    public function test_to_string_method(): void
     {
         $request = new CheckPermissionRequest(
             ObjectReference::create(
@@ -25,7 +25,7 @@ final class CheckPermissionRequestTest extends TestCase
         $this->assertEquals('document:mydoc#read@user:alice', (string)$request);
     }
 
-    public function test_to_string_method_with_optional_relationship()
+    public function test_to_string_method_with_optional_relationship(): void
     {
         $request = new CheckPermissionRequest(
             ObjectReference::create(

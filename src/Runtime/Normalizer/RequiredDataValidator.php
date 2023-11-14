@@ -12,8 +12,8 @@ trait RequiredDataValidator
      */
     protected function checkRequired(array $data, array $required): void
     {
-        $missing = array_filter($required, fn (string $field) => empty($data[$field]));
-        if (!empty($missing)) {
+        $missing = array_filter($required, fn (string $field): bool => empty($data[$field]));
+        if ($missing !== []) {
             throw new ValidationException('Missing required '.implode(', ', $missing));
         }
     }

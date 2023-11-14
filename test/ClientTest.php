@@ -48,7 +48,7 @@ final class ClientTest extends TestCase
         );
     }
 
-    public function testSchemaRead()
+    public function testSchemaRead(): void
     {
         $schemaText = $this->getApiClient()
             ->readSchema()
@@ -62,13 +62,13 @@ final class ClientTest extends TestCase
         $this->assertStringContainsString('permission view', $schemaText);
     }
 
-    public function testRelationshipWrite()
+    public function testRelationshipWrite(): void
     {
         $response = $this->writeRelationship('document', 'topsecret2', 'viewer', 'user', 'jimmy');
         $this->assertNotEmpty($response->getWrittenAt()->getToken());
     }
 
-    public function testRelationshipRead()
+    public function testRelationshipRead(): void
     {
         $filter = (new RelationshipFilter())->setResourceType("document");
         $request = (new ReadRelationshipsRequest())
@@ -80,7 +80,7 @@ final class ClientTest extends TestCase
         $this->assertInstanceOf(RelationshipsReadPostResponse200::class, $response);
     }
 
-    public function testRelationshipDelete()
+    public function testRelationshipDelete(): void
     {
         $relationship = new Relationship(
             ObjectReference::create("document", "topsecret2"),
@@ -98,7 +98,7 @@ final class ClientTest extends TestCase
         $this->assertNotEmpty($response->getWrittenAt()->getToken());
     }
 
-    public function testDeleteRelationships()
+    public function testDeleteRelationships(): void
     {
         $this->writeRelationship('document', 'topsecret6', 'viewer', 'user', 'john');
         $this->writeRelationship('document', 'topsecret6', 'viewer', 'user', 'tom');
@@ -110,7 +110,7 @@ final class ClientTest extends TestCase
         $this->assertInstanceOf(DeleteRelationshipsResponse::class, $response);
     }
 
-    public function testLookupResources()
+    public function testLookupResources(): void
     {
         $this->writeRelationship('document', 'topsecret1', 'viewer', 'user', 'lookup_resource_test');
         $writeResults = $this->writeRelationship('document', 'topsecret2', 'viewer', 'user', 'lookup_resource_test');
@@ -135,7 +135,7 @@ final class ClientTest extends TestCase
         }
     }
 
-    public function testLookupSubjects()
+    public function testLookupSubjects(): void
     {
         $this->writeRelationship('document', 'lookup_subject_test', 'viewer', 'user', 'alice');
         $this->writeRelationship('document', 'lookup_subject_test', 'viewer', 'user', 'mary');
@@ -158,7 +158,7 @@ final class ClientTest extends TestCase
         }
     }
 
-    public function testPermissionCheckValid()
+    public function testPermissionCheckValid(): void
     {
         $writeResponse = $this->writeRelationship('document', 'topsecret1', 'viewer', 'user', 'bob');
         $request = new CheckPermissionRequest(
@@ -176,7 +176,7 @@ final class ClientTest extends TestCase
         );
     }
 
-    public function testPermissionCheckInvalid()
+    public function testPermissionCheckInvalid(): void
     {
         $request = new CheckPermissionRequest(
             ObjectReference::create("document", "topsecret1"),
@@ -192,7 +192,7 @@ final class ClientTest extends TestCase
         );
     }
 
-    public function testPermissionCheckValidWithCaveat()
+    public function testPermissionCheckValidWithCaveat(): void
     {
         $caveat = new ContextualizedCaveat('published');
         $this->writeRelationship('document', 'published_doc', 'viewer', 'user', 'anon', $caveat);
@@ -213,7 +213,7 @@ final class ClientTest extends TestCase
         );
     }
 
-    public function testPermissionCheckInvalidWithCaveat()
+    public function testPermissionCheckInvalidWithCaveat(): void
     {
         $caveat = new ContextualizedCaveat('published');
         $this->writeRelationship('document', 'draft_doc', 'viewer', 'user', 'anon2', $caveat);
@@ -234,7 +234,7 @@ final class ClientTest extends TestCase
         );
     }
 
-    public function testBulkPermissionCheck()
+    public function testBulkPermissionCheck(): void
     {
         $this->writeRelationship('document', 'topsecret1', 'viewer', 'user', 'larry');
         $this->writeRelationship('document', 'topsecret3', 'viewer', 'user', 'larry');
@@ -265,7 +265,7 @@ final class ClientTest extends TestCase
         }
     }
 
-    public function testBulkRelationshipImport()
+    public function testBulkRelationshipImport(): void
     {
         $request = new BulkImportRelationshipsRequest([
             new Relationship(ObjectReference::create('document', 'blogpost1'), 'writer', SubjectReference::create('user', 'mary')),
@@ -285,7 +285,7 @@ final class ClientTest extends TestCase
         $this->assertNotEmpty($response->getNumLoaded());
     }
 
-    public function testBulkRelationshipExport()
+    public function testBulkRelationshipExport(): void
     {
         $this->writeRelationship('document', 'topsecret1', 'writer', 'user', 'joe');
 
@@ -304,7 +304,7 @@ final class ClientTest extends TestCase
         $this->assertNotEmpty($response->getResult()->getRelationships());
     }
 
-    public function testPermissionCheckExpand()
+    public function testPermissionCheckExpand(): void
     {
         $request = new ExpandPermissionTreeRequest(
             ObjectReference::create("document", "topsecret1"),

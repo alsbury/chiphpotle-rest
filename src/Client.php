@@ -163,7 +163,7 @@ final class Client extends Runtime\Client\Client
     }
 
 
-    public static function create($baseUrl, $apiKey, $additionalNormalizers = []): Client
+    public static function create($baseUrl, string $apiKey, $additionalNormalizers = []): Client
     {
         $httpClient = new \GuzzleHttp\Client([
             'base_uri' => $baseUrl,

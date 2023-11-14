@@ -41,7 +41,7 @@ final class RelationshipsReadPostResponse200Normalizer implements DenormalizerIn
         if (array_key_exists('error', $data)) {
             $object->setError($this->denormalizer->denormalize($data['error'], RpcStatus::class, 'json', $context));
         }
-        if (count($data) > 0) {
+        if ($data !== []) {
             $result = [];
             foreach ($data as $part) {
                 $result[] = $this->denormalizer->denormalize($part['result'], ReadRelationshipsResponse::class, 'json', $context);

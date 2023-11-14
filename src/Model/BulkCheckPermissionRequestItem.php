@@ -49,7 +49,7 @@ final class BulkCheckPermissionRequestItem
         return $this->context;
     }
 
-    public function setContext($context): self
+    public function setContext(mixed $context): self
     {
         $this->context = $context;
         return $this;
