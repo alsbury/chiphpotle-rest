@@ -9,21 +9,17 @@ namespace Chiphpotle\Rest\Model;
  */
 final class LookupSubjectsRequest
 {
-    protected ?Consistency $consistency;
-
-    protected ObjectReference $resource;
-
     /**
      * permission is the name of the permission (or relation) for which to find
      * the subjects.
      */
-    protected string $permission;
+    private string $permission;
 
     /**
      * subject_object_type is the type of subject object for which the IDs will
      * be returned.
      */
-    protected string $subjectObjectType;
+    private string $subjectObjectType;
 
     /**
      * optional_subject_relation is the optional relation for the subject.
@@ -31,14 +27,12 @@ final class LookupSubjectsRequest
     protected ?string $optionalSubjectRelation;
 
     public function __construct(
-        ObjectReference $resource,
-        string          $permission,
-        string          $subjectObjectType,
-        ?string         $optionalSubjectRelation = null,
-        ?Consistency    $consistency = null
+        private ObjectReference $resource,
+        string                  $permission,
+        string                  $subjectObjectType,
+        ?string                 $optionalSubjectRelation = null,
+        private ?Consistency $consistency = null
     ) {
-        $this->resource = $resource;
-        $this->consistency = $consistency;
         $this->permission = $permission;
         $this->subjectObjectType = $subjectObjectType;
         $this->optionalSubjectRelation = $optionalSubjectRelation;

@@ -9,14 +9,10 @@ namespace Chiphpotle\Rest\Model;
 final class WriteSchemaRequest
 {
     /**
-     * The Schema containing one or more Object Definitions that will be written
-     * to the Permissions System.
+     * @param string $schema The Schema containing one or more Object Definitions that will be written to the Permissions System.
      */
-    protected string $schema;
-
-    public function __construct(string $schema)
+    public function __construct(private string $schema)
     {
-        $this->schema = $schema;
     }
 
     public function getSchema(): string

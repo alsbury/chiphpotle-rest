@@ -8,10 +8,9 @@ namespace Chiphpotle\Rest\Model;
  */
 final class ReadRelationshipsRequest
 {
+    private ?Consistency $consistency = null;
 
-    protected ?Consistency $consistency = null;
-
-    protected ?RelationshipFilter $relationshipFilter = null;
+    private ?RelationshipFilter $relationshipFilter = null;
 
     public function getConsistency(): ?Consistency
     {

@@ -9,11 +9,11 @@ namespace Chiphpotle\Rest\Model;
  */
 final class ReadRelationshipsResponse
 {
-    protected ZedToken $readAt;
+    private ZedToken $readAt;
 
-    protected Relationship $relationship;
+    private Relationship $relationship;
 
-    protected Cursor $afterResultCursor;
+    private Cursor $afterResultCursor;
 
     public function getReadAt(): ZedToken
     {

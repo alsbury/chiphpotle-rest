@@ -4,9 +4,9 @@ namespace Chiphpotle\Rest\Model;
 
 final class ExperimentalRelationshipsBulkexportPostResponse200
 {
-    protected BulkExportRelationshipsResponse $result;
+    private BulkExportRelationshipsResponse $result;
 
-    protected ?RpcStatus $error;
+    private ?RpcStatus $error;
 
     public function getResult(): BulkExportRelationshipsResponse
     {

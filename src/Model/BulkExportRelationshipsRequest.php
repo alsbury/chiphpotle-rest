@@ -4,19 +4,10 @@ namespace Chiphpotle\Rest\Model;
 
 final class BulkExportRelationshipsRequest
 {
-    protected ?Consistency $consistency;
-
-    protected int $optionalLimit = 0;
-
-    protected ?Cursor $optionalCursor;
-
-    public function __construct(?Consistency $consistency = null, int $optionalLimit = 0, ?Cursor $optionalCursor = null)
+    public function __construct(private ?Consistency $consistency = null, private int $optionalLimit = 0,
+                                private ?Cursor $optionalCursor = null)
     {
-        $this->consistency = $consistency;
-        $this->optionalLimit = $optionalLimit;
-        $this->optionalCursor = $optionalCursor;
     }
-
 
     public function getConsistency(): ?Consistency
     {

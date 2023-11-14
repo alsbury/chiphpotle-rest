@@ -4,7 +4,7 @@ namespace Chiphpotle\Rest\Model;
 
 final class WriteSchemaResponse
 {
-    protected ZedToken $writtenAt;
+    private ZedToken $writtenAt;
 
     public function getWrittenAt(): ZedToken
     {

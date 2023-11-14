@@ -13,11 +13,7 @@ final class Consistency
      * minimize_latency indicates that the latency for the call should be
      * minimized by having the system select the fastest snapshot available.
      */
-    protected ?bool $minimizeLatency;
-
-    protected ?ZedToken $atLeastAsFresh;
-
-    protected ?ZedToken $atExactSnapshot;
+    private ?bool $minimizeLatency;
 
     /**
      * fully_consistent indicates that all data used in the API call *must* be
@@ -30,14 +26,12 @@ final class Consistency
     protected ?bool $fullyConsistent;
 
     public function __construct(
-        ?ZedToken $atExactSnapshot = null,
-        ?ZedToken $atLeastAsFresh = null,
-        ?bool $minimizeLatency = null,
-        ?bool $fullyConsistent = null
+        private ?ZedToken $atExactSnapshot = null,
+        private ?ZedToken $atLeastAsFresh = null,
+        ?bool             $minimizeLatency = null,
+        ?bool             $fullyConsistent = null
     ) {
         $this->minimizeLatency = $minimizeLatency;
-        $this->atLeastAsFresh = $atLeastAsFresh;
-        $this->atExactSnapshot = $atExactSnapshot;
         $this->fullyConsistent = $fullyConsistent;
     }
 

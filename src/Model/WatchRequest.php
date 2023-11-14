@@ -12,9 +12,9 @@ final class WatchRequest
     /**
      * @var string[]
      */
-    protected array $optionalObjectTypes;
+    private array $optionalObjectTypes;
 
-    protected ZedToken $optionalStartCursor;
+    private ZedToken $optionalStartCursor;
 
     /**
      * @return string[]

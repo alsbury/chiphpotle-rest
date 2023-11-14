@@ -7,7 +7,7 @@ final class DirectSubjectSet
     /**
      * @var SubjectReference[]
      */
-    protected array $subjects;
+    private array $subjects;
 
     /**
      * @return SubjectReference[]

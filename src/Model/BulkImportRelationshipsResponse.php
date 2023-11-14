@@ -4,7 +4,7 @@ namespace Chiphpotle\Rest\Model;
 
 final class BulkImportRelationshipsResponse
 {
-    protected string $numLoaded;
+    private string $numLoaded;
 
     public function getNumLoaded(): string
     {

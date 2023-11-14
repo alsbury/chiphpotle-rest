@@ -13,23 +13,17 @@ namespace Chiphpotle\Rest\Model;
  */
 final class ExpandPermissionTreeRequest
 {
-    protected ?Consistency $consistency;
-
-    protected ObjectReference $resource;
-
     /**
      * permission is the name of the permission or relation over which to run the
      * expansion for the resource.
      */
-    protected string $permission;
+    private string $permission;
 
     public function __construct(
-        ObjectReference $resource,
-        string          $permission,
-        ?Consistency    $consistency = null
+        private ObjectReference $resource,
+        string                  $permission,
+        private ?Consistency $consistency = null
     ) {
-        $this->consistency = $consistency;
-        $this->resource = $resource;
         $this->permission = $permission;
     }
 

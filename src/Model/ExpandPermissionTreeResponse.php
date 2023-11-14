@@ -4,11 +4,9 @@ namespace Chiphpotle\Rest\Model;
 
 final class ExpandPermissionTreeResponse
 {
+    private ZedToken $expandedAt;
 
-    protected ZedToken $expandedAt;
-
-
-    protected PermissionRelationshipTree $treeRoot;
+    private PermissionRelationshipTree $treeRoot;
 
     public function getExpandedAt(): ZedToken
     {

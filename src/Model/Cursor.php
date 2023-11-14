@@ -8,7 +8,7 @@ namespace Chiphpotle\Rest\Model;
  */
 final class Cursor
 {
-    protected string $token;
+    private string $token;
 
     public function getToken(): string
     {

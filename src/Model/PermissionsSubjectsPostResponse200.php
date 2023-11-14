@@ -7,9 +7,9 @@ final class PermissionsSubjectsPostResponse200
     /**
      * @var LookupSubjectsResponse[]
      */
-    protected array $result;
+    private array $result;
 
-    protected RpcStatus $error;
+    private RpcStatus $error;
 
     /**
      * @return LookupSubjectsResponse[]

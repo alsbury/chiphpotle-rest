@@ -4,21 +4,12 @@ namespace Chiphpotle\Rest\Model;
 
 final class BulkCheckPermissionRequest
 {
-    protected ?Consistency $consistency;
-
-    /**
-     * @var BulkCheckPermissionRequestItem[]
-     */
-    protected array $items;
-
     /**
      * @param BulkCheckPermissionRequestItem[] $items
      * @param Consistency|null $consistency
      */
-    public function __construct(array $items, ?Consistency $consistency = null)
+    public function __construct(private array $items, private ?Consistency $consistency = null)
     {
-        $this->items = $items;
-        $this->consistency = $consistency;
     }
 
     public function getConsistency(): ?Consistency

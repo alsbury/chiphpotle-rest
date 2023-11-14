@@ -11,39 +11,25 @@ namespace Chiphpotle\Rest\Model;
 final class WriteRelationshipsRequest
 {
     /**
-     * @var ?RelationshipUpdate[]
-     */
-    protected ?array $updates;
-
-    /**
-     * @var ?Precondition[]
-     */
-    protected ?array $optionalPreconditions;
-
-    /**
      * @param RelationshipUpdate[] $updates
      * @param Precondition[] $optionalPreconditions
      */
-    public function __construct(?array $updates = null, ?array $optionalPreconditions = null)
+    public function __construct(private array $updates, private ?array $optionalPreconditions = null)
     {
-        $this->updates = $updates;
-        $this->optionalPreconditions = $optionalPreconditions;
     }
 
     /**
-     * @return ?RelationshipUpdate[]
+     * @return RelationshipUpdate[]
      */
-    public function getUpdates(): ?array
+    public function getUpdates(): array
     {
         return $this->updates;
     }
 
     /**
-     * @param ?RelationshipUpdate[] $updates
-     *
-     * @return self
+     * @param RelationshipUpdate[] $updates
      */
-    public function setUpdates(?array $updates): self
+    public function setUpdates(array $updates): self
     {
         $this->updates = $updates;
         return $this;
@@ -59,8 +45,6 @@ final class WriteRelationshipsRequest
 
     /**
      * @param Precondition[] $optionalPreconditions
-     *
-     * @return self
      */
     public function setOptionalPreconditions(?array $optionalPreconditions): self
     {

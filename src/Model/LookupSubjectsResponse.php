@@ -10,21 +10,21 @@ use Chiphpotle\Rest\Enum\LookupPermissionship;
  */
 final class LookupSubjectsResponse
 {
-    protected ZedToken $lookedUpAt;
+    private ZedToken $lookedUpAt;
 
     /**
      * subject_object_id is the Object ID of the subject found. May be a `*` if
      * a wildcard was found.
      */
-    protected string $subjectObjectId;
+    private string $subjectObjectId;
 
-    protected array $excludedSubjectIds;
+    private array $excludedSubjectIds;
 
-    protected LookupPermissionship $permissionship = LookupPermissionship::UNSPECIFIED;
+    private LookupPermissionship $permissionship = LookupPermissionship::UNSPECIFIED;
 
-    protected ?PartialCaveatInfo $partialCaveatInfo;
+    private ?PartialCaveatInfo $partialCaveatInfo;
 
-    protected ?ResolvedSubject $subject;
+    private ?ResolvedSubject $subject;
 
     /**
      * excluded_subjects are the subjects excluded. This list
@@ -33,9 +33,9 @@ final class LookupSubjectsResponse
      *
      * @var ResolvedSubject[]
      */
-    protected ?array $excludedSubjects;
+    private ?array $excludedSubjects;
 
-    protected ?Cursor $afterResultCursor;
+    private ?Cursor $afterResultCursor;
 
     public function getLookedUpAt(): ZedToken
     {

@@ -4,12 +4,12 @@ namespace Chiphpotle\Rest\Model;
 
 final class BulkCheckPermissionResponse
 {
-    protected ZedToken $checkedAt;
+    private ZedToken $checkedAt;
 
     /**
      * @var BulkCheckPermissionPair[]
      */
-    protected array $pairs;
+    private array $pairs;
 
     public function getCheckedAt(): ZedToken
     {

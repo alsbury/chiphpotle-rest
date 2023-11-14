@@ -8,25 +8,19 @@ namespace Chiphpotle\Rest\Model;
  */
 final class SubjectReference
 {
-    protected ObjectReference $object;
-
-    protected ?string $optionalRelation = null;
-
-    public function __construct(ObjectReference $object = null, ?string $optionalRelation = null)
+    public function __construct(private ObjectReference $object, private ?string $optionalRelation = null)
     {
-        $this->object = $object;
-        $this->optionalRelation = $optionalRelation;
     }
 
     /**
      * Create method will simplify creation
      */
-    public static function create(?string $objectType, ?string $objectId = null, ?string $optionalRelation = null): self
+    public static function create(string $objectType, ?string $objectId = null, ?string $optionalRelation = null): self
     {
         return new self(new ObjectReference($objectType, $objectId), $optionalRelation);
     }
 
-    public function getObject(): ObjectReference|null
+    public function getObject(): ObjectReference
     {
         return $this->object;
     }

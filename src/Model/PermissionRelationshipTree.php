@@ -8,19 +8,19 @@ namespace Chiphpotle\Rest\Model;
  */
 final class PermissionRelationshipTree
 {
-    protected AlgebraicSubjectSet $intermediate;
+    private AlgebraicSubjectSet $intermediate;
 
     /**
      * DirectSubjectSet is a subject set which is simply a collection of subjects.
      */
-    protected DirectSubjectSet $leaf;
+    private DirectSubjectSet $leaf;
 
     /**
      * ObjectReference is used to refer to a specific object in the system.
      */
-    protected ObjectReference $expandedObject;
+    private ObjectReference $expandedObject;
 
-    protected string $expandedRelation;
+    private string $expandedRelation;
 
     public function getIntermediate(): AlgebraicSubjectSet
     {

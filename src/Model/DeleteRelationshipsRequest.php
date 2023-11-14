@@ -11,21 +11,12 @@ namespace Chiphpotle\Rest\Model;
  */
 final class DeleteRelationshipsRequest
 {
-    protected RelationshipFilter $relationshipFilter;
-
-    /**
-     * @var Precondition[]
-     */
-    protected array $optionalPreconditions;
-
     /**
      * @param RelationshipFilter $relationshipFilter
-     * @param array $optionalPreconditions
+     * @param Precondition[] $optionalPreconditions
      */
-    public function __construct(RelationshipFilter $relationshipFilter, array $optionalPreconditions = [])
+    public function __construct(private RelationshipFilter $relationshipFilter, private array $optionalPreconditions = [])
     {
-        $this->relationshipFilter = $relationshipFilter;
-        $this->optionalPreconditions = $optionalPreconditions;
     }
 
     public function getRelationshipFilter(): RelationshipFilter
@@ -49,8 +40,6 @@ final class DeleteRelationshipsRequest
 
     /**
      * @param Precondition[] $optionalPreconditions
-     *
-     * @return self
      */
     public function setOptionalPreconditions(array $optionalPreconditions): self
     {

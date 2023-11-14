@@ -4,7 +4,7 @@ namespace Chiphpotle\Rest\Model;
 
 final class SubjectFilterRelationFilter
 {
-    public function __construct(protected ?string $relation)
+    public function __construct(private ?string $relation)
     {
     }
 

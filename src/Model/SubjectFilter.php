@@ -10,11 +10,11 @@ namespace Chiphpotle\Rest\Model;
  */
 final class SubjectFilter
 {
-    protected string $subjectType;
+    private string $subjectType;
 
-    protected ?string $optionalSubjectId = null;
+    private ?string $optionalSubjectId = null;
 
-    protected ?SubjectFilterRelationFilter $optionalRelation = null;
+    private ?SubjectFilterRelationFilter $optionalRelation = null;
 
     public function getSubjectType(): string
     {

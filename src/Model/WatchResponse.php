@@ -14,9 +14,9 @@ final class WatchResponse
     /**
      * @var RelationshipUpdate[]
      */
-    protected array $updates;
+    private array $updates;
 
-    protected ZedToken $changesThrough;
+    private ZedToken $changesThrough;
 
     /**
      * @return RelationshipUpdate[]

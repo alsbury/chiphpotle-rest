@@ -32,17 +32,13 @@ final class WriteRelationshipsRequestNormalizer implements DenormalizerInterface
 
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): WriteRelationshipsRequest
     {
-        $object = new WriteRelationshipsRequest();
-        if (null === $data || false === is_array($data)) {
-            return $object;
-        }
+        $updates = [];
         if (array_key_exists('updates', $data)) {
-            $values = [];
             foreach ($data['updates'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, RelationshipUpdate::class, 'json', $context);
+                $updates[] = $this->denormalizer->denormalize($value, RelationshipUpdate::class, 'json', $context);
             }
-            $object->setUpdates($values);
         }
+        $object = new WriteRelationshipsRequest($updates);
         if (array_key_exists('optionalPreconditions', $data)) {
             $values_1 = [];
             foreach ($data['optionalPreconditions'] as $value_1) {

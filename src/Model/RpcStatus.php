@@ -10,14 +10,14 @@ namespace Chiphpotle\Rest\Model;
  */
 final class RpcStatus
 {
-    protected ?int $code = null;
+    private ?int $code = null;
 
-    protected ?string $message = null;
+    private ?string $message = null;
 
     /**
      * @var ProtobufAny[]
      */
-    protected array $details = [];
+    private array $details = [];
 
     public function getCode(): ?int
     {

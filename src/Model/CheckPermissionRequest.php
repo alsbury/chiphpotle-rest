@@ -8,32 +8,14 @@ namespace Chiphpotle\Rest\Model;
  */
 final class CheckPermissionRequest
 {
-    protected ?Consistency $consistency = null;
-
-    protected ObjectReference $resource;
-
-    /**
-     * permission is the name of the permission (or relation) on which to execute
-     * the check.
-     */
-    protected string $permission;
-
-    protected SubjectReference $subject;
-
-    protected mixed $context;
 
     public function __construct(
-        ObjectReference  $resource,
-        string           $permission,
-        SubjectReference $subject,
-        mixed            $context = null,
-        ?Consistency     $consistency = null,
+        private ObjectReference  $resource,
+        private string           $permission,
+        private SubjectReference $subject,
+        private mixed            $context = null,
+        private ?Consistency     $consistency = null,
     ) {
-        $this->subject = $subject;
-        $this->permission = $permission;
-        $this->resource = $resource;
-        $this->context = $context;
-        $this->consistency = $consistency;
     }
 
     public function getConsistency(): ?Consistency

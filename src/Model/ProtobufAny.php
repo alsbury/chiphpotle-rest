@@ -4,7 +4,7 @@ namespace Chiphpotle\Rest\Model;
 
 final class ProtobufAny extends \ArrayObject
 {
-    protected string $type;
+    private string $type;
 
     public function getType(): string
     {

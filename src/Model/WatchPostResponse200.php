@@ -4,9 +4,9 @@ namespace Chiphpotle\Rest\Model;
 
 final class WatchPostResponse200
 {
-    protected WatchResponse $result;
+    private WatchResponse $result;
 
-    protected ?RpcStatus $error;
+    private ?RpcStatus $error;
 
     public function getResult(): WatchResponse
     {

@@ -11,24 +11,12 @@ namespace Chiphpotle\Rest\Model;
  */
 final class RelationshipFilter
 {
-    protected ?string $resourceType;
-
-    protected ?string $optionalResourceId;
-
-    protected ?string $optionalRelation;
-
-    protected ?SubjectFilter $optionalSubjectFilter;
-
     public function __construct(
-        ?string $resourceType = null,
-        ?string $optionalResourceId = null,
-        ?string $optionalRelation = null,
-        ?SubjectFilter $optionalSubjectFilter = null
+        private ?string $resourceType = null,
+        private ?string $optionalResourceId = null,
+        private ?string $optionalRelation = null,
+        private ?SubjectFilter $optionalSubjectFilter = null
     ) {
-        $this->resourceType = $resourceType;
-        $this->optionalResourceId = $optionalResourceId;
-        $this->optionalRelation = $optionalRelation;
-        $this->optionalSubjectFilter = $optionalSubjectFilter;
     }
 
     public function getResourceType(): ?string

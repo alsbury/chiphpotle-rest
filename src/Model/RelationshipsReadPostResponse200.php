@@ -7,9 +7,9 @@ final class RelationshipsReadPostResponse200
     /**
      * @var ReadRelationshipsResponse[]
      */
-    protected ?array $result = null;
+    private ?array $result = null;
 
-    protected ?RpcStatus $error = null;
+    private ?RpcStatus $error = null;
 
     public function getResult(): ?array
     {

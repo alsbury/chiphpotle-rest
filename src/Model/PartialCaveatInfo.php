@@ -7,7 +7,7 @@ final class PartialCaveatInfo
     /**
      * @var string[]
      */
-    protected $missingRequiredContext;
+    private array $missingRequiredContext;
 
     /**
      * @return string[]

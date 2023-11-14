@@ -9,29 +9,18 @@ namespace Chiphpotle\Rest\Model;
  */
 final class Relationship
 {
-    protected ObjectReference $resource;
-
     /**
      * relation is how the resource and subject are related.
-     *
-     * @var string
      */
-    protected string $relation;
-
-    protected SubjectReference $subject;
-
-    protected ?ContextualizedCaveat $optionalCaveat;
+    private string $relation;
 
     public function __construct(
-        ObjectReference    $resource,
-        string             $relation,
-        SubjectReference $subject,
-        ?ContextualizedCaveat $optionalCaveat = null
+        private ObjectReference  $resource,
+        string                   $relation,
+        private SubjectReference $subject,
+        private ?ContextualizedCaveat $optionalCaveat = null
     ) {
-        $this->resource = $resource;
         $this->relation = $relation;
-        $this->subject = $subject;
-        $this->optionalCaveat = $optionalCaveat;
     }
 
     public function getResource(): ?ObjectReference

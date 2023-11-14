@@ -13,9 +13,9 @@ use Chiphpotle\Rest\Enum\PreconditionOperation;
  */
 final class Precondition
 {
-    protected PreconditionOperation $operation = PreconditionOperation::UNSPECIFIED;
+    private PreconditionOperation $operation = PreconditionOperation::UNSPECIFIED;
 
-    protected RelationshipFilter $filter;
+    private RelationshipFilter $filter;
 
     public function getOperation(): PreconditionOperation
     {

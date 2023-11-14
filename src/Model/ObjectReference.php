@@ -7,14 +7,8 @@ namespace Chiphpotle\Rest\Model;
  */
 final class ObjectReference
 {
-    protected string $objectType;
-
-    protected ?string $objectId;
-
-    public function __construct(string $objectType = null, ?string $objectId = null)
+    public function __construct(private string $objectType, private ?string $objectId = null)
     {
-        $this->objectType = $objectType;
-        $this->objectId = $objectId;
     }
 
     public static function create(string $objectType, string $objectId): ObjectReference

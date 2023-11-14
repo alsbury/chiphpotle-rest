@@ -6,13 +6,8 @@ use Chiphpotle\Rest\Enum\UpdateOperation;
 
 final class RelationshipUpdate
 {
-    private UpdateOperation $operation = UpdateOperation::UNSPECIFIED;
-    private Relationship $relationship;
-
-    public function __construct(UpdateOperation $operation, Relationship $relationship)
+    public function __construct(private UpdateOperation $operation, private Relationship $relationship)
     {
-        $this->operation = $operation;
-        $this->relationship = $relationship;
     }
 
     public function getOperation(): UpdateOperation

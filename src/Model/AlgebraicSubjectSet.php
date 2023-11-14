@@ -18,12 +18,12 @@ use Chiphpotle\Rest\Enum\AlgebraicOperation;
  */
 final class AlgebraicSubjectSet
 {
-    protected AlgebraicOperation $operation = AlgebraicOperation::UNSPECIFIED;
+    private AlgebraicOperation $operation = AlgebraicOperation::UNSPECIFIED;
 
     /**
      * @var PermissionRelationshipTree[]
      */
-    protected array $children;
+    private array $children;
 
     public function getOperation(): AlgebraicOperation
     {

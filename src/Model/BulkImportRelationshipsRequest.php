@@ -5,16 +5,10 @@ namespace Chiphpotle\Rest\Model;
 final class BulkImportRelationshipsRequest
 {
     /**
-     * @var Relationship[]
-     */
-    protected array $relationships;
-
-    /**
      * @param Relationship[] $relationships
      */
-    public function __construct(array $relationships)
+    public function __construct(private array $relationships)
     {
-        $this->relationships = $relationships;
     }
 
 

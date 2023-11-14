@@ -10,15 +10,15 @@ use Chiphpotle\Rest\Enum\LookupPermissionship;
  */
 final class LookupResourcesResponse
 {
-    protected ZedToken $lookedUpAt;
+    private ZedToken $lookedUpAt;
 
-    protected string $resourceObjectId;
+    private string $resourceObjectId;
 
-    protected LookupPermissionship $permissionship = LookupPermissionship::UNSPECIFIED;
+    private LookupPermissionship $permissionship = LookupPermissionship::UNSPECIFIED;
 
-    protected PartialCaveatInfo $partialCaveatInfo;
+    private PartialCaveatInfo $partialCaveatInfo;
 
-    protected Cursor $afterResultCursor;
+    private Cursor $afterResultCursor;
 
     public function getLookedUpAt(): ZedToken
     {

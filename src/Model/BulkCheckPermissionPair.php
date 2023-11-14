@@ -4,11 +4,11 @@ namespace Chiphpotle\Rest\Model;
 
 final class BulkCheckPermissionPair
 {
-    protected BulkCheckPermissionRequestItem $request;
+    private BulkCheckPermissionRequestItem $request;
 
-    protected BulkCheckPermissionResponseItem $item;
+    private BulkCheckPermissionResponseItem $item;
 
-    protected ?RpcStatus $error;
+    private ?RpcStatus $error;
 
     public function getRequest(): BulkCheckPermissionRequestItem
     {

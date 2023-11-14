@@ -10,12 +10,12 @@ namespace Chiphpotle\Rest\Model;
  */
 final class BulkExportRelationshipsResponse
 {
-    protected Cursor $afterResultCursor;
+    private Cursor $afterResultCursor;
 
     /**
      * @var Relationship[]
      */
-    protected array $relationships;
+    private array $relationships;
 
     public function getAfterResultCursor(): Cursor
     {

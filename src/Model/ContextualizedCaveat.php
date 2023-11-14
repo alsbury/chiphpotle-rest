@@ -9,14 +9,9 @@ namespace Chiphpotle\Rest\Model;
  */
 final class ContextualizedCaveat
 {
-    protected string $caveatName;
 
-    protected mixed $context;
-
-    public function __construct(string $caveatName, mixed $context = null)
+    public function __construct(private string $caveatName, private mixed $context = null)
     {
-        $this->caveatName = $caveatName;
-        $this->context = $context;
     }
 
     public function getCaveatName(): string

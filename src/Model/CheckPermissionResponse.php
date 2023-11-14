@@ -6,11 +6,11 @@ use Chiphpotle\Rest\Enum\Permissionship;
 
 final class CheckPermissionResponse
 {
-    protected ZedToken $checkedAt;
+    private ZedToken $checkedAt;
 
-    protected Permissionship $permissionship = Permissionship::UNSPECIFIED;
+    private Permissionship $permissionship = Permissionship::UNSPECIFIED;
 
-    protected ?PartialCaveatInfo $partialCaveatInfo;
+    private ?PartialCaveatInfo $partialCaveatInfo;
 
     public function getCheckedAt(): ZedToken
     {

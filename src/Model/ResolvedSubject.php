@@ -12,14 +12,12 @@ final class ResolvedSubject
     /**
     * subject_object_id is the Object ID of the subject found. May be a `*` if
     * a wildcard was found.
-    *
-    * @var ?string
     */
-    protected ?string $subjectObjectId;
+    private ?string $subjectObjectId;
 
-    protected LookupPermissionship $permissionship = LookupPermissionship::UNSPECIFIED;
+    private LookupPermissionship $permissionship = LookupPermissionship::UNSPECIFIED;
 
-    protected ?PartialCaveatInfo $partialCaveatInfo;
+    private ?PartialCaveatInfo $partialCaveatInfo;
 
     public function getSubjectObjectId(): string|null
     {

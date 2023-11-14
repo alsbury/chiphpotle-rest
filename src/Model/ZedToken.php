@@ -8,7 +8,7 @@ namespace Chiphpotle\Rest\Model;
  */
 final class ZedToken
 {
-    protected string $token;
+    private string $token;
 
     public static function create(string $tokenInput): ZedToken
     {

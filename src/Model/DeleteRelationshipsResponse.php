@@ -4,7 +4,7 @@ namespace Chiphpotle\Rest\Model;
 
 final class DeleteRelationshipsResponse
 {
-    protected ZedToken $deletedAt;
+    private ZedToken $deletedAt;
 
     public function getDeletedAt(): ZedToken
     {
