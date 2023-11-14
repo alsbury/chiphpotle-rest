@@ -17,7 +17,7 @@ final class ResolvedSubject
     */
     protected ?string $subjectObjectId;
 
-    protected string $permissionship = LookupPermissionship::UNSPECIFIED;
+    protected LookupPermissionship $permissionship = LookupPermissionship::UNSPECIFIED;
 
     protected ?PartialCaveatInfo $partialCaveatInfo;
 
@@ -32,14 +32,13 @@ final class ResolvedSubject
         return $this;
     }
 
-    public function getPermissionship(): string
+    public function getPermissionship(): LookupPermissionship
     {
         return $this->permissionship;
     }
 
-    public function setPermissionship(string $permissionship): self
+    public function setPermissionship(LookupPermissionship $permissionship): self
     {
-        LookupPermissionship::validate($permissionship);
         $this->permissionship = $permissionship;
         return $this;
     }

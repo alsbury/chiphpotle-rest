@@ -2,14 +2,9 @@
 
 namespace Chiphpotle\Rest\Enum;
 
-final class PreconditionOperation extends BaseEnum
+enum PreconditionOperation: string
 {
-    public const UNSPECIFIED = 'OPERATION_UNSPECIFIED';
-    public const MUST_MATCH = 'OPERATION_MUST_MATCH';
-    public const MUST_NOT_MATCH = 'OPERATION_MUST_NOT_MATCH';
-
-    public static function allowableValues(): array
-    {
-        return [self::MUST_MATCH, self::MUST_NOT_MATCH];
-    }
+    case UNSPECIFIED = 'OPERATION_UNSPECIFIED';
+    case MUST_MATCH = 'OPERATION_MUST_MATCH';
+    case MUST_NOT_MATCH = 'OPERATION_MUST_NOT_MATCH';
 }

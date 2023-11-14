@@ -2,11 +2,13 @@
 
 namespace Chiphpotle\Rest\Model;
 
+use Chiphpotle\Rest\Enum\Permissionship;
+
 final class CheckPermissionResponse
 {
     protected ZedToken $checkedAt;
 
-    protected string $permissionship = 'PERMISSIONSHIP_UNSPECIFIED';
+    protected Permissionship $permissionship = Permissionship::UNSPECIFIED;
 
     protected ?PartialCaveatInfo $partialCaveatInfo;
 
@@ -21,12 +23,12 @@ final class CheckPermissionResponse
         return $this;
     }
 
-    public function getPermissionship(): string
+    public function getPermissionship(): Permissionship
     {
         return $this->permissionship;
     }
 
-    public function setPermissionship(string $permissionship): self
+    public function setPermissionship(Permissionship $permissionship): self
     {
         $this->permissionship = $permissionship;
         return $this;

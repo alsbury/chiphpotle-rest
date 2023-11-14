@@ -3,14 +3,9 @@
 namespace Chiphpotle\Rest\Enum;
 
 
-final class LookupPermissionship extends BaseEnum
+enum LookupPermissionship: string
 {
-    public const UNSPECIFIED = 'LOOKUP_PERMISSIONSHIP_UNSPECIFIED';
-    public const HAS_PERMISSION = 'LOOKUP_PERMISSIONSHIP_HAS_PERMISSION';
-    public const CONDITIONAL_PERMISSION = 'LOOKUP_PERMISSIONSHIP_CONDITIONAL_PERMISSION';
-
-    public static function allowableValues(): array
-    {
-        return [self::HAS_PERMISSION, self::CONDITIONAL_PERMISSION];
-    }
+    case UNSPECIFIED = 'LOOKUP_PERMISSIONSHIP_UNSPECIFIED';
+    case HAS_PERMISSION = 'LOOKUP_PERMISSIONSHIP_HAS_PERMISSION';
+    case CONDITIONAL_PERMISSION = 'LOOKUP_PERMISSIONSHIP_CONDITIONAL_PERMISSION';
 }

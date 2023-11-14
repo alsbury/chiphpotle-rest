@@ -6,16 +6,16 @@ use Chiphpotle\Rest\Enum\Permissionship;
 
 final class BulkCheckPermissionResponseItem
 {
-    protected string $permissionship = Permissionship::UNSPECIFIED;
+    protected Permissionship $permissionship = Permissionship::UNSPECIFIED;
 
     protected PartialCaveatInfo $partialCaveatInfo;
 
-    public function getPermissionship(): string
+    public function getPermissionship(): Permissionship
     {
         return $this->permissionship;
     }
 
-    public function setPermissionship(string $permissionship): self
+    public function setPermissionship(Permissionship $permissionship): self
     {
         $this->permissionship = $permissionship;
         return $this;

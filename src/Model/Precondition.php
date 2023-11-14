@@ -13,18 +13,17 @@ use Chiphpotle\Rest\Enum\PreconditionOperation;
  */
 final class Precondition
 {
-    protected string $operation = PreconditionOperation::UNSPECIFIED;
+    protected PreconditionOperation $operation = PreconditionOperation::UNSPECIFIED;
 
     protected RelationshipFilter $filter;
 
-    public function getOperation(): string
+    public function getOperation(): PreconditionOperation
     {
         return $this->operation;
     }
 
-    public function setOperation(string $operation): self
+    public function setOperation(PreconditionOperation $operation): self
     {
-        PreconditionOperation::validate($operation);
         $this->operation = $operation;
         return $this;
     }

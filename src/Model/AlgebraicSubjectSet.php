@@ -18,21 +18,20 @@ use Chiphpotle\Rest\Enum\AlgebraicOperation;
  */
 final class AlgebraicSubjectSet
 {
-    protected string $operation = AlgebraicOperation::UNSPECIFIED;
+    protected AlgebraicOperation $operation = AlgebraicOperation::UNSPECIFIED;
 
     /**
      * @var PermissionRelationshipTree[]
      */
     protected array $children;
 
-    public function getOperation(): string
+    public function getOperation(): AlgebraicOperation
     {
         return $this->operation;
     }
 
-    public function setOperation(string $operation): self
+    public function setOperation(AlgebraicOperation $operation): self
     {
-        AlgebraicOperation::validate($operation);
         $this->operation = $operation;
         return $this;
     }

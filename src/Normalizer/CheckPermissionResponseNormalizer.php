@@ -2,6 +2,7 @@
 
 namespace Chiphpotle\Rest\Normalizer;
 
+use Chiphpotle\Rest\Enum\Permissionship;
 use Chiphpotle\Rest\Model\CheckPermissionResponse;
 use Chiphpotle\Rest\Model\ZedToken;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
@@ -39,11 +40,14 @@ final class CheckPermissionResponseNormalizer implements DenormalizerInterface, 
             $object->setCheckedAt($this->denormalizer->denormalize($data['checkedAt'], ZedToken::class, 'json', $context));
         }
         if (array_key_exists('permissionship', $data)) {
-            $object->setPermissionship($data['permissionship']);
+            $object->setPermissionship(Permissionship::from($data['permissionship']));
         }
         return $object;
     }
 
+    /**
+     * @param CheckPermissionResponse $object
+     */
     public function normalize($object, $format = null, array $context = []): array
     {
         $data = [];
@@ -51,7 +55,7 @@ final class CheckPermissionResponseNormalizer implements DenormalizerInterface, 
             $data['checkedAt'] = $this->normalizer->normalize($object->getCheckedAt(), 'json', $context);
         }
         if (null !== $object->getPermissionship()) {
-            $data['permissionship'] = $object->getPermissionship();
+            $data['permissionship'] = $object->getPermissionship()->value;
         }
         if (null !== $object->getPartialCaveatInfo()) {
             $data['partialCaveatInfo'] = $this->normalizer->normalize($object->getPartialCaveatInfo(), 'json', $context);

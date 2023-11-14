@@ -3,6 +3,7 @@
 namespace Chiphpotle\Rest\Normalizer;
 
 use ArrayObject;
+use Chiphpotle\Rest\Enum\PreconditionOperation;
 use Chiphpotle\Rest\Model\Precondition;
 use Chiphpotle\Rest\Model\RelationshipFilter;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
@@ -37,7 +38,7 @@ final class PreconditionNormalizer implements DenormalizerInterface, NormalizerI
             return $object;
         }
         if (array_key_exists('operation', $data)) {
-            $object->setOperation($data['operation']);
+            $object->setOperation(PreconditionOperation::from($data['operation']));
         }
         if (array_key_exists('filter', $data)) {
             $object->setFilter($this->denormalizer->denormalize($data['filter'], RelationshipFilter::class, 'json', $context));
@@ -45,11 +46,14 @@ final class PreconditionNormalizer implements DenormalizerInterface, NormalizerI
         return $object;
     }
 
+    /**
+     * @param Precondition $object
+     */
     public function normalize($object, $format = null, array $context = []): array
     {
         $data = [];
         if (null !== $object->getOperation()) {
-            $data['operation'] = $object->getOperation();
+            $data['operation'] = $object->getOperation()->value;
         }
         if (null !== $object->getFilter()) {
             $data['filter'] = $this->normalizer->normalize($object->getFilter(), 'json', $context);

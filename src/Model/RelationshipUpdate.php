@@ -6,24 +6,22 @@ use Chiphpotle\Rest\Enum\UpdateOperation;
 
 final class RelationshipUpdate
 {
-    protected string $operation = UpdateOperation::UNSPECIFIED;
-    protected Relationship $relationship;
+    private UpdateOperation $operation = UpdateOperation::UNSPECIFIED;
+    private Relationship $relationship;
 
-    public function __construct(string $operation, Relationship $relationship)
+    public function __construct(UpdateOperation $operation, Relationship $relationship)
     {
-        UpdateOperation::validate($operation);
         $this->operation = $operation;
         $this->relationship = $relationship;
     }
 
-    public function getOperation(): string
+    public function getOperation(): UpdateOperation
     {
         return $this->operation;
     }
 
-    public function setOperation(string $operation): self
+    public function setOperation(UpdateOperation $operation): self
     {
-        UpdateOperation::validate($operation);
         $this->operation = $operation;
         return $this;
     }
@@ -41,6 +39,6 @@ final class RelationshipUpdate
 
     public function __toString(): string
     {
-        return '[' . $this->operation . ']' . ' ' . $this->relationship;
+        return '[' . $this->operation->value . ']' . ' ' . $this->relationship;
     }
 }

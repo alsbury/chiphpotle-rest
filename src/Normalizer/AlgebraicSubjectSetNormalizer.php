@@ -3,6 +3,7 @@
 namespace Chiphpotle\Rest\Normalizer;
 
 use ArrayObject;
+use Chiphpotle\Rest\Enum\AlgebraicOperation;
 use Chiphpotle\Rest\Model\AlgebraicSubjectSet;
 use Chiphpotle\Rest\Model\PermissionRelationshipTree;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
@@ -37,7 +38,7 @@ final class AlgebraicSubjectSetNormalizer implements DenormalizerInterface, Norm
             return $object;
         }
         if (array_key_exists('operation', $data)) {
-            $object->setOperation($data['operation']);
+            $object->setOperation(AlgebraicOperation::from($data['operation']));
         }
         if (array_key_exists('children', $data)) {
             $values = [];
@@ -49,11 +50,14 @@ final class AlgebraicSubjectSetNormalizer implements DenormalizerInterface, Norm
         return $object;
     }
 
-    public function normalize($object, $format = null, array $context = []): float|int|bool|ArrayObject|array|string|null
+    /**
+     * @param AlgebraicSubjectSet $object
+     */
+    public function normalize($object, $format = null, array $context = []): array
     {
         $data = [];
         if (null !== $object->getOperation()) {
-            $data['operation'] = $object->getOperation();
+            $data['operation'] = $object->getOperation()->value;
         }
         if (null !== $object->getChildren()) {
             $values = [];

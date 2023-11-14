@@ -2,6 +2,7 @@
 
 namespace Chiphpotle\Rest\Normalizer;
 
+use Chiphpotle\Rest\Enum\Permissionship;
 use Chiphpotle\Rest\Model\BulkCheckPermissionResponseItem;
 use Chiphpotle\Rest\Model\PartialCaveatInfo;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
@@ -34,7 +35,7 @@ final class BulkCheckPermissionResponseItemNormalizer implements DenormalizerInt
             return $object;
         }
         if (\array_key_exists('permissionship', $data)) {
-            $object->setPermissionship($data['permissionship']);
+            $object->setPermissionship(Permissionship::from($data['permissionship']));
         }
         if (\array_key_exists('partialCaveatInfo', $data)) {
             $object->setPartialCaveatInfo($this->denormalizer->denormalize($data['partialCaveatInfo'], PartialCaveatInfo::class, 'json', $context));
@@ -42,11 +43,14 @@ final class BulkCheckPermissionResponseItemNormalizer implements DenormalizerInt
         return $object;
     }
 
+    /**
+     * @param BulkCheckPermissionResponseItem $object
+     */
     public function normalize($object, $format = null, array $context = []): array
     {
         $data = [];
         if (null !== $object->getPermissionship()) {
-            $data['permissionship'] = $object->getPermissionship();
+            $data['permissionship'] = $object->getPermissionship()->value;
         }
         if (null !== $object->getPartialCaveatInfo()) {
             $data['partialCaveatInfo'] = $this->normalizer->normalize($object->getPartialCaveatInfo(), 'json', $context);

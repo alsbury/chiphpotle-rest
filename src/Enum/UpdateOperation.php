@@ -2,22 +2,10 @@
 
 namespace Chiphpotle\Rest\Enum;
 
-final class UpdateOperation extends BaseEnum
+enum UpdateOperation: string
 {
-    public const UNSPECIFIED = 'OPERATION_UNSPECIFIED';
-
-    public const CREATE = 'OPERATION_CREATE';
-
-    public const TOUCH = 'OPERATION_TOUCH';
-
-    public const DELETE = 'OPERATION_DELETE';
-
-    public static function allowableValues(): array
-    {
-        return [
-            self::CREATE,
-            self::TOUCH,
-            self::DELETE
-        ];
-    }
+    case UNSPECIFIED = 'OPERATION_UNSPECIFIED';
+    case CREATE = 'OPERATION_CREATE';
+    case TOUCH = 'OPERATION_TOUCH';
+    case DELETE = 'OPERATION_DELETE';
 }
