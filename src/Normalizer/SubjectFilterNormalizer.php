@@ -23,7 +23,7 @@ final class SubjectFilterNormalizer implements DenormalizerInterface, Normalizer
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && get_class($data) === SubjectFilter::class;
+        return is_object($data) && $data::class === SubjectFilter::class;
     }
 
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): SubjectFilter

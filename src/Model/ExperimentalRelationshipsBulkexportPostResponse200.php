@@ -6,7 +6,7 @@ final class ExperimentalRelationshipsBulkexportPostResponse200
 {
     private BulkExportRelationshipsResponse $result;
 
-    private ?RpcStatus $error;
+    private ?RpcStatus $error = null;
 
     public function getResult(): BulkExportRelationshipsResponse
     {

@@ -24,7 +24,7 @@ final class ExperimentalRelationshipsBulkexportPostResponse200Normalizer impleme
 
     public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === ExperimentalRelationshipsBulkexportPostResponse200::class;
+        return is_object($data) && $data::class === ExperimentalRelationshipsBulkexportPostResponse200::class;
     }
 
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): ExperimentalRelationshipsBulkexportPostResponse200

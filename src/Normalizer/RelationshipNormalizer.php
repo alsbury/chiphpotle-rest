@@ -28,7 +28,7 @@ final class RelationshipNormalizer implements DenormalizerInterface, NormalizerI
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && get_class($data) === Relationship::class;
+        return is_object($data) && $data::class === Relationship::class;
     }
 
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): Relationship

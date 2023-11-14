@@ -26,7 +26,7 @@ final class RelationshipFilterNormalizer implements DenormalizerInterface, Norma
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && get_class($data) === RelationshipFilter::class;
+        return is_object($data) && $data::class === RelationshipFilter::class;
     }
 
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): RelationshipFilter

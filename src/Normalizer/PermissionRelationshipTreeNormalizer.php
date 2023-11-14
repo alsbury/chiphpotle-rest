@@ -28,7 +28,7 @@ final class PermissionRelationshipTreeNormalizer implements DenormalizerInterfac
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && get_class($data) === PermissionRelationshipTree::class;
+        return is_object($data) && $data::class === PermissionRelationshipTree::class;
     }
 
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): PermissionRelationshipTree

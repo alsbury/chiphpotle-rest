@@ -26,7 +26,7 @@ final class DeleteRelationshipsResponseNormalizer implements DenormalizerInterfa
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && get_class($data) === DeleteRelationshipsResponse::class;
+        return is_object($data) && $data::class === DeleteRelationshipsResponse::class;
     }
 
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): DeleteRelationshipsResponse

@@ -76,13 +76,12 @@ final class LookupResourcesResponse
     }
 
     /**
-    * Cursor is used to provide resumption of listing between calls to APIs
-    * such as LookupResources.
-    *
-    * @param Cursor $afterResultCursor
-    *
-    * @return self
-    */
+     * Cursor is used to provide resumption of listing between calls to APIs
+     * such as LookupResources.
+     *
+     *
+     * @return self
+     */
     public function setAfterResultCursor(Cursor $afterResultCursor): self
     {
         $this->afterResultCursor = $afterResultCursor;

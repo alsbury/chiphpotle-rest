@@ -28,7 +28,7 @@ final class AlgebraicSubjectSetNormalizer implements DenormalizerInterface, Norm
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && get_class($data) === AlgebraicSubjectSet::class;
+        return is_object($data) && $data::class === AlgebraicSubjectSet::class;
     }
 
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): AlgebraicSubjectSet

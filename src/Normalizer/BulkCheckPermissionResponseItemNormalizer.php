@@ -24,7 +24,7 @@ final class BulkCheckPermissionResponseItemNormalizer implements DenormalizerInt
 
     public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === BulkCheckPermissionResponseItem::class;
+        return is_object($data) && $data::class === BulkCheckPermissionResponseItem::class;
     }
 
 

@@ -23,7 +23,7 @@ final class WatchRequestNormalizer implements DenormalizerInterface, NormalizerI
 
     public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === WatchRequest::class;
+        return is_object($data) && $data::class === WatchRequest::class;
     }
 
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): WatchRequest

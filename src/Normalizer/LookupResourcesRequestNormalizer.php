@@ -24,7 +24,7 @@ final class LookupResourcesRequestNormalizer implements DenormalizerInterface, N
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && get_class($data) === LookupResourcesRequest::class;
+        return is_object($data) && $data::class === LookupResourcesRequest::class;
     }
 
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): LookupResourcesRequest

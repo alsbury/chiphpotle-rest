@@ -5,7 +5,7 @@ namespace Chiphpotle\Rest\Model;
 /**
  * ObjectReference is used to refer to a specific object in the system.
  */
-final class ObjectReference
+final class ObjectReference implements \Stringable
 {
     public function __construct(private string $objectType, private ?string $objectId = null)
     {

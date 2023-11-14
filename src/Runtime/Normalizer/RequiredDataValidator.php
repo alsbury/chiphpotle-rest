@@ -7,7 +7,6 @@ trait RequiredDataValidator
     /**
      * If any of the required fields are empty, throw a ValidationException
      *
-     * @param array $data
      * @param string[] $required
      * @return void
      */

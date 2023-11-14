@@ -24,7 +24,7 @@ final class WatchPostResponse200Normalizer implements DenormalizerInterface, Nor
 
     public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === WatchPostResponse200::class;
+        return is_object($data) && $data::class === WatchPostResponse200::class;
     }
 
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): WatchPostResponse200

@@ -29,7 +29,7 @@ final class CheckPermissionRequestNormalizer implements DenormalizerInterface, N
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && get_class($data) === CheckPermissionRequest::class;
+        return is_object($data) && $data::class === CheckPermissionRequest::class;
     }
 
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): CheckPermissionRequest

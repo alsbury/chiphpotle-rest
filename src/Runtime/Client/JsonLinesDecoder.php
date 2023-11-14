@@ -13,7 +13,7 @@ final class JsonLinesDecoder implements DecoderInterface
 {
     public const FORMAT = 'jsonl';
 
-    public function __construct(private DecoderInterface $jsonDecoder)
+    public function __construct(private readonly DecoderInterface $jsonDecoder)
     {
     }
 

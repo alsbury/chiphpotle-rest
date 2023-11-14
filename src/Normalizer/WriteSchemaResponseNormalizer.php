@@ -23,7 +23,7 @@ final class WriteSchemaResponseNormalizer implements DenormalizerInterface, Norm
 
     public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === WriteSchemaResponse::class;
+        return is_object($data) && $data::class === WriteSchemaResponse::class;
     }
 
     public function denormalize($data, string $type, $format = null, array $context = []): WriteSchemaResponse

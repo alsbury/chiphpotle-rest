@@ -9,7 +9,7 @@ final class PermissionsResourcesPostResponse200
      */
     private array $result;
 
-    private ?RpcStatus $error;
+    private ?RpcStatus $error = null;
 
     /**
      * @return LookupResourcesResponse[]

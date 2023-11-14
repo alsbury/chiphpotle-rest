@@ -6,7 +6,7 @@ final class WatchPostResponse200
 {
     private WatchResponse $result;
 
-    private ?RpcStatus $error;
+    private ?RpcStatus $error = null;
 
     public function getResult(): WatchResponse
     {

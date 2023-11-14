@@ -27,7 +27,7 @@ final class RpcStatusNormalizer implements DenormalizerInterface, NormalizerInte
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && get_class($data) === RpcStatus::class;
+        return is_object($data) && $data::class === RpcStatus::class;
     }
 
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): RpcStatus

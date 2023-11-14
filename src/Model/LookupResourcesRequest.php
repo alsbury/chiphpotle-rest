@@ -9,26 +9,20 @@ namespace Chiphpotle\Rest\Model;
  */
 final class LookupResourcesRequest
 {
-    /**
-     * resource_object_type is the type of resource object for which the IDs will
-     * be returned.
-     */
-    private ?string $resourceObjectType;
-
-    /**
-     * permission is the name of the permission or relation for which the subject
-     * must Check.
-     */
-    private ?string $permission;
-
     public function __construct(
-        ?string                   $resourceObjectType = null,
-        ?string                   $permission = null,
+        /**
+         * resource_object_type is the type of resource object for which the IDs will
+         * be returned.
+         */
+        private ?string                   $resourceObjectType = null,
+        /**
+         * permission is the name of the permission or relation for which the subject
+         * must Check.
+         */
+        private ?string                   $permission = null,
         private ?SubjectReference $subject = null,
         private ?Consistency      $consistency = null
     ) {
-        $this->resourceObjectType = $resourceObjectType;
-        $this->permission = $permission;
     }
 
     public function getConsistency(): ?Consistency

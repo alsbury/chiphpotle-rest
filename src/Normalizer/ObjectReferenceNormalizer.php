@@ -25,7 +25,7 @@ final class ObjectReferenceNormalizer implements DenormalizerInterface, Normaliz
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && get_class($data) === ObjectReference::class;
+        return is_object($data) && $data::class === ObjectReference::class;
     }
 
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): ObjectReference

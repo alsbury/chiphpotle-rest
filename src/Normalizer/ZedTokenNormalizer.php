@@ -26,7 +26,7 @@ final class ZedTokenNormalizer implements DenormalizerInterface, NormalizerInter
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && get_class($data) === ZedToken::class;
+        return is_object($data) && $data::class === ZedToken::class;
     }
 
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): ZedToken

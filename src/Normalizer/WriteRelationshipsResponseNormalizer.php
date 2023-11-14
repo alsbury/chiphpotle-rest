@@ -26,7 +26,7 @@ final class WriteRelationshipsResponseNormalizer implements DenormalizerInterfac
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && get_class($data) === WriteRelationshipsResponse::class;
+        return is_object($data) && $data::class === WriteRelationshipsResponse::class;
     }
 
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): WriteRelationshipsResponse

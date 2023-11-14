@@ -22,9 +22,9 @@ final class LookupSubjectsResponse
 
     private LookupPermissionship $permissionship = LookupPermissionship::UNSPECIFIED;
 
-    private ?PartialCaveatInfo $partialCaveatInfo;
+    private ?PartialCaveatInfo $partialCaveatInfo = null;
 
-    private ?ResolvedSubject $subject;
+    private ?ResolvedSubject $subject = null;
 
     /**
      * excluded_subjects are the subjects excluded. This list
@@ -33,9 +33,9 @@ final class LookupSubjectsResponse
      *
      * @var ResolvedSubject[]
      */
-    private ?array $excludedSubjects;
+    private ?array $excludedSubjects = null;
 
-    private ?Cursor $afterResultCursor;
+    private ?Cursor $afterResultCursor = null;
 
     public function getLookedUpAt(): ZedToken
     {

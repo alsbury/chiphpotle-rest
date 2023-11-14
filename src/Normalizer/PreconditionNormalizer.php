@@ -28,7 +28,7 @@ final class PreconditionNormalizer implements DenormalizerInterface, NormalizerI
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && get_class($data) === Precondition::class;
+        return is_object($data) && $data::class === Precondition::class;
     }
 
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): Precondition

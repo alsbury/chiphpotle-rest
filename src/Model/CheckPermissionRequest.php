@@ -6,7 +6,7 @@ namespace Chiphpotle\Rest\Model;
  * CheckPermissionRequest issues a check on whether a subject has a permission
  *  or is a member of a relation, on a specific resource.
  */
-final class CheckPermissionRequest
+final class CheckPermissionRequest implements \Stringable
 {
 
     public function __construct(

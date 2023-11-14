@@ -10,7 +10,7 @@ final class CheckPermissionResponse
 
     private Permissionship $permissionship = Permissionship::UNSPECIFIED;
 
-    private ?PartialCaveatInfo $partialCaveatInfo;
+    private ?PartialCaveatInfo $partialCaveatInfo = null;
 
     public function getCheckedAt(): ZedToken
     {

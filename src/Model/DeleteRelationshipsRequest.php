@@ -12,7 +12,6 @@ namespace Chiphpotle\Rest\Model;
 final class DeleteRelationshipsRequest
 {
     /**
-     * @param RelationshipFilter $relationshipFilter
      * @param Precondition[] $optionalPreconditions
      */
     public function __construct(private RelationshipFilter $relationshipFilter, private array $optionalPreconditions = [])

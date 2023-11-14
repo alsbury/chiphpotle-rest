@@ -34,9 +34,7 @@ abstract class BaseEndpoint implements Endpoint
     public function getQueryString(): string
     {
         $optionsResolved = $this->getQueryOptionsResolver()->resolve($this->queryParameters);
-        $optionsResolved = array_map(function ($value) {
-            return null !== $value ? $value : '';
-        }, $optionsResolved);
+        $optionsResolved = array_map(fn($value) => $value ?? '', $optionsResolved);
         return http_build_query($optionsResolved, '', '&', PHP_QUERY_RFC3986);
     }
 
@@ -62,7 +60,7 @@ abstract class BaseEndpoint implements Endpoint
 
     protected function throwRpcException(string $body, SerializerInterface|DenormalizerInterface $serializer): void
     {
-        $data = json_decode($body, true);
+        $data = json_decode($body, true, 512, JSON_THROW_ON_ERROR);
         $rpcResponse = $serializer->denormalize($data['error'] ?? $data, RpcStatus::class, 'json');
         throw new RpcException($rpcResponse);
     }

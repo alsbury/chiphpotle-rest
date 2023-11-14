@@ -24,7 +24,7 @@ final class BulkExportRelationshipsResponseNormalizer implements DenormalizerInt
 
     public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === BulkExportRelationshipsResponse::class;
+        return is_object($data) && $data::class === BulkExportRelationshipsResponse::class;
     }
 
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): BulkExportRelationshipsResponse

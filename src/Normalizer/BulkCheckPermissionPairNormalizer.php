@@ -25,7 +25,7 @@ final class BulkCheckPermissionPairNormalizer implements DenormalizerInterface, 
 
     public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === BulkCheckPermissionPair::class;
+        return is_object($data) && $data::class === BulkCheckPermissionPair::class;
     }
 
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): BulkCheckPermissionPair

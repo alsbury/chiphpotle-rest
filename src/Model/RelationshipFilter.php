@@ -9,7 +9,7 @@ namespace Chiphpotle\Rest\Model;
  * resource_type is required. All other fields are optional and if left
  * unspecified will not filter relationships.
  */
-final class RelationshipFilter
+final class RelationshipFilter implements \Stringable
 {
     public function __construct(
         private ?string $resourceType = null,

@@ -8,7 +8,7 @@ namespace Chiphpotle\Rest\Model;
  * subject_type is required and all other fields are optional, and will not
  * impose any additional requirements if left unspecified.
  */
-final class SubjectFilter
+final class SubjectFilter implements \Stringable
 {
     private string $subjectType;
 

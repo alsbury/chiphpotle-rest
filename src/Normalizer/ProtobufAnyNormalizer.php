@@ -26,7 +26,7 @@ final class ProtobufAnyNormalizer implements DenormalizerInterface, NormalizerIn
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && get_class($data) === ProtobufAny::class;
+        return is_object($data) && $data::class === ProtobufAny::class;
     }
 
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): ProtobufAny

@@ -4,7 +4,7 @@ namespace Chiphpotle\Rest\Model;
 
 use Chiphpotle\Rest\Enum\UpdateOperation;
 
-final class RelationshipUpdate
+final class RelationshipUpdate implements \Stringable
 {
     public function __construct(private UpdateOperation $operation, private Relationship $relationship)
     {

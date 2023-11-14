@@ -29,7 +29,7 @@ final class PermissionsResourcesPostResponse200Normalizer implements Denormalize
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && get_class($data) === PermissionsResourcesPostResponse200::class;
+        return is_object($data) && $data::class === PermissionsResourcesPostResponse200::class;
     }
 
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): PermissionsResourcesPostResponse200

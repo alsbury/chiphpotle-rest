@@ -9,30 +9,24 @@ namespace Chiphpotle\Rest\Model;
  */
 final class Consistency
 {
-    /**
-     * minimize_latency indicates that the latency for the call should be
-     * minimized by having the system select the fastest snapshot available.
-     */
-    private ?bool $minimizeLatency;
-
-    /**
-     * fully_consistent indicates that all data used in the API call *must* be
-     * at the most recent snapshot found.
-     *
-     * NOTE: using this method can be *quite slow*, so unless there is a need to
-     * do so, it is recommended to use `at_least_as_fresh` with a stored
-     * ZedToken.
-     */
-    protected ?bool $fullyConsistent;
-
     public function __construct(
         private ?ZedToken $atExactSnapshot = null,
         private ?ZedToken $atLeastAsFresh = null,
-        ?bool             $minimizeLatency = null,
-        ?bool             $fullyConsistent = null
+        /**
+         * minimize_latency indicates that the latency for the call should be
+         * minimized by having the system select the fastest snapshot available.
+         */
+        private ?bool             $minimizeLatency = null,
+        /**
+         * fully_consistent indicates that all data used in the API call *must* be
+         * at the most recent snapshot found.
+         *
+         * NOTE: using this method can be *quite slow*, so unless there is a need to
+         * do so, it is recommended to use `at_least_as_fresh` with a stored
+         * ZedToken.
+         */
+        protected ?bool             $fullyConsistent = null
     ) {
-        $this->minimizeLatency = $minimizeLatency;
-        $this->fullyConsistent = $fullyConsistent;
     }
 
     public static function minimizeLatency(): Consistency

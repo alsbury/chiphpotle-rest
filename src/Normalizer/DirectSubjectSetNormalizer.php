@@ -27,7 +27,7 @@ final class DirectSubjectSetNormalizer implements DenormalizerInterface, Normali
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && get_class($data) === DirectSubjectSet::class;
+        return is_object($data) && $data::class === DirectSubjectSet::class;
     }
 
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): DirectSubjectSet

@@ -7,20 +7,17 @@ namespace Chiphpotle\Rest\Model;
  * form the data for the graph over which all permissions questions are
  * answered.
  */
-final class Relationship
+final class Relationship implements \Stringable
 {
-    /**
-     * relation is how the resource and subject are related.
-     */
-    private string $relation;
-
     public function __construct(
         private ObjectReference  $resource,
-        string                   $relation,
+        /**
+         * relation is how the resource and subject are related.
+         */
+        private string                   $relation,
         private SubjectReference $subject,
         private ?ContextualizedCaveat $optionalCaveat = null
     ) {
-        $this->relation = $relation;
     }
 
     public function getResource(): ?ObjectReference

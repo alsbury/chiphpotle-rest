@@ -8,7 +8,7 @@ final class BulkCheckPermissionPair
 
     private BulkCheckPermissionResponseItem $item;
 
-    private ?RpcStatus $error;
+    private ?RpcStatus $error = null;
 
     public function getRequest(): BulkCheckPermissionRequestItem
     {
