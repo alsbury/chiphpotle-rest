@@ -15,6 +15,10 @@
         {
             "name": "David Alsbury",
             "email": "david@alsbury.com"
+        },
+        {
+            "name": "Michael O'Connell",
+            "email": "wundbread@gmail.com"
         }
     ],
     "require": {
