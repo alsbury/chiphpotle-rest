@@ -1,5 +1,12 @@
 # Change Log
 
+## v0.6.0
+
+* Require PHP 8.1
+* Convert all Enum classes to actual enums
+* Update PHPUnit to 10.x
+* Add rector to require-dev
+
 ## v0.5.2
 
 Don't overwrite __toString method of RpcException to avoid suppressing the stacktrace.
