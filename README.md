@@ -2,11 +2,12 @@
 
 ## PHP REST API Client for SpiceDB
 
-For more information, please visit [https://github.com/authzed/api](https://github.com/authzed/api).
+[SpiceDB](https://github.com/authzed/spicedb) is a database for creating and managing security-critical application permissions.
+Chiphpotle is a PHP client for their rest API. For more information, please visit [https://github.com/authzed/api](https://github.com/authzed/api).
 
 ## Requirements
 
-Supports PHP 8.0
+Supports PHP 8.1 and newer, and SpiceDB 1.26 and above.
 
 ## Installation with Composer
 
@@ -42,8 +43,7 @@ try {
 ## Experimental APIs
 
 Included in the client are three experimental APIs. Though SpiceDB advertised these APIs im 1.25 and earlier,
-they did not work in the http gateway. This had been fixed, but has yet to be released, thus you must run a [nightly build](https://github.com/authzed/spicedb/pkgs/container/spicedb-git)
-or compile your own binary until the next release for these APIs to work. These experimental APIs may have breaking changes in later versions.
+they did not work in the http gateway. This had been fixed, in versions 1.26 and above.
 
 ## Tests
 
@@ -63,7 +63,7 @@ vendor/bin/phpunit
 
 This client was created by starting with an auto-generated client from the open-api json schema provided by spicedb using [jane-openapi](https://jane.readthedocs.io/en/latest/documentation/OpenAPI.html).
 
-Once Spicedb is running, you can regenerate all the classes and client to pick up any new spicedb apis by running:
+Once SpiceDB is running, you can regenerate all the classes and client to pick up any new spicedb apis by running:
 
 ```bash
 vendor/bin/jane-openapi generate
