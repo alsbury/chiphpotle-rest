@@ -372,6 +372,6 @@ final class ClientTest extends TestCase
 
     public static function getApiClient(): Client
     {
-        return Client::create($_ENV['BASE_URL'], $_ENV['API_KEY']);
+        return Client::create($_ENV['BASE_URL'] ?? 'http://localhost:8443/', $_ENV['API_KEY'] ?? '');
     }
 }
