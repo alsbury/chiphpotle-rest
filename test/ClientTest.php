@@ -185,7 +185,8 @@ final class ClientTest extends TestCase
         $request = new CheckPermissionRequest(
             ObjectReference::create("document", "topsecret1"),
             "write",
-            SubjectReference::create("user", "alice")
+            SubjectReference::create("user", "alice"),
+            consistency: Consistency::fullyConsistent()
         );
         $response = $this->getApiClient()->checkPermission(
             $request
@@ -205,7 +206,8 @@ final class ClientTest extends TestCase
             ObjectReference::create("document", "published_doc"),
             "view",
             SubjectReference::create("user", "anon"),
-            ['status' => 'published']
+            ['status' => 'published'],
+            consistency: Consistency::fullyConsistent()
         );
         $response = $this->getApiClient()->checkPermission(
             $request
@@ -226,7 +228,8 @@ final class ClientTest extends TestCase
             ObjectReference::create("document", "draft_doc"),
             "view",
             SubjectReference::create("user", "anon2"),
-            ['status' => 'draft']
+            ['status' => 'draft'],
+            consistency: Consistency::fullyConsistent()
         );
         $response = $this->getApiClient()->checkPermission(
             $request
@@ -278,7 +281,8 @@ final class ClientTest extends TestCase
                 new BulkCheckPermissionRequestItem(ObjectReference::create('document', 'topsecret1'), 'view', SubjectReference::create('user', 'larry')),
                 new BulkCheckPermissionRequestItem(ObjectReference::create('document', 'topsecret2'), 'view', SubjectReference::create('user', 'larry')),
                 new BulkCheckPermissionRequestItem(ObjectReference::create('document', 'topsecret3'), 'view', SubjectReference::create('user', 'larry')),
-            ]
+            ],
+            Consistency::fullyConsistent()
         );
 
         try {
@@ -344,7 +348,8 @@ final class ClientTest extends TestCase
     {
         $request = new ExpandPermissionTreeRequest(
             ObjectReference::create("document", "topsecret1"),
-            "view"
+            "view",
+            Consistency::fullyConsistent()
         );
         $response = $this->getApiClient()->expandPermissionTree(
             $request
