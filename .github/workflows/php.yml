@@ -27,7 +27,7 @@ jobs:
         run: sudo dpkg -i spicedb_1.31.0_linux_amd64.deb
 
       - name: Run SpiceDB
-        run: spicedb serve-testing --http-enabled
+        run: spicedb serve-testing --http-enabled &
 
       - name: Cache Composer packages
         id: composer-cache
