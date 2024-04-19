@@ -5,6 +5,7 @@ namespace Chiphpotle\Rest;
 use Chiphpotle\Rest\Endpoint\ExperimentalServiceBulkCheckPermission;
 use Chiphpotle\Rest\Endpoint\ExperimentalServiceBulkExportRelationships;
 use Chiphpotle\Rest\Endpoint\ExperimentalServiceBulkImportRelationships;
+use Chiphpotle\Rest\Endpoint\PermissionsServiceCheckBulkPermissions;
 use Chiphpotle\Rest\Endpoint\PermissionsServiceCheckPermission;
 use Chiphpotle\Rest\Endpoint\PermissionsServiceDeleteRelationships;
 use Chiphpotle\Rest\Endpoint\PermissionsServiceExpandPermissionTree;
@@ -19,6 +20,8 @@ use Chiphpotle\Rest\Model\BulkCheckPermissionResponse;
 use Chiphpotle\Rest\Model\BulkExportRelationshipsRequest;
 use Chiphpotle\Rest\Model\BulkImportRelationshipsRequest;
 use Chiphpotle\Rest\Model\BulkImportRelationshipsResponse;
+use Chiphpotle\Rest\Model\CheckBulkPermissionsRequest;
+use Chiphpotle\Rest\Model\CheckBulkPermissionsResponse;
 use Chiphpotle\Rest\Model\CheckPermissionRequest;
 use Chiphpotle\Rest\Model\CheckPermissionResponse;
 use Chiphpotle\Rest\Model\DeleteRelationshipsRequest;
@@ -53,6 +56,16 @@ final class Client extends Runtime\Client\Client
     public function checkPermission(CheckPermissionRequest $request): CheckPermissionResponse
     {
         return $this->executeEndpoint(new PermissionsServiceCheckPermission($request));
+    }
+
+    /**
+     * Issues a check on whether a subject has permission or is a member of a relation on a specific resource for each item in the list.
+     *
+     * The ordering of the items in the response is maintained in the response.
+     */
+    public function checkBulkPermissions(CheckBulkPermissionsRequest $body): CheckBulkPermissionsResponse
+    {
+        return $this->executeEndpoint(new PermissionsServiceCheckBulkPermissions($body));
     }
 
     /**
@@ -137,6 +150,8 @@ final class Client extends Runtime\Client\Client
     /**
      * EXPERIMENTAL
      * Executes a list of permission checks in one request
+     * @deprecated
+     * @see checkBulkPermissions
      */
     public function experimentalServiceBulkCheckPermission(BulkCheckPermissionRequest $body): BulkCheckPermissionResponse
     {

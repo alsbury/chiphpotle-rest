@@ -11,6 +11,9 @@ use Chiphpotle\Rest\Model\BulkCheckPermissionResponse;
 use Chiphpotle\Rest\Model\BulkExportRelationshipsRequest;
 use Chiphpotle\Rest\Model\BulkImportRelationshipsRequest;
 use Chiphpotle\Rest\Model\BulkImportRelationshipsResponse;
+use Chiphpotle\Rest\Model\CheckBulkPermissionsRequest;
+use Chiphpotle\Rest\Model\CheckBulkPermissionsRequestItem;
+use Chiphpotle\Rest\Model\CheckBulkPermissionsResponse;
 use Chiphpotle\Rest\Model\CheckPermissionRequest;
 use Chiphpotle\Rest\Model\CheckPermissionResponse;
 use Chiphpotle\Rest\Model\Consistency;
@@ -236,6 +239,37 @@ final class ClientTest extends TestCase
     }
 
     public function testBulkPermissionCheck(): void
+    {
+        $this->writeRelationship('document', 'topsecret1', 'viewer', 'user', 'larry');
+        $this->writeRelationship('document', 'topsecret3', 'viewer', 'user', 'larry');
+        $request = new CheckBulkPermissionsRequest(
+            [
+                new CheckBulkPermissionsRequestItem(ObjectReference::create('document', 'topsecret1'), 'view', SubjectReference::create('user', 'larry')),
+                new CheckBulkPermissionsRequestItem(ObjectReference::create('document', 'topsecret2'), 'view', SubjectReference::create('user', 'larry')),
+                new CheckBulkPermissionsRequestItem(ObjectReference::create('document', 'topsecret3'), 'view', SubjectReference::create('user', 'larry')),
+            ]
+        );
+
+        try {
+            $response = $this->getApiClient()->checkBulkPermissions($request);
+        } catch (RpcException $e) {
+            if ($e->getMessage() === 'Not Found') {
+                $this->markTestSkipped('Currently running version of spicedb does not support the experimental bulk permission check api');
+            }
+            throw $e;
+        }
+
+        $this->assertInstanceOf(CheckBulkPermissionsResponse::class, $response);
+        $pairs = $response->getPairs();
+        $this->assertCount(3, $pairs);
+
+        foreach ($pairs as $i => $pair) {
+            $expected = $pair->getRequest()->getResource()->getObjectId() == 'topsecret2' ? Permissionship::NO_PERMISSION : Permissionship::HAS_PERMISSION;
+            $this->assertEquals($expected, $pair->getItem()->getPermissionship(), 'Incorrect permission for pair #'.$i);
+        }
+    }
+
+    public function testExperimentalBulkPermissionCheck(): void
     {
         $this->writeRelationship('document', 'topsecret1', 'viewer', 'user', 'larry');
         $this->writeRelationship('document', 'topsecret3', 'viewer', 'user', 'larry');
