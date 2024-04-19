@@ -6,7 +6,6 @@ final class BulkCheckPermissionRequest
 {
     /**
      * @param BulkCheckPermissionRequestItem[] $items
-     * @param Consistency|null $consistency
      */
     public function __construct(private array $items, private ?Consistency $consistency = null)
     {

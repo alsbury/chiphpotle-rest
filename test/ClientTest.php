@@ -284,7 +284,7 @@ final class ClientTest extends TestCase
         try {
             $response = $this->getApiClient()->experimentalServiceBulkCheckPermission($request);
         } catch (RpcException $e) {
-            if ($e->getMessage() == 'Not Found') {
+            if ($e->getMessage() === 'Not Found') {
                 $this->markTestSkipped('Currently running version of spicedb does not support the experimental bulk permission check api');
             }
             throw $e;
@@ -302,7 +302,7 @@ final class ClientTest extends TestCase
 
     public function testBulkRelationshipImport(): void
     {
-        $id = random_int(0, getrandmax());
+        $id = random_int(0, mt_getrandmax());
         $request = new BulkImportRelationshipsRequest([
             new Relationship(ObjectReference::create('document', 'blogpost1'), 'writer', SubjectReference::create('user', $id)),
             new Relationship(ObjectReference::create('document', 'blogpost2'), 'writer', SubjectReference::create('user', $id))
@@ -311,7 +311,7 @@ final class ClientTest extends TestCase
         try {
             $response = $this->getApiClient()->experimentalServiceBulkImportRelationships($request);
         } catch (RpcException $e) {
-            if ($e->getMessage() == 'Not Found') {
+            if ($e->getMessage() === 'Not Found') {
                 $this->markTestSkipped('Currently running version of spicedb does not support the experimental bulk relationship import api');
             }
             throw $e;
@@ -330,7 +330,7 @@ final class ClientTest extends TestCase
         try {
             $response = $this->getApiClient()->experimentalServiceBulkExportRelationships($request);
         } catch (RpcException $e) {
-            if ($e->getMessage() == 'Not Found') {
+            if ($e->getMessage() === 'Not Found') {
                 $this->markTestSkipped('Currently running version of spicedb does not support the experimental bulk relationship export api');
             }
             throw $e;
