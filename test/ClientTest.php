@@ -143,7 +143,8 @@ final class ClientTest extends TestCase
         $request = new LookupSubjectsRequest(
             ObjectReference::create('document', 'lookup_subject_test'),
             'view',
-            'user'
+            'user',
+            consistency: Consistency::fullyConsistent()
         );
         $response = $this->getApiClient()->lookupSubjects(
             $request
@@ -267,9 +268,10 @@ final class ClientTest extends TestCase
 
     public function testBulkRelationshipImport(): void
     {
+        $id = random_int(0, getrandmax());
         $request = new BulkImportRelationshipsRequest([
-            new Relationship(ObjectReference::create('document', 'blogpost1'), 'writer', SubjectReference::create('user', 'mary')),
-            new Relationship(ObjectReference::create('document', 'blogpost2'), 'writer', SubjectReference::create('user', 'mary'))
+            new Relationship(ObjectReference::create('document', 'blogpost1'), 'writer', SubjectReference::create('user', $id)),
+            new Relationship(ObjectReference::create('document', 'blogpost2'), 'writer', SubjectReference::create('user', $id))
         ]);
 
         try {
