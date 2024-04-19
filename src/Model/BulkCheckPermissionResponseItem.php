@@ -4,6 +4,9 @@ namespace Chiphpotle\Rest\Model;
 
 use Chiphpotle\Rest\Enum\Permissionship;
 
+/**
+ * @deprecated
+ */
 final class BulkCheckPermissionResponseItem
 {
     private Permissionship $permissionship = Permissionship::UNSPECIFIED;

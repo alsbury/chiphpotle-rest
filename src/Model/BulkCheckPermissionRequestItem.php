@@ -2,6 +2,9 @@
 
 namespace Chiphpotle\Rest\Model;
 
+/**
+ * @deprecated
+ */
 final class BulkCheckPermissionRequestItem
 {
     public function __construct(
