@@ -20,6 +20,9 @@
             "email": "wundbread@gmail.com"
         }
     ],
+    "scripts": {
+        "test": "vendor/bin/phpunit"
+    },
     "require": {
         "php": "^8.1",
         "ext-curl": "*",
