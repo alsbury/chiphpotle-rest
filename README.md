@@ -7,7 +7,7 @@ Chiphpotle is a PHP client for their rest API. For more information, please visi
 
 ## Requirements
 
-Supports PHP 8.1 and newer, and SpiceDB 1.26 and above.
+Supports PHP 8.1 and newer, and supports SpiceDB 1.30 and above.
 
 ## Installation with Composer
 
@@ -43,7 +43,8 @@ try {
 ## Experimental APIs
 
 Included in the client are three experimental APIs. Though SpiceDB advertised these APIs im 1.25 and earlier,
-they did not work in the http gateway. This had been fixed, in versions 1.26 and above.
+they did not work in the http gateway. This had been fixed, in versions 1.26 and above. In SpiceDB 1.30 the check bulk
+permissions graduated and the experimental api was deprecated.
 
 ## Tests
 

@@ -1,5 +1,13 @@
 # Change Log
 
+## v0.7.0
+
+* Support new check bulk permissions api introduced in spicedb 1.30.0
+* Deprecate experimental bulk check permission api
+* Context type changed from mixed to array|null
+* Update rector + config
+* Set up unit tests to run on GitHub action
+
 ## v0.6.0
 
 * Require PHP 8.1
