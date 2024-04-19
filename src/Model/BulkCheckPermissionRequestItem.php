@@ -11,7 +11,7 @@ final class BulkCheckPermissionRequestItem
         private ObjectReference $resource,
         private string $permission,
         private SubjectReference $subject,
-        private mixed $context = null
+        private ?array $context = null
     ) {
     }
 
@@ -48,12 +48,12 @@ final class BulkCheckPermissionRequestItem
         return $this;
     }
 
-    public function getContext(): mixed
+    public function getContext(): ?array
     {
         return $this->context;
     }
 
-    public function setContext(mixed $context): self
+    public function setContext(?array $context): self
     {
         $this->context = $context;
         return $this;

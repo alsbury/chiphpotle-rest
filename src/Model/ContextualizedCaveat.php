@@ -9,7 +9,7 @@ namespace Chiphpotle\Rest\Model;
  */
 final class ContextualizedCaveat
 {
-    public function __construct(private string $caveatName, private mixed $context = null)
+    public function __construct(private string $caveatName, private ?array $context = null)
     {
     }
 
@@ -24,12 +24,12 @@ final class ContextualizedCaveat
         return $this;
     }
 
-    public function getContext(): mixed
+    public function getContext(): ?array
     {
         return $this->context;
     }
 
-    public function setContext(mixed $context): self
+    public function setContext(?array $context): self
     {
         $this->context = $context;
         return $this;
