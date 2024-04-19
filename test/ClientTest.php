@@ -250,7 +250,8 @@ final class ClientTest extends TestCase
                 new CheckBulkPermissionsRequestItem(ObjectReference::create('document', 'topsecret1'), 'view', SubjectReference::create('user', 'larry')),
                 new CheckBulkPermissionsRequestItem(ObjectReference::create('document', 'topsecret2'), 'view', SubjectReference::create('user', 'larry')),
                 new CheckBulkPermissionsRequestItem(ObjectReference::create('document', 'topsecret3'), 'view', SubjectReference::create('user', 'larry')),
-            ]
+            ],
+            Consistency::fullyConsistent()
         );
 
         try {
