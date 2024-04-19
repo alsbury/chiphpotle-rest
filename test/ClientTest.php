@@ -164,12 +164,12 @@ final class ClientTest extends TestCase
 
     public function testPermissionCheckValid(): void
     {
-        $writeResponse = $this->writeRelationship('document', 'topsecret1', 'viewer', 'user', 'bob');
+        $this->writeRelationship('document', 'topsecret1', 'viewer', 'user', 'bob');
         $request = new CheckPermissionRequest(
             ObjectReference::create("document", "topsecret1"),
             "view",
             SubjectReference::create("user", "bob"),
-            Consistency::atLeastAsFresh($writeResponse->getWrittenAt())
+            consistency: Consistency::fullyConsistent()
         );
         $response = $this->getApiClient()->checkPermission(
             $request
