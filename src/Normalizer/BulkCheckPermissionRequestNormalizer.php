@@ -6,7 +6,6 @@ use Chiphpotle\Rest\Model\BulkCheckPermissionRequest;
 use Chiphpotle\Rest\Model\BulkCheckPermissionRequestItem;
 use Chiphpotle\Rest\Model\Consistency;
 use Chiphpotle\Rest\Runtime\Normalizer\RequiredDataValidator;
-use Symfony\Component\Serializer\Exception\InvalidArgumentException;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -19,7 +18,6 @@ final class BulkCheckPermissionRequestNormalizer implements DenormalizerInterfac
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
     use RequiredDataValidator;
-
 
     public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {

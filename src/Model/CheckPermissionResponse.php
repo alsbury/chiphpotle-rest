@@ -39,7 +39,6 @@ final class CheckPermissionResponse
         return $this->partialCaveatInfo;
     }
 
-
     public function setPartialCaveatInfo(PartialCaveatInfo $partialCaveatInfo): self
     {
         $this->partialCaveatInfo = $partialCaveatInfo;

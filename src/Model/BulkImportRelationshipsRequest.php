@@ -11,7 +11,6 @@ final class BulkImportRelationshipsRequest
     {
     }
 
-
     /**
      * @return Relationship[]
      */

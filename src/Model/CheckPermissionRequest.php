@@ -8,7 +8,6 @@ namespace Chiphpotle\Rest\Model;
  */
 final class CheckPermissionRequest implements \Stringable
 {
-
     public function __construct(
         private ObjectReference  $resource,
         private string           $permission,

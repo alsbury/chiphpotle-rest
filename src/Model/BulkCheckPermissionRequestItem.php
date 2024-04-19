@@ -4,12 +4,13 @@ namespace Chiphpotle\Rest\Model;
 
 final class BulkCheckPermissionRequestItem
 {
-
-    public function __construct(private ObjectReference $resource, private string $permission,
-                                private SubjectReference $subject, private mixed $context = null)
-    {
+    public function __construct(
+        private ObjectReference $resource,
+        private string $permission,
+        private SubjectReference $subject,
+        private mixed $context = null
+    ) {
     }
-
 
     public function getResource(): ObjectReference
     {

@@ -48,7 +48,6 @@ final class ExperimentalServiceBulkImportRelationships extends BaseEndpoint impl
         return ['Accept' => ['application/json']];
     }
 
-
     protected function transformResponseBody(ResponseInterface $response, SerializerInterface $serializer, ?string $contentType = null): BulkImportRelationshipsResponse
     {
         $status = $response->getStatusCode();

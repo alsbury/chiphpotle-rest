@@ -32,7 +32,6 @@ final class BulkCheckPermissionPair
         return $this;
     }
 
-
     public function getError(): ?RpcStatus
     {
         return $this->error;

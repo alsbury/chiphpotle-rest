@@ -162,7 +162,6 @@ final class Client extends Runtime\Client\Client
         return $this->executeEndpoint(new ExperimentalServiceBulkImportRelationships($body));
     }
 
-
     public static function create($baseUrl, string $apiKey, $additionalNormalizers = []): Client
     {
         $httpClient = new \GuzzleHttp\Client([

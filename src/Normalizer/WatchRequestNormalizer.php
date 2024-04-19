@@ -45,7 +45,6 @@ final class WatchRequestNormalizer implements DenormalizerInterface, NormalizerI
         return $object;
     }
 
-
     public function normalize($object, $format = null, array $context = []): array
     {
         $data = [];
