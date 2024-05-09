@@ -43,7 +43,7 @@ final class SubjectReferenceNormalizer implements DenormalizerInterface, Normali
         return $object;
     }
 
-    public function normalize($object, $format = null, array $context = []): array
+    public function normalize(mixed $object, ?string $format = null, array $context = []): array
     {
         $data = [];
         if (null !== $object->getObject()) {

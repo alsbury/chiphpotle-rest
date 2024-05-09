@@ -35,7 +35,7 @@ final class WriteSchemaResponseNormalizer implements DenormalizerInterface, Norm
         return $object;
     }
 
-    public function normalize($object, $format = null, array $context = []): array
+    public function normalize(mixed $object, ?string $format = null, array $context = []): array
     {
         $data = [];
         if ($object->isInitialized('writtenAt') && null !== $object->getWrittenAt()) {

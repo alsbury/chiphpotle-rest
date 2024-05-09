@@ -48,7 +48,7 @@ final class CheckPermissionResponseNormalizer implements DenormalizerInterface, 
     /**
      * @param CheckPermissionResponse $object
      */
-    public function normalize($object, $format = null, array $context = []): array
+    public function normalize(mixed $object, ?string $format = null, array $context = []): array
     {
         $data = [];
         if (null !== $object->getCheckedAt()) {

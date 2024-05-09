@@ -36,7 +36,7 @@ final class RelationshipUpdateNormalizer implements DenormalizerInterface, Norma
         return new RelationshipUpdate(UpdateOperation::from($data['operation']), $relationship);
     }
 
-    public function normalize($object, $format = null, array $context = []): array
+    public function normalize(mixed $object, ?string $format = null, array $context = []): array
     {
         $data = [];
         if (null !== $object->getOperation()) {

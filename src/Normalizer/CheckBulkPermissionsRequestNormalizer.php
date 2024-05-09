@@ -46,7 +46,7 @@ final class CheckBulkPermissionsRequestNormalizer implements DenormalizerInterfa
         return $object;
     }
 
-    public function normalize($object, $format = null, array $context = []): array
+    public function normalize(mixed $object, ?string $format = null, array $context = []): array
     {
         $data = [];
         if (null !== $object->getConsistency()) {

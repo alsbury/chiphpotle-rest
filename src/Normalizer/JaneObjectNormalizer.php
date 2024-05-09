@@ -88,7 +88,7 @@ final class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInt
         return is_object($data) && array_key_exists($data::class, $this->normalizers);
     }
 
-    public function normalize($object, $format = null, array $context = []): float|int|bool|\ArrayObject|array|string|null
+    public function normalize(mixed $object, ?string $format = null, array $context = []): float|int|bool|\ArrayObject|array|string|null
     {
         $normalizerClass = $this->normalizers[$object::class];
         $normalizer = $this->getNormalizer($normalizerClass);

@@ -40,7 +40,7 @@ final class CheckBulkPermissionsResponseItemNormalizer implements DenormalizerIn
         return $object;
     }
 
-    public function normalize($object, $format = null, array $context = []): array
+    public function normalize(mixed $object, ?string $format = null, array $context = []): array
     {
         $data = [];
         if ($object->isInitialized('permissionship') && null !== $object->getPermissionship()) {
