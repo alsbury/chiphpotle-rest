@@ -3,6 +3,7 @@
 namespace Chiphpotle\Rest\Normalizer;
 
 use Chiphpotle\Rest\Model\SubjectFilterRelationFilter;
+use Chiphpotle\Rest\Runtime\Normalizer\ValidationException;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -27,14 +28,10 @@ final class SubjectFilterRelationFilterNormalizer implements DenormalizerInterfa
 
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): SubjectFilterRelationFilter
     {
-        $object = new SubjectFilterRelationFilter();
-        if (null === $data || false === \is_array($data)) {
-            return $object;
+        if (empty($data['relation'])) {
+            throw new ValidationException('Missing required relation');
         }
-        if (\array_key_exists('relation', $data)) {
-            $object->setRelation($data['relation']);
-        }
-        return $object;
+        return new SubjectFilterRelationFilter($data['relation']);
     }
 
     public function normalize($object, $format = null, array $context = []): array

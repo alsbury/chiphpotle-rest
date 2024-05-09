@@ -6,6 +6,7 @@ use Chiphpotle\Rest\Model\Consistency;
 use Chiphpotle\Rest\Model\LookupSubjectsRequest;
 use ArrayObject;
 use Chiphpotle\Rest\Model\ObjectReference;
+use Chiphpotle\Rest\Runtime\Normalizer\RequiredDataValidator;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -14,12 +15,12 @@ use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 use function array_key_exists;
-use function is_array;
 
 final class LookupSubjectsRequestNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
 {
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
+    use RequiredDataValidator;
 
     public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
@@ -33,21 +34,12 @@ final class LookupSubjectsRequestNormalizer implements DenormalizerInterface, No
 
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): LookupSubjectsRequest
     {
-        $object = new LookupSubjectsRequest();
-        if (null === $data || false === is_array($data)) {
-            return $object;
-        }
+        $this->checkRequired($data, ['resource', 'permission', 'subjectObjectType']);
+        $resource = $this->denormalizer->denormalize($data['resource'], ObjectReference::class, 'json', $context);
+        $object = new LookupSubjectsRequest($resource, $data['permission'], $data['subjectObjectType']);
+
         if (array_key_exists('consistency', $data)) {
             $object->setConsistency($this->denormalizer->denormalize($data['consistency'], Consistency::class, 'json', $context));
-        }
-        if (array_key_exists('resource', $data)) {
-            $object->setResource($this->denormalizer->denormalize($data['resource'], ObjectReference::class, 'json', $context));
-        }
-        if (array_key_exists('permission', $data)) {
-            $object->setPermission($data['permission']);
-        }
-        if (array_key_exists('subjectObjectType', $data)) {
-            $object->setSubjectObjectType($data['subjectObjectType']);
         }
         if (array_key_exists('optionalSubjectRelation', $data)) {
             $object->setOptionalSubjectRelation($data['optionalSubjectRelation']);

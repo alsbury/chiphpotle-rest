@@ -2,8 +2,10 @@
 
 namespace Chiphpotle\Rest\Normalizer;
 
+use Chiphpotle\Rest\Enum\UpdateOperation;
 use Chiphpotle\Rest\Model\Relationship;
 use Chiphpotle\Rest\Model\RelationshipUpdate;
+use Chiphpotle\Rest\Runtime\Normalizer\RequiredDataValidator;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -11,13 +13,11 @@ use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-use function array_key_exists;
-use function is_array;
-
 final class RelationshipUpdateNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
 {
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
+    use RequiredDataValidator;
 
     public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
@@ -31,16 +31,9 @@ final class RelationshipUpdateNormalizer implements DenormalizerInterface, Norma
 
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): RelationshipUpdate
     {
-
-
-        $object = new RelationshipUpdate();
-        if (array_key_exists('operation', $data)) {
-            $object->setOperation($data['operation']);
-        }
-        if (array_key_exists('relationship', $data)) {
-            $object->setRelationship($this->denormalizer->denormalize($data['relationship'], Relationship::class, 'json', $context));
-        }
-        return $object;
+        $this->checkRequired($data, ['operation', 'relationship']);
+        $relationship = $this->denormalizer->denormalize($data['relationship'], Relationship::class, 'json', $context);
+        return new RelationshipUpdate(UpdateOperation::from($data['operation']), $relationship);
     }
 
     public function normalize($object, $format = null, array $context = []): array
