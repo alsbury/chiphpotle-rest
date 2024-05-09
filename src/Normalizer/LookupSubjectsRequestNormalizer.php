@@ -75,4 +75,9 @@ final class LookupSubjectsRequestNormalizer implements DenormalizerInterface, No
         }
         return $data;
     }
+
+    public function getSupportedTypes(?string $format): array
+    {
+        return [LookupSubjectsRequest::class => true];
+    }
 }

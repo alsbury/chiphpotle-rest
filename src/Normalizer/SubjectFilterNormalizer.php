@@ -58,4 +58,9 @@ final class SubjectFilterNormalizer implements DenormalizerInterface, Normalizer
         }
         return $data;
     }
+
+    public function getSupportedTypes(?string $format): array
+    {
+        return [SubjectFilter::class => true];
+    }
 }

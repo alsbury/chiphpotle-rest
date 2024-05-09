@@ -67,4 +67,9 @@ final class RelationshipFilterNormalizer implements DenormalizerInterface, Norma
         }
         return $data;
     }
+
+    public function getSupportedTypes(?string $format): array
+    {
+        return [RelationshipFilterNormalizer::class => true];
+    }
 }

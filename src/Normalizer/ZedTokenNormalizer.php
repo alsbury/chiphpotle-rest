@@ -49,4 +49,9 @@ final class ZedTokenNormalizer implements DenormalizerInterface, NormalizerInter
         }
         return $data;
     }
+
+    public function getSupportedTypes(?string $format): array
+    {
+        return [ZedToken::class => true];
+    }
 }

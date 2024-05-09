@@ -70,4 +70,9 @@ final class RpcStatusNormalizer implements DenormalizerInterface, NormalizerInte
         }
         return $data;
     }
+
+    public function getSupportedTypes(?string $format): array
+    {
+        return [RpcStatus::class => true];
+    }
 }

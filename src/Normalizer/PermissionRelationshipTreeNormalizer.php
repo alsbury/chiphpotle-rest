@@ -69,4 +69,9 @@ final class PermissionRelationshipTreeNormalizer implements DenormalizerInterfac
         }
         return $data;
     }
+
+    public function getSupportedTypes(?string $format): array
+    {
+        return [PermissionRelationshipTree::class => true];
+    }
 }

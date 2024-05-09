@@ -54,4 +54,9 @@ final class SubjectReferenceNormalizer implements DenormalizerInterface, Normali
         }
         return $data;
     }
+
+    public function getSupportedTypes(?string $format): array
+    {
+        return [SubjectReference::class => true];
+    }
 }

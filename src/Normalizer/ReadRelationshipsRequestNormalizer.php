@@ -53,4 +53,9 @@ final class ReadRelationshipsRequestNormalizer implements DenormalizerInterface,
         }
         return $data;
     }
+
+    public function getSupportedTypes(?string $format): array
+    {
+        return [ReadRelationshipsRequest::class => true];
+    }
 }

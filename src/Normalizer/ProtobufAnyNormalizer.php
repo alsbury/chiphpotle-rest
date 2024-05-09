@@ -60,4 +60,9 @@ final class ProtobufAnyNormalizer implements DenormalizerInterface, NormalizerIn
         }
         return $data;
     }
+
+    public function getSupportedTypes(?string $format): array
+    {
+        return [ProtobufAny::class => true];
+    }
 }

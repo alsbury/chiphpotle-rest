@@ -62,4 +62,9 @@ final class CheckPermissionResponseNormalizer implements DenormalizerInterface, 
         }
         return $data;
     }
+
+    public function getSupportedTypes(?string $format): array
+    {
+        return [CheckPermissionResponse::class => true];
+    }
 }

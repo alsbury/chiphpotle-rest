@@ -39,4 +39,9 @@ final class WriteSchemaRequestNormalizer implements DenormalizerInterface, Norma
     {
         return ['schema' => $object->getSchema()];
     }
+
+    public function getSupportedTypes(?string $format): array
+    {
+        return [WriteSchemaRequest::class => true];
+    }
 }

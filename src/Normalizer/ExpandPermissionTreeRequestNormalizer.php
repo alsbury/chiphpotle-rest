@@ -62,4 +62,9 @@ final class ExpandPermissionTreeRequestNormalizer implements DenormalizerInterfa
         }
         return $data;
     }
+
+    public function getSupportedTypes(?string $format): array
+    {
+        return [ExpandPermissionTreeRequest::class => true];
+    }
 }

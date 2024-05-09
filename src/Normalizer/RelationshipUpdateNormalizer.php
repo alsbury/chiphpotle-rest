@@ -54,4 +54,9 @@ final class RelationshipUpdateNormalizer implements DenormalizerInterface, Norma
         }
         return $data;
     }
+
+    public function getSupportedTypes(?string $format): array
+    {
+        return [RelationshipUpdate::class => true];
+    }
 }

@@ -62,4 +62,9 @@ final class RelationshipsReadPostResponse200Normalizer implements DenormalizerIn
         }
         return $data;
     }
+
+    public function getSupportedTypes(?string $format): array
+    {
+        return [RelationshipsReadPostResponse200::class => true];
+    }
 }

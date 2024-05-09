@@ -49,4 +49,9 @@ final class WriteRelationshipsResponseNormalizer implements DenormalizerInterfac
         }
         return $data;
     }
+
+    public function getSupportedTypes(?string $format): array
+    {
+        return [WriteRelationshipsResponse::class => true];
+    }
 }

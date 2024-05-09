@@ -67,4 +67,9 @@ final class ConsistencyNormalizer implements DenormalizerInterface, NormalizerIn
         }
         return $data;
     }
+
+    public function getSupportedTypes(?string $format): array
+    {
+        return [Consistency::class => true];
+    }
 }

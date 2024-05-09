@@ -58,4 +58,9 @@ final class DirectSubjectSetNormalizer implements DenormalizerInterface, Normali
         }
         return $data;
     }
+
+    public function getSupportedTypes(?string $format): array
+    {
+        return [DirectSubjectSet::class => true];
+    }
 }

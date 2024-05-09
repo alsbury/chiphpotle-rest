@@ -68,4 +68,9 @@ final class AlgebraicSubjectSetNormalizer implements DenormalizerInterface, Norm
         }
         return $data;
     }
+
+    public function getSupportedTypes(?string $format): array
+    {
+        return [AlgebraicSubjectSet::class => true];
+    }
 }

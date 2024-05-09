@@ -60,4 +60,9 @@ final class PreconditionNormalizer implements DenormalizerInterface, NormalizerI
         }
         return $data;
     }
+
+    public function getSupportedTypes(?string $format): array
+    {
+        return [Precondition::class => true];
+    }
 }

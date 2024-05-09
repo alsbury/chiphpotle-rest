@@ -49,4 +49,9 @@ final class DeleteRelationshipsResponseNormalizer implements DenormalizerInterfa
         }
         return $data;
     }
+
+    public function getSupportedTypes(?string $format): array
+    {
+        return [DeleteRelationshipsResponse::class => true];
+    }
 }

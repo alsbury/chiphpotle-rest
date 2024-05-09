@@ -45,4 +45,9 @@ final class SubjectFilterRelationFilterNormalizer implements DenormalizerInterfa
         }
         return $data;
     }
+
+    public function getSupportedTypes(?string $format): array
+    {
+        return [SubjectFilterRelationFilter::class => true];
+    }
 }

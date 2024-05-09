@@ -56,4 +56,9 @@ final class LookupResourcesResponseNormalizer implements DenormalizerInterface, 
         }
         return $data;
     }
+
+    public function getSupportedTypes(?string $format): array
+    {
+        return [LookupResourcesResponse::class => true];
+    }
 }

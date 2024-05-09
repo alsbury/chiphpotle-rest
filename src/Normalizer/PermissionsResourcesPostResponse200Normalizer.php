@@ -59,4 +59,9 @@ final class PermissionsResourcesPostResponse200Normalizer implements Denormalize
         }
         return $data;
     }
+
+    public function getSupportedTypes(?string $format): array
+    {
+        return [PermissionsResourcesPostResponse200::class => true];
+    }
 }

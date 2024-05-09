@@ -54,4 +54,9 @@ final class ObjectReferenceNormalizer implements DenormalizerInterface, Normaliz
         }
         return $data;
     }
+
+    public function getSupportedTypes(?string $format): array
+    {
+        return [ObjectReference::class => true];
+    }
 }

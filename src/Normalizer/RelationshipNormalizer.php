@@ -64,4 +64,9 @@ final class RelationshipNormalizer implements DenormalizerInterface, NormalizerI
         }
         return $data;
     }
+
+    public function getSupportedTypes(?string $format): array
+    {
+        return [Relationship::class => true];
+    }
 }

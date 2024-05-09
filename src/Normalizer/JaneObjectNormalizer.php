@@ -115,4 +115,9 @@ final class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInt
         $this->normalizersCache[$normalizerClass] = $normalizer;
         return $normalizer;
     }
+
+    public function getSupportedTypes(?string $format): array
+    {
+        return array_fill_keys(array_keys($this->normalizers), true);
+    }
 }

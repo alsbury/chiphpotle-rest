@@ -49,4 +49,9 @@ final class ReadSchemaResponseNormalizer implements DenormalizerInterface, Norma
         }
         return $data;
     }
+
+    public function getSupportedTypes(?string $format): array
+    {
+        return [ReadSchemaResponse::class => true];
+    }
 }
