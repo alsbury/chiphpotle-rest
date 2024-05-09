@@ -1,5 +1,10 @@
 # Change Log
 
+## v0.7.1
+
+* Fix type compatability with Symfony 7 interfaces
+* Various code cleanups
+
 ## v0.7.0
 
 * Support new check bulk permissions api introduced in spicedb 1.30.0
