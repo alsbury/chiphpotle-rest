@@ -56,6 +56,6 @@ final class WatchPostResponse200Normalizer implements DenormalizerInterface, Nor
 
     public function getSupportedTypes(?string $format = null): array
     {
-        return [WatchPostResponse200::class => false];
+        return [WatchPostResponse200::class => true];
     }
 }

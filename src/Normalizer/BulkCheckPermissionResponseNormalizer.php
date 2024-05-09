@@ -64,6 +64,6 @@ final class BulkCheckPermissionResponseNormalizer implements DenormalizerInterfa
 
     public function getSupportedTypes(?string $format = null): array
     {
-        return [BulkCheckPermissionResponse::class => false];
+        return [BulkCheckPermissionResponse::class => true];
     }
 }

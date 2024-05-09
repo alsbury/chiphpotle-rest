@@ -46,6 +46,6 @@ final class WriteSchemaResponseNormalizer implements DenormalizerInterface, Norm
 
     public function getSupportedTypes(?string $format = null): array
     {
-        return [WriteSchemaResponse::class => false];
+        return [WriteSchemaResponse::class => true];
     }
 }

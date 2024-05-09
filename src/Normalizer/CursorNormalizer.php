@@ -48,6 +48,6 @@ final class CursorNormalizer implements DenormalizerInterface, NormalizerInterfa
 
     public function getSupportedTypes(?string $format = null): array
     {
-        return [Cursor::class => false];
+        return [Cursor::class => true];
     }
 }

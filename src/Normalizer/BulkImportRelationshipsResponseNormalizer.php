@@ -48,6 +48,6 @@ final class BulkImportRelationshipsResponseNormalizer implements DenormalizerInt
 
     public function getSupportedTypes(?string $format = null): array
     {
-        return [BulkImportRelationshipsResponse::class => false];
+        return [BulkImportRelationshipsResponse::class => true];
     }
 }

@@ -54,6 +54,6 @@ final class ContextualizedCaveatNormalizer implements DenormalizerInterface, Nor
 
     public function getSupportedTypes(?string $format = null): array
     {
-        return [ContextualizedCaveat::class => false];
+        return [ContextualizedCaveat::class => true];
     }
 }

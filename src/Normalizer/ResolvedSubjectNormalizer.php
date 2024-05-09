@@ -61,6 +61,6 @@ final class ResolvedSubjectNormalizer implements DenormalizerInterface, Normaliz
 
     public function getSupportedTypes(?string $format = null): array
     {
-        return [ResolvedSubject::class => false];
+        return [ResolvedSubject::class => true];
     }
 }

@@ -75,6 +75,6 @@ final class CheckBulkPermissionsRequestItemNormalizer implements DenormalizerInt
 
     public function getSupportedTypes(?string $format = null): array
     {
-        return [CheckBulkPermissionsRequestItem::class => false];
+        return [CheckBulkPermissionsRequestItem::class => true];
     }
 }

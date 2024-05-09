@@ -56,6 +56,6 @@ final class ExperimentalRelationshipsBulkexportPostResponse200Normalizer impleme
 
     public function getSupportedTypes(?string $format = null): array
     {
-        return [ExperimentalRelationshipsBulkexportPostResponse200::class => false];
+        return [ExperimentalRelationshipsBulkexportPostResponse200::class => true];
     }
 }

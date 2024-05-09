@@ -63,6 +63,6 @@ final class WatchRequestNormalizer implements DenormalizerInterface, NormalizerI
 
     public function getSupportedTypes(?string $format = null): array
     {
-        return [WatchRequest::class => false];
+        return [WatchRequest::class => true];
     }
 }

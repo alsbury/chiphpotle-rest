@@ -57,6 +57,6 @@ final class BulkImportRelationshipsRequestNormalizer implements DenormalizerInte
 
     public function getSupportedTypes(?string $format = null): array
     {
-        return [BulkImportRelationshipsRequest::class => false];
+        return [BulkImportRelationshipsRequest::class => true];
     }
 }

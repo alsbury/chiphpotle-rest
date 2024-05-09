@@ -64,6 +64,6 @@ final class WatchResponseNormalizer implements DenormalizerInterface, Normalizer
 
     public function getSupportedTypes(?string $format = null): array
     {
-        return [WatchResponse::class => false];
+        return [WatchResponse::class => true];
     }
 }

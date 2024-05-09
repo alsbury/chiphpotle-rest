@@ -64,6 +64,6 @@ final class BulkExportRelationshipsResponseNormalizer implements DenormalizerInt
 
     public function getSupportedTypes(?string $format = null): array
     {
-        return [BulkExportRelationshipsResponse::class => false];
+        return [BulkExportRelationshipsResponse::class => true];
     }
 }

@@ -56,6 +56,6 @@ final class PartialCaveatInfoNormalizer implements DenormalizerInterface, Normal
 
     public function getSupportedTypes(?string $format = null): array
     {
-        return [PartialCaveatInfo::class => false];
+        return [PartialCaveatInfo::class => true];
     }
 }
