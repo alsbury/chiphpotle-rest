@@ -21,12 +21,12 @@ final class RelationshipNormalizer implements DenormalizerInterface, NormalizerI
     use NormalizerAwareTrait;
     use RequiredDataValidator;
 
-    public function supportsDenormalization($data, $type, $format = null): bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
         return $type === Relationship::class;
     }
 
-    public function supportsNormalization($data, $format = null): bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
         return is_object($data) && $data::class === Relationship::class;
     }

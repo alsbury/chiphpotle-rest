@@ -22,12 +22,12 @@ final class CheckPermissionRequestNormalizer implements DenormalizerInterface, N
     use NormalizerAwareTrait;
     use RequiredDataValidator;
 
-    public function supportsDenormalization($data, $type, $format = null): bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
         return $type === CheckPermissionRequest::class;
     }
 
-    public function supportsNormalization($data, $format = null): bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
         return is_object($data) && $data::class === CheckPermissionRequest::class;
     }

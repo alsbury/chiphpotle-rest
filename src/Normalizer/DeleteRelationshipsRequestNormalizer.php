@@ -21,12 +21,12 @@ final class DeleteRelationshipsRequestNormalizer implements DenormalizerInterfac
     use NormalizerAwareTrait;
     use RequiredDataValidator;
 
-    public function supportsDenormalization($data, $type, $format = null): bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
         return $type === DeleteRelationshipsRequest::class;
     }
 
-    public function supportsNormalization($data, $format = null): bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
         return is_object($data) && $data::class === DeleteRelationshipsRequest::class;
     }

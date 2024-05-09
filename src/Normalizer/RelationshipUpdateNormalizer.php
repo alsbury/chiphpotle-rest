@@ -19,12 +19,12 @@ final class RelationshipUpdateNormalizer implements DenormalizerInterface, Norma
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
 
-    public function supportsDenormalization($data, $type, $format = null): bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
         return $type === RelationshipUpdate::class;
     }
 
-    public function supportsNormalization($data, $format = null): bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
         return is_object($data) && $data::class === RelationshipUpdate::class;
     }

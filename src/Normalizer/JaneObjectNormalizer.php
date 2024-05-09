@@ -78,12 +78,12 @@ final class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInt
 
     protected array $normalizersCache = [];
 
-    public function supportsDenormalization($data, $type, $format = null): bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
         return array_key_exists($type, $this->normalizers);
     }
 
-    public function supportsNormalization($data, $format = null): bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
         return is_object($data) && array_key_exists($data::class, $this->normalizers);
     }
