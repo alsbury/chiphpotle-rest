@@ -2,7 +2,6 @@
 
 namespace Chiphpotle\Rest\Normalizer;
 
-use ArrayObject;
 use Chiphpotle\Rest\Enum\PreconditionOperation;
 use Chiphpotle\Rest\Model\Precondition;
 use Chiphpotle\Rest\Model\RelationshipFilter;

@@ -8,7 +8,6 @@ use Chiphpotle\Rest\Runtime\Client\BaseEndpoint;
 use Chiphpotle\Rest\Runtime\Client\Endpoint as ClientEndpoint;
 use Chiphpotle\Rest\Runtime\Client\EndpointTrait;
 use Psr\Http\Message\ResponseInterface;
-use stdClass;
 use Symfony\Component\Serializer\SerializerInterface;
 
 final class SchemaServiceWriteSchema extends BaseEndpoint implements ClientEndpoint

@@ -7,7 +7,6 @@ use Chiphpotle\Rest\Model\ObjectReference;
 use Chiphpotle\Rest\Model\Relationship;
 use Chiphpotle\Rest\Model\SubjectReference;
 use Chiphpotle\Rest\Runtime\Normalizer\RequiredDataValidator;
-use Symfony\Component\Serializer\Exception\InvalidArgumentException;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;

@@ -2,7 +2,6 @@
 
 namespace Chiphpotle\Rest\Normalizer;
 
-use ArrayObject;
 use Chiphpotle\Rest\Enum\AlgebraicOperation;
 use Chiphpotle\Rest\Model\AlgebraicSubjectSet;
 use Chiphpotle\Rest\Model\PermissionRelationshipTree;

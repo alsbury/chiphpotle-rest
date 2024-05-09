@@ -2,7 +2,6 @@
 
 namespace Chiphpotle\Rest\Normalizer;
 
-use ArrayObject;
 use Chiphpotle\Rest\Model\ZedToken;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;

@@ -3,7 +3,6 @@
 namespace Chiphpotle\Rest\Normalizer;
 
 use Chiphpotle\Rest\Model\LookupResourcesResponse;
-use Chiphpotle\Rest\Model\LookupSubjectsResponse;
 use Chiphpotle\Rest\Model\PermissionsResourcesPostResponse200;
 use Chiphpotle\Rest\Model\RpcStatus;
 use Chiphpotle\Rest\Runtime\Client\RpcException;
@@ -15,7 +14,6 @@ use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 use function array_key_exists;
-use function is_array;
 
 final class PermissionsResourcesPostResponse200Normalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
 {
