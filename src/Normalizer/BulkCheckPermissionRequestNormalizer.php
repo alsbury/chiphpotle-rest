@@ -19,12 +19,12 @@ final class BulkCheckPermissionRequestNormalizer implements DenormalizerInterfac
     use NormalizerAwareTrait;
     use RequiredDataValidator;
 
-    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
+    public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
         return $type === BulkCheckPermissionRequest::class;
     }
 
-    public function supportsNormalization($data, $format = null, array $context = []): bool
+    public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
         return is_object($data) && $data::class === BulkCheckPermissionRequest::class;
     }
