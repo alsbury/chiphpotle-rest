@@ -26,9 +26,9 @@ require_once(__DIR__ . '/vendor/autoload.php');
 $apiClient = Client::create('http://spicedb:8443/', 'mysecret');
 
 $request = new CheckPermissionRequest(
-    SubjectReference::create('user', 'bob'),
+    ObjectReference::create('user', 'bob'),
     'view',
-    ObjectReference::create('document', 'topsecret1'),
+    SubjectReference::create('document', 'topsecret1'),
 );
 try {
     $response = $apiClient->checkPermission($request);
