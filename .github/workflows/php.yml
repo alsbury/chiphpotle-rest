@@ -15,10 +15,16 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php: [ 8.1, 8.2, 8.3 ]
+        php: [ 8.1, 8.2, 8.3, 8.4 ]
 
     steps:
       - uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: curl, mbstring
 
       - name: Download SpiceDB
         run: wget https://github.com/authzed/spicedb/releases/download/v1.31.0/spicedb_1.31.0_linux_amd64.deb
